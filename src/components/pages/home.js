@@ -18,6 +18,7 @@ const Home = () => {
         porcentaje: "",
       },
     ]);
+    console.log(prom)
   };
 
   return (
@@ -42,12 +43,18 @@ const Home = () => {
               <tr key={index}>
                 <td className="px-6 py-4 whitespace-nowrap">
                   <div className="px-40">
-                    <Input color="purple" />
+                    <Input color="purple" onChange={(e)=>{
+                      prom[index].nota = e.target.value
+                      console.log(prom)
+                    }} />
                   </div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap ">
                   <div className="px-40">
-                    <Input color="purple" />
+                    <Input color="purple" onChange={(e)=>{
+                      prom[index].porcentaje = e.target.value
+                      console.log(prom)
+                    }}/>
                   </div>
                 </td>
 
