@@ -1,7 +1,25 @@
-import React from "react";
-import { Button,Input } from "@material-tailwind/react";
+import React, { useState, useEffect } from "react";
+import { Avatar, Input } from "@material-tailwind/react";
+import borrar from '../../imgs/borrar.png'
 
-const home = () => {
+const Home = () => {
+  const [prom, setProm] = useState([
+    {
+      nota: "",
+      porcentaje: "",
+    },
+  ]);
+
+  const addRow = () => {
+    setProm([
+      ...prom,
+      {
+        nota: "",
+        porcentaje: "",
+      },
+    ]);
+  };
+
   return (
     <div>
       <table className="min-w-full divide-y divide-gray-200">
@@ -19,23 +37,40 @@ const home = () => {
           </tr>
         </thead>
         <tbody className="">
-          <tr>
-            <td className="px-6 py-4 whitespace-nowrap"><Input className="w-48" placeholder="Nota" /></td>
-            <td className="px-6 py-4 whitespace-nowrap"><Input label="Username" /></td>
+          {prom.map((p, index) => {
+            return (
+              <tr key={index}>
+                <td className="px-6 py-4 whitespace-nowrap">
+                  <div className="px-40">
+                    <Input color="purple" />
+                  </div>
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap ">
+                  <div className="px-40">
+                    <Input color="purple" />
+                  </div>
+                </td>
 
-            <td className="px-6 py-4 whitespace-nowrap">
-              <button className="px-4 py-2 font-medium text-white bg-blue-600 rounded-md hover:bg-blue-500 focus:outline-none focus:shadow-outline-blue active:bg-blue-600 transition duration-150 ease-in-out">
-                Edit
-              </button>
-              <button className="ml-2 px-4 py-2 font-medium text-white bg-red-600 rounded-md hover:bg-red-500 focus:outline-none focus:shadow-outline-red active:bg-red-600 transition duration-150 ease-in-out">
-                Delete
-              </button>
-            </td>
-          </tr>
-         
+                <td className="px-6 py-4 whitespace-nowrap">
+                  <button className="ml-2 px-4 py-2 font-medium text-white bg-red-600 rounded-md hover:bg-red-500 focus:outline-none focus:shadow-outline-red active:bg-red-600 transition duration-150 ease-in-out">
+                  <Avatar src={borrar} alt="avatar" variant="rounded"/>
+                  </button>
+                </td>
+              </tr>
+            );
+          })}
         </tbody>
+        
       </table>
+      <div className="block text-right mr-10 ">
+          <button
+            onClick={addRow}
+            className=" ml-2 px-4 py-2 font-medium text-white bg-green-800 rounded-md focus:outline-none focus:shadow-outline-red transition duration-150 ease-in-out"
+          >
+           Agregar
+          </button>
+        </div>
     </div>
   );
 };
-export default home;
+export default Home;
