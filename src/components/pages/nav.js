@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from "react";
 import {
   Navbar,
-  MobileNav,
   Typography,
   Button,
-  IconButton,
-  Card,
   Avatar,
+  Collapse
 } from "@material-tailwind/react";
 import icon from "../../imgs/calcular.png";
 import { Link } from "react-router-dom";
@@ -75,7 +73,7 @@ const Nav = () => {
             </div>
           </div>
         </div>
-        <MobileNav open={openNav}>
+        <Collapse open={openNav}>
           {navList}
           <div className="flex items-center gap-x-1">
             <Button fullWidth variant="text" size="sm" className="">
@@ -91,7 +89,7 @@ const Nav = () => {
               <span>Sign in</span>
             </Button>
           </div>
-        </MobileNav>
+        </Collapse>
       </Navbar>
       <div className="mx-auto max-w-screen-md py-12">
         {/*Espacio entre el nav y el contenido principal*/}
