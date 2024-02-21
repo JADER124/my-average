@@ -6,22 +6,32 @@ import { FaPlus } from "react-icons/fa";
 const Home = () => {
   const [prom, setProm] = useState([
     {
+      id:0,
       nota: "",
       porcentaje: "",
     },
   ]);
 
+  const identity = ()=>{
+      let ide= 0
+      prom.forEach((p)=>{
+        ide = p.id + 1;
+      })
+    return ide
+  }
+
   const addRow = () => {
+    const ide = identity();
     setProm([
       ...prom,
       {
+        id:ide,
         nota: "",
         porcentaje: "",
       },
     ]);
-    console.log(prom)
   };
-
+  
   return (
     <div>
       <table className="min-w-full divide-y divide-gray-200">
@@ -44,9 +54,10 @@ const Home = () => {
               <tr key={index}>
                 <td className="px-6 py-4 whitespace-nowrap">
                   <div className="px-40">
+                    {p.id}
                     <Input color="purple" onChange={(e)=>{
                       prom[index].nota = e.target.value
-                      console.log(prom)
+                     
                     }} />
                   </div>
                 </td>
@@ -54,13 +65,19 @@ const Home = () => {
                   <div className="px-40">
                     <Input color="purple" onChange={(e)=>{
                       prom[index].porcentaje = e.target.value
-                      console.log(prom)
+                       
                     }}/>
                   </div>
                 </td>
 
                 <td className="px-6 py-4 whitespace-nowrap">
-                  <button className="ml-2 px-4 py-2 text-2xl text-white bg-red-600 rounded-md hover:bg-red-500 focus:outline-none focus:shadow-outline-red active:bg-red-600 transition duration-150 ease-in-out">
+                  <button onClick={()=>{
+                    const newProm = prom.filter((p)=>{
+                      return p.id != index
+                    })
+                    console.log(newProm)
+                    setProm(newProm);
+                  }} className="ml-2 px-4 py-2 text-2xl text-white bg-red-600 rounded-md hover:bg-red-500 focus:outline-none focus:shadow-outline-red active:bg-red-600 transition duration-150 ease-in-out">
                    <RiDeleteBin5Fill />
                   </button>
                 </td>
@@ -72,7 +89,7 @@ const Home = () => {
       </table>
       <div className="block text-right mr-10 ">
           <button
-            onClick={addRow}
+            onClick={()=>addRow()}
             className=" ml-2 px-4 py-2 text-2xl text-white bg-green-800 rounded-md hover:bg-green-600 focus:outline-none focus:shadow-outline-red transition duration-150 ease-in-out"
           >
             <FaPlus/>
