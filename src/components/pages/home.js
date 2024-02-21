@@ -41,7 +41,7 @@ const Home = () => {
               Nota
             </th>
             <th className="px-6 py-4 text-xs font-medium text-gray-500 uppercase tracking-wider">
-              Porcentajeeeeee
+              Porcentajeeeeeeeee
             </th>
             <th className="px-6 py-4 text-xs font-medium text-gray-500 uppercase tracking-wider">
               Action
