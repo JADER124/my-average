@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
-import { Avatar, Input } from "@material-tailwind/react";
-import borrar from '../../imgs/borrar.png'
+import React, { useState } from "react";
+import { Input } from "@material-tailwind/react";
+import { RiDeleteBin5Fill } from "react-icons/ri";
+import { FaPlus } from "react-icons/fa";
 
 const Home = () => {
   const [prom, setProm] = useState([
@@ -59,8 +60,8 @@ const Home = () => {
                 </td>
 
                 <td className="px-6 py-4 whitespace-nowrap">
-                  <button className="ml-2 px-4 py-2 font-medium text-white bg-red-600 rounded-md hover:bg-red-500 focus:outline-none focus:shadow-outline-red active:bg-red-600 transition duration-150 ease-in-out">
-                  <Avatar src={borrar} alt="avatar" variant="rounded"/>
+                  <button className="ml-2 px-4 py-2 text-2xl text-white bg-red-600 rounded-md hover:bg-red-500 focus:outline-none focus:shadow-outline-red active:bg-red-600 transition duration-150 ease-in-out">
+                   <RiDeleteBin5Fill />
                   </button>
                 </td>
               </tr>
@@ -72,9 +73,9 @@ const Home = () => {
       <div className="block text-right mr-10 ">
           <button
             onClick={addRow}
-            className=" ml-2 px-4 py-2 font-medium text-white bg-green-800 rounded-md focus:outline-none focus:shadow-outline-red transition duration-150 ease-in-out"
+            className=" ml-2 px-4 py-2 text-2xl text-white bg-green-800 rounded-md hover:bg-green-600 focus:outline-none focus:shadow-outline-red transition duration-150 ease-in-out"
           >
-           Agregar
+            <FaPlus/>
           </button>
         </div>
     </div>
