@@ -44,9 +44,10 @@ const Nav = () => {
             <Typography
               as="a"
               href="/"
-              className="mr-4 cursor-pointer p-1.5 font-medium"
+              variant="h4"
+              className="mr-4 cursor-pointer p-1.5 font-medium "
             >
-              MyAverageee
+              MyAverage
             </Typography>
           </div>
           <div className="flex items-center gap-4">

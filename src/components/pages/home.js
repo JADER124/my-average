@@ -6,7 +6,6 @@ import { SlCalculator } from "react-icons/sl";
 
 const Home = () => {
   const [filter, setfilter] = useState(0);
-  
 
   const [prom, setProm] = useState([
     {
@@ -35,22 +34,25 @@ const Home = () => {
       },
     ]);
   };
-  const calcular =()=>{
-    console.log("Hola")
-  }
+  const calcular = () => {
+    console.log("Hola");
+  };
 
   return (
     <div>
-      <table className="min-w-full divide-y divide-gray-200">
+      <table className="table-auto text-center mx-auto divide-y divide-gray-500">
         <thead>
-          <tr>
-            <th className="px-6 py-4 text-xs font-medium text-gray-500 uppercase tracking-wider">
+          <tr className="">
+            <th className="py-2 text-xs font-medium text-gray-500 uppercase tracking-wider">
+              #
+            </th>
+            <th className="py-2 text-xs font-medium text-gray-500 uppercase tracking-wider">
               Nota
             </th>
-            <th className="px-6 py-4 text-xs font-medium text-gray-500 uppercase tracking-wider">
+            <th className="py-2 text-xs font-medium text-gray-500 uppercase tracking-wider">
               Porcentaje
             </th>
-            <th className="px-6 py-4 text-xs font-medium text-gray-500 uppercase tracking-wider">
+            <th className="py-2 text-xs font-medium text-gray-500 uppercase tracking-wider">
               Action
             </th>
           </tr>
@@ -58,11 +60,14 @@ const Home = () => {
         <tbody className="">
           {prom.map((p, index) => {
             return (
-              <tr key={index.id}>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="px-40">
-                    {index+1}
+              <tr key={p.id} className="">
+                <td>
+                  <div className="px-10 py-4 text-gray-500">{index + 1}</div>
+                </td>
+                <td>
+                  <div className="px-20 py-4">
                     <Input
+                    label="Nota"
                       placeholder="3.0"
                       type="number"
                       color="purple"
@@ -72,9 +77,10 @@ const Home = () => {
                     />
                   </div>
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap ">
-                  <div className="px-40">
+                <td>
+                  <div className="px-20 py-4">
                     <Input
+                    label="%"
                       maxLength={"2"}
                       type="text"
                       placeholder="%"
@@ -86,45 +92,49 @@ const Home = () => {
                   </div>
                 </td>
 
-                <td className="px-6 py-4 whitespace-nowrap">
+                <td>
+                  <div className="flex gap-2 px-10 py-4">
                   <button
-                    onClick={() => {
-                      if (prom.length === 1) {
-                        alert("No se puede borrar el ultimo elemento");
-                      } else {
-                        setProm(prom.filter((i) => i.id !== p.id));
-                        if (!prom[index + 1] == null) {
-                          prom[index].nota = prom[index + 1].nota;
-                          prom[index].porcentaje = prom[index + 1].porcentaje;
+                      onClick={() => addRow()}
+                      className=" px-4 py-2 text-2xl text-white bg-green-800 rounded-md hover:bg-green-600 focus:outline-none focus:shadow-outline-red transition duration-150 ease-in-out"
+                    >
+                      <FaPlus />
+                    </button>
+                    <button
+                      onClick={() => {
+                        if (prom.length === 1) {
+                          alert("No se puede borrar el ultimo elemento");
+                        } else {
+                          setProm(prom.filter((i) => i.id !== p.id));
+                          if (!prom[index + 1] == null) {
+                            prom[index].nota = prom[index + 1].nota;
+                            prom[index].porcentaje = prom[index + 1].porcentaje;
+                          }
                         }
-                      }
-                    }}
-                    className="ml-2 px-4 py-2 text-2xl text-white bg-red-600 rounded-md hover:bg-red-500 focus:outline-none focus:shadow-outline-red active:bg-red-600 transition duration-150 ease-in-out"
-                  >
-                    <RiDeleteBin5Fill />
-                  </button>
+                      }}
+                      className=" px-4 py-2 text-2xl text-white bg-red-600 rounded-md hover:bg-red-500 focus:outline-none focus:shadow-outline-red active:bg-red-600 transition duration-150 ease-in-out"
+                    >
+                      <RiDeleteBin5Fill />
+                    </button>
+                    
+                  </div>
                 </td>
               </tr>
             );
           })}
         </tbody>
       </table>
-      <div className="block text-right mr-10 ">
-        <button
-          onClick={() => addRow()}
-          className=" ml-2 px-4 py-2 text-2xl text-white bg-green-800 rounded-md hover:bg-green-600 focus:outline-none focus:shadow-outline-red transition duration-150 ease-in-out"
-        >
-          <FaPlus />
-        </button>
-
-      </div>
+      <div className="block text-right mr-10 "></div>
       <div>
-      <button
-          onClick={() => calcular()}
-          className=" ml-2 px-4 py-2 text-4xl text-white bg-cyan-500 rounded-md hover:bg-teal-300 focus:outline-none focus:shadow-outline-red transition duration-150 ease-in-out"
-        >
-          <SlCalculator />
-        </button>
+        <div className="mx-auto pr-28 w-max mb-5">
+          <button
+            onClick={() => calcular()}
+            onFocus={() => console.log()}
+            className="flex align-middle text-center font-bold gap-4 py-1.5 px-4 text-2xl text-white bg-cyan-500 rounded-md hover:bg-teal-300 focus:outline-none focus:shadow-outline-red transition duration-150 ease-in-out"
+          >
+            Calcular <SlCalculator className="text-3xl" />
+          </button>
+        </div>
       </div>
     </div>
   );
