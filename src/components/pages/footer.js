@@ -6,8 +6,8 @@ function Footer() {
     <footer className="w-full align-bottom bg-gray-200 p-4 mt-4">
       <Typography color="blue-gray" className="text-center font-normal">
         &copy; 2024 MyAverage Desarrollado por: <br />
-        <a href="https://github.com/JuanManuel0909" className="hover:text-blue-500 underline">Juan Gonzalez</a> y{" "}
-        <a href="https://github.com/JADER124/my-average" className="hover:text-green-400 underline">Jader Lopez</a>
+        <a rel="noreferrer" target="_blank" href="https://github.com/JuanManuel0909" className="hover:text-blue-500 underline">Juan Gonzalez</a> y{" "}
+        <a rel="noreferrer" target="_blank" href="https://github.com/JADER124" className="hover:text-green-400 underline">Jader Lopez</a>
       </Typography>
     </footer>
   );
