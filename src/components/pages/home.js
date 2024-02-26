@@ -39,8 +39,8 @@ const Home = () => {
   };
 
   return (
-    <div>
-      <table className="table-auto text-center mx-auto divide-y divide-gray-500">
+    <div className="overflow-x-auto">
+      <table className=" table-auto text-center mx-auto divide-y divide-gray-500">
         <thead>
           <tr className="">
             <th className="py-2 text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -52,7 +52,7 @@ const Home = () => {
             <th className="py-2 text-xs font-medium text-gray-500 uppercase tracking-wider">
               Porcentaje
             </th>
-            <th className="py-2 text-xs font-medium text-gray-500 uppercase tracking-wider">
+            <th className="py-2 text-xs font-medium  text-gray-500 uppercase tracking-wider">
               Action
             </th>
           </tr>
@@ -62,12 +62,12 @@ const Home = () => {
             return (
               <tr key={p.id} className="">
                 <td>
-                  <div className="px-10 py-4 text-gray-500">{index + 1}</div>
+                  <div className="px-1 py-4 sm:px-4 md:px-6 lg:px-10 text-gray-500">{index + 1}</div>
                 </td>
                 <td>
-                  <div className="px-20 py-4">
+                  <div className="px-1 sm:px-4 md:px-6 lg:px-20 py-4">
                     <Input
-                    label="Nota"
+                      label="Nota"
                       placeholder="3.0"
                       type="number"
                       color="purple"
@@ -78,9 +78,9 @@ const Home = () => {
                   </div>
                 </td>
                 <td>
-                  <div className="px-20 py-4">
+                  <div className="px-1 sm:px-4 md:px-6 lg:px-20 py-4">
                     <Input
-                    label="%"
+                      label="%"
                       maxLength={"2"}
                       type="text"
                       placeholder="%"
@@ -93,8 +93,8 @@ const Home = () => {
                 </td>
 
                 <td>
-                  <div className="flex gap-2 px-10 py-4">
-                  <button
+                  <div className="flex gap-2 px-1 sm:px-4 md:px-8 lg:px-10 py-4">
+                    <button
                       onClick={() => addRow()}
                       className=" px-4 py-2 text-2xl text-white bg-green-800 rounded-md hover:bg-green-600 focus:outline-none focus:shadow-outline-red transition duration-150 ease-in-out"
                     >
@@ -116,7 +116,6 @@ const Home = () => {
                     >
                       <RiDeleteBin5Fill />
                     </button>
-                    
                   </div>
                 </td>
               </tr>
@@ -124,7 +123,6 @@ const Home = () => {
           })}
         </tbody>
       </table>
-      <div className="block text-right mr-10 "></div>
       <div>
         <div className="mx-auto pr-28 w-max mb-5">
           <button
