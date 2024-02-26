@@ -3,10 +3,11 @@ import { Input } from "@material-tailwind/react";
 import { RiDeleteBin5Fill } from "react-icons/ri";
 import { FaPlus } from "react-icons/fa";
 import { SlCalculator } from "react-icons/sl";
+import Footer from "./footer";
 
 const Home = () => {
   const [filter, setfilter] = useState(0);
-  const[finalgrade,setFinalGrade] = useState(0)
+  const[finalgrade,setFinalGrade] = useState('...')
   const [prom, setProm] = useState([
     {
       id:
@@ -43,19 +44,21 @@ const Home = () => {
       if(i.nota ==="" || i.prom === ""){
         alert("¡Debes llenar todos los campos!")
       }else{
-        arrayProm.push(Number(i.nota * i.porcentaje))
-        porcen+=Number(i.porcentaje)
+        arrayProm.push(parseFloat(i.nota * i.porcentaje))
+        porcen+=parseFloat(i.porcentaje)
       }
     });
     arrayProm.forEach((p) => {
       suma+=p
     });
     final = (suma/porcen)
+    final = final.toFixed(2)
     setFinalGrade(final)
     console.log(finalgrade)
   };
 
   return (
+    <div>
     <div className="overflow-x-auto">
       <table className=" table-auto text-center mx-auto divide-y divide-gray-500">
         <thead>
@@ -150,7 +153,12 @@ const Home = () => {
             Calcular <SlCalculator className="text-3xl" />
           </button>
         </div>
+        <div className="mx-auto pr-28 w-max mb-5">
+          <h1 className="text-4xl font-bold">Resultado: {finalgrade}</h1>
+        </div>
       </div>
+    </div>
+    <Footer/>
     </div>
   );
 };
