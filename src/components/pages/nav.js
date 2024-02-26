@@ -1,19 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { } from "react";
 import {
   Navbar,
   Typography,
   Button,
   Avatar,
-  Collapse
 } from "@material-tailwind/react";
 import icon from "../../imgs/calcular.png";
 import { Link } from "react-router-dom";
 
 const Nav = () => {
-  const [openNav, setOpenNav] = React.useState(false);
-
   
-
   const navList = (
     <ul className="mt-0 mb-0 flex flex-row gap-6 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
       <Typography

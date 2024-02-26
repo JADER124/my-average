@@ -6,7 +6,7 @@ import { SlCalculator } from "react-icons/sl";
 
 const Home = () => {
   const [filter, setfilter] = useState(0);
-
+  const[finalgrade,setFinalGrade] = useState(0)
   const [prom, setProm] = useState([
     {
       id:
@@ -35,7 +35,24 @@ const Home = () => {
     ]);
   };
   const calcular = () => {
-    console.log("Hola");
+    let arrayProm=[]
+    let suma=0
+    let final=0
+    let porcen=0
+    prom.forEach((i) => {
+      if(i.nota ==="" || i.prom === ""){
+        alert("¡Debes llenar todos los campos!")
+      }else{
+        arrayProm.push(Number(i.nota * i.porcentaje))
+        porcen+=Number(i.porcentaje)
+      }
+    });
+    arrayProm.forEach((p) => {
+      suma+=p
+    });
+    final = (suma/porcen)
+    setFinalGrade(final)
+    console.log(finalgrade)
   };
 
   return (
