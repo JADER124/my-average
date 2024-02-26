@@ -23,9 +23,9 @@ const Home = () => {
       Math.random() * (1 - 9999999999999999999999999999999999999999999999999) +
         1
     );
-    console.log(prom);
   }, [prom]);
-  const addRow = (e) => {
+  const addRow = () => {
+  
     setProm([
       ...prom,
       {
@@ -41,14 +41,20 @@ const Home = () => {
     let final = 0;
     let porcen = 0;
     let empty = false;
+
     prom.forEach((i) => {
-      if (i.nota === "" || i.prom === "") {
-        alert("¡Debes llenar todos los campos!");
+      if (i.nota === "" || i.porcentaje === "") {
+        if(!empty){
+          alert("¡Debes llenar todos los campos!");
+        }
+        
         empty = true;
+        
       } else {
         arrayProm.push(parseFloat(i.nota * i.porcentaje));
         porcen += parseFloat(i.porcentaje);
       }
+
     });
     if (!empty) {
       arrayProm.forEach((p) => {
@@ -56,7 +62,6 @@ const Home = () => {
       });
       final = suma / porcen;
       final = final.toFixed(2);
-      console.log(typeof final);
 
       if (final !== "NaN") {
         setFinalGrade(final);
@@ -155,8 +160,7 @@ const Home = () => {
                             setProm(prom.filter((i) => i.id !== p.id));
                             if (!prom[index + 1] == null) {
                               prom[index].nota = prom[index + 1].nota;
-                              prom[index].porcentaje =
-                                prom[index + 1].porcentaje;
+                              prom[index].porcentaje = prom[index + 1].porcentaje;
                             }
                           }
                         }}
@@ -175,7 +179,6 @@ const Home = () => {
           <div className="mx-auto pr-28 w-max mb-5">
             <button
               onClick={() => calcular()}
-              onFocus={() => console.log()}
               className="flex align-middle text-center font-bold gap-4 py-1.5 px-4 text-2xl text-white bg-cyan-500 rounded-md hover:bg-teal-300 focus:outline-none focus:shadow-outline-red transition duration-150 ease-in-out"
             >
               Calcular <SlCalculator className="text-3xl" />
