@@ -108,11 +108,11 @@ const Home = () => {
                         type="text"
                         maxLength={3}
                         color="purple"
-                        pattern={/^[0-9.,]*$/}
+                        pattern={/^[0-9.]*$/}
                         onChange={(e) => {
                           let str = e.target.value;
                           let x = "";
-                          if (!/^[0-9.,]*$/.test(e.target.value)) {
+                          if (!/^[0-9.]*$/.test(e.target.value)) {
                             x = str.slice(0, -1);
                             e.target.value = x;
                           } else {
