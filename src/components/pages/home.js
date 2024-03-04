@@ -4,8 +4,10 @@ import { RiDeleteBin5Fill } from "react-icons/ri";
 import { FaPlus } from "react-icons/fa";
 import { SlCalculator } from "react-icons/sl";
 import Footer from "./footer";
+import ApiCard from "./apiCard";
 
 const Home = () => {
+  const [data,setData] = useState([])
   const [filter, setfilter] = useState(0);
   const [finalgrade, setFinalGrade] = useState("...");
   const [prom, setProm] = useState([
@@ -18,6 +20,13 @@ const Home = () => {
       porcentaje: "",
     },
   ]);
+  
+  useEffect(()=>{
+    fetch("https://rickandmortyapi.com/api/character")
+      .then((response)=>response.json())
+      .then((data)=>setData(data.results.slice(1,5)))
+    
+  },[])
   useEffect(() => {
     setfilter(
       Math.random() * (1 - 9999999999999999999999999999999999999999999999999) +
@@ -25,7 +34,6 @@ const Home = () => {
     );
   }, [prom]);
   const addRow = () => {
-  
     setProm([
       ...prom,
       {
@@ -44,17 +52,15 @@ const Home = () => {
 
     prom.forEach((i) => {
       if (i.nota === "" || i.porcentaje === "") {
-        if(!empty){
+        if (!empty) {
           alert("¡Debes llenar todos los campos!");
         }
-        
+
         empty = true;
-        
       } else {
         arrayProm.push(parseFloat(i.nota * i.porcentaje));
         porcen += parseFloat(i.porcentaje);
       }
-
     });
     if (!empty) {
       arrayProm.forEach((p) => {
@@ -160,7 +166,8 @@ const Home = () => {
                             setProm(prom.filter((i) => i.id !== p.id));
                             if (!prom[index + 1] == null) {
                               prom[index].nota = prom[index + 1].nota;
-                              prom[index].porcentaje = prom[index + 1].porcentaje;
+                              prom[index].porcentaje =
+                                prom[index + 1].porcentaje;
                             }
                           }
                         }}
@@ -189,6 +196,9 @@ const Home = () => {
           </div>
         </div>
       </div>
+      <div className="flex mx-44 my-20">
+        {console.log(data)}
+        </div>
       <Footer />
     </div>
   );
