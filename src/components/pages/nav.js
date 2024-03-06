@@ -44,7 +44,7 @@ const Nav = () => {
           <div className="flex items-center gap-4">
             <div className="mr-4">{navList}</div>
             <div className="flex items-center gap-x-1">
-              <Link to="/register">
+              <Link to="/login">
                 <Button
                   variant="text"
                   size="sm"
@@ -53,7 +53,7 @@ const Nav = () => {
                   <span>Log In</span>
                 </Button>
               </Link>
-              <Link to="/login">
+              <Link to="/register">
                 <Button
                   variant="gradient"
                   size="sm"
