@@ -1,13 +1,11 @@
 import React from "react";
 import {
     Tooltip,
-    Input,
     Card,
     CardHeader,
     CardBody,
     CardFooter,
     Typography,
-    Button,
   } from "@material-tailwind/react";
 
 function ApiCard({data}) {
@@ -21,7 +19,7 @@ function ApiCard({data}) {
             </CardHeader>
             <CardBody className="text-center">
               <Typography variant="h4" color="blue-gray" className="mb-2">
-                Natalie Paisley
+                {object.name}
               </Typography>
               <Typography
                 color="blue-gray"
