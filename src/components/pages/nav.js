@@ -53,7 +53,7 @@ const Nav = () => {
                   <span>Log In</span>
                 </Button>
               </Link>
-              <Link to="/register">
+              <Link to="/signIn">
                 <Button
                   variant="gradient"
                   size="sm"

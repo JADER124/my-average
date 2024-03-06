@@ -1,6 +1,6 @@
 import React from "react";
 import logo from "../../imgs/calcular.png";
-export default function register() {
+export default function SignIn() {
   return (
     <>
       <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
@@ -31,23 +31,6 @@ export default function register() {
                 />
               </div>
             </div>
-            <div>
-              <label
-                for="Name"
-                className="block text-left text-sm font-medium leading-6 text-gray-900"
-              >
-                Name
-              </label>
-              <div className="mt-2">
-                <input
-                  id="name"
-                  name="name"
-                  type="name"
-                  required
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                />
-              </div>
-            </div>
 
             <div>
               <div className="flex items-center justify-between">
@@ -57,7 +40,14 @@ export default function register() {
                 >
                   Password
                 </label>
-              
+                <div className="text-sm">
+                  <a
+                    href="#"
+                    className="font-semibold text-indigo-600 hover:text-indigo-500"
+                  >
+                    Forgot password?
+                  </a>
+                </div>
               </div>
               <div className="mt-2">
                 <input
@@ -70,27 +60,7 @@ export default function register() {
                 />
               </div>
             </div>
-            <div>
-              <div className="flex items-center justify-between">
-                <label
-                  for="password"
-                  className="block text-sm font-medium leading-6 text-gray-900"
-                >
-                  Confirm Password
-                </label>
-               
-              </div>
-              <div className="mt-2">
-                <input
-                  id="password"
-                  name="password"
-                  type="password"
-                  autocomplete="current-password"
-                  required
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                />
-              </div>
-            </div>
+
             <div>
               <button
                 type="submit"
@@ -102,12 +72,12 @@ export default function register() {
           </form>
 
           <p className="mt-10 text-center text-sm text-gray-500">
-            Ya tienes una cuenta? 
+            No estas registrado?
             <a
-              href="#"
+              href="login"
               className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
             >
-               Inicia sesion
+              !Registrate!
             </a>
           </p>
         </div>
