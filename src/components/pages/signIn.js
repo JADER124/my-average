@@ -1,13 +1,9 @@
 import React from "react";
 import logo from "../../imgs/calcular.png";
 import { useFormik } from "formik";
-
+import * as Yup from 'yup'
 export default function SignIn() {
   const formik = useFormik({
-
-    validate:()=>{
-
-    },
 
     initialValues: {
       name: '',
@@ -15,10 +11,17 @@ export default function SignIn() {
       password: '',
       password2:'',
     },
+    validationSchema: Yup.object({
+      name: Yup.string().min(30, "El nombre es muy corto").required("El nombre del usuario es obligatorio"),
+      email: Yup.string().email("Valida que el correo esta bien :)").required("Debes ingresar un correo"),
+      password: Yup.string().required('Campo obligatorio').min(8,"la contraseña debe contener como minimo 8 caracteres y un numero"),
+      password2: Yup.string().required("Campo Obligatorio").oneOf([Yup.ref('password'),null], 'Las contraseñas no coinciden')
+    }),
 
     onSubmit: values => {
       console.log(values)
     },
+
   });
   return (
     <>
@@ -34,7 +37,7 @@ export default function SignIn() {
           <form className="space-y-6" onSubmit={formik.handleSubmit}>
             <div>
               <label
-                for="email"
+                htmlFor="email"
                 className="block text-left text-sm font-medium leading-6 text-gray-900"
               >
                 Email address
@@ -47,6 +50,9 @@ export default function SignIn() {
                   autocomplete="email"
                   onChange={formik.handleChange}
                   value={formik.values.email}
+                  onBlur={()=>{
+                    console.log(formik.errors.email)
+                  }}
                   required
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
@@ -66,6 +72,7 @@ export default function SignIn() {
                   type="name"
                   onChange={formik.handleChange}
                   value={formik.values.name}
+                  onBlur={formik.handleBlur}
                   required
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
@@ -89,6 +96,7 @@ export default function SignIn() {
                   autocomplete="current-password"
                   onChange={formik.handleChange}
                   value={formik.values.password}
+                  onBlur={formik.handleBlur}
                   required
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
@@ -110,6 +118,7 @@ export default function SignIn() {
                   type="password"
                   onChange={formik.handleChange}
                   value={formik.values.password2}
+                  onBlur={formik.handleBlur}
                   autocomplete="current-password"
                   required
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
