@@ -1,14 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  Tooltip,
-  Input,
-  Card,
-  CardHeader,
-  CardBody,
-  CardFooter,
-  Typography,
-  Button,
-} from "@material-tailwind/react";
+import { Input } from "@material-tailwind/react";
 import { RiDeleteBin5Fill } from "react-icons/ri";
 import { FaPlus } from "react-icons/fa";
 import { SlCalculator } from "react-icons/sl";
@@ -32,11 +23,9 @@ const Home = () => {
 
   useEffect(() => {
     const n = Math.round(Math.random() * 41);
-    console.log(n);
     fetch(`https://rickandmortyapi.com/api/character?page=${n}`)
       .then((response) => response.json())
       .then((data) => setData(data.results.slice(1, 5)));
-    console.log(data);
   }, []);
   useEffect(() => {
     setfilter(
@@ -208,7 +197,7 @@ const Home = () => {
         </div>
       </div>
       <div className="flex mx-44 my-20 gap-4">
-        <ApiCard data={data}/>
+        <ApiCard data={data} />
       </div>
       <Footer />
     </div>

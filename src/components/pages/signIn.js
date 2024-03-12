@@ -1,27 +1,36 @@
 import React from "react";
 import logo from "../../imgs/calcular.png";
 import { useFormik } from "formik";
-import * as Yup from 'yup'
+import * as Yup from "yup";
 export default function SignIn() {
   const formik = useFormik({
-
     initialValues: {
-      name: '',
-      email: '',
-      password: '',
-      password2:'',
+      name: "",
+      email: "",
+      password: "",
+      password2: "",
     },
     validationSchema: Yup.object({
-      name: Yup.string().min(30, "El nombre es muy corto").required("El nombre del usuario es obligatorio"),
-      email: Yup.string().email("Valida que el correo esta bien :)").required("Debes ingresar un correo"),
-      password: Yup.string().required('Campo obligatorio').min(8,"la contraseña debe contener como minimo 8 caracteres y un numero"),
-      password2: Yup.string().required("Campo Obligatorio").oneOf([Yup.ref('password'),null], 'Las contraseñas no coinciden')
+      name: Yup.string()
+        .min(10, "El nombre es muy corto")
+        .required("El nombre del usuario es obligatorio"),
+      email: Yup.string()
+        .email("Valida que el correo esta bien :)")
+        .required("Debes ingresar un correo"),
+      password: Yup.string()
+        .required("Campo obligatorio")
+        .min(
+          8,
+          "la contraseña debe contener como minimo 8 caracteres y un numero"
+        ),
+      password2: Yup.string()
+        .required("Campo Obligatorio")
+        .oneOf([Yup.ref("password"), null], "Las contraseñas no coinciden"),
     }),
 
-    onSubmit: values => {
-      console.log(values)
+    onSubmit: (values) => {
+      console.log(values);
     },
-
   });
   return (
     <>
@@ -47,20 +56,26 @@ export default function SignIn() {
                   id="email"
                   name="email"
                   type="email"
-                  autocomplete="email"
+                  autoComplete="email"
                   onChange={formik.handleChange}
                   value={formik.values.email}
-                  onBlur={()=>{
-                    console.log(formik.errors.email)
-                  }}
+                  onBlur={formik.handleBlur}
                   required
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="block w-full rounded-md border-0 pl-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
+              {formik.touched.email && formik.errors.email ? (
+                <div
+                  className="bg-red-100 border-l-4 border-red-500 text-red-700 my-1"
+                  role="alert"
+                >
+                  <p>{formik.errors.email}</p>
+                </div>
+              ) : null}
             </div>
             <div>
               <label
-                for="Name"
+                htmlFor="Name"
                 className="block text-left text-sm font-medium leading-6 text-gray-900"
               >
                 Name
@@ -74,15 +89,23 @@ export default function SignIn() {
                   value={formik.values.name}
                   onBlur={formik.handleBlur}
                   required
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="block w-full rounded-md pl-2 border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
+              {formik.touched.name && formik.errors.name ? (
+                <div
+                  className="bg-red-100 border-l-4 border-red-500 text-red-700 my-1"
+                  role="alert"
+                >
+                  <p>{formik.errors.name}</p>
+                </div>
+              ) : null}
             </div>
 
             <div>
               <div className="flex items-center justify-between">
                 <label
-                  for="password"
+                  htmlFor="password"
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
                   Password
@@ -93,19 +116,27 @@ export default function SignIn() {
                   id="password"
                   name="password"
                   type="password"
-                  autocomplete="current-password"
+                  autoComplete="current-password"
                   onChange={formik.handleChange}
                   value={formik.values.password}
                   onBlur={formik.handleBlur}
                   required
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="block w-full rounded-md pl-2 border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
+              {formik.touched.password && formik.errors.password ? (
+                <div
+                  className="bg-red-100 border-l-4 border-red-500 text-red-700 my-1"
+                  role="alert"
+                >
+                  <p>{formik.errors.password}</p>
+                </div>
+              ) : null}
             </div>
             <div>
               <div className="flex items-center justify-between">
                 <label
-                  for="password"
+                  htmlFor="password"
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
                   Confirm Password
@@ -119,11 +150,19 @@ export default function SignIn() {
                   onChange={formik.handleChange}
                   value={formik.values.password2}
                   onBlur={formik.handleBlur}
-                  autocomplete="current-password"
+                  autoComplete="current-password"
                   required
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="block w-full rounded-md pl-2 border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
+              {formik.touched.password2 && formik.errors.password2 ? (
+                <div
+                  className="bg-red-100 border-l-4 border-red-500 text-red-700 my-1"
+                  role="alert"
+                >
+                  <p>{formik.errors.password2}</p>
+                </div>
+              ) : null}
             </div>
             <div>
               <button
