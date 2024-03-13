@@ -10,6 +10,9 @@ export default function SignIn() {
       email: "",
       password: "",
       password2: "",
+      materias:[
+        
+      ]
     },
     validationSchema: Yup.object({
       name: Yup.string()
@@ -31,6 +34,8 @@ export default function SignIn() {
 
     onSubmit: (values) => {
       console.log(values);
+
+
     },
   });
   return (
