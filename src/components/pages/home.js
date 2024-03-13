@@ -5,6 +5,7 @@ import { FaPlus } from "react-icons/fa";
 import { SlCalculator } from "react-icons/sl";
 import Footer from "./footer";
 import ApiCard from "./apiCard";
+import Nav from "./nav";
 
 const Home = () => {
   const [data, setData] = useState([]);
@@ -79,6 +80,7 @@ const Home = () => {
 
   return (
     <div>
+      <Nav/>
       <div className="overflow-x-auto">
         <table className=" table-auto text-center mx-auto divide-y divide-gray-500">
           <thead>
