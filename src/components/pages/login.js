@@ -1,8 +1,28 @@
-import React from "react";
+import React,{useEffect,useState} from "react";
 import logo from "../../imgs/calcular.png";
 import { FaArrowLeft } from "react-icons/fa";
+import { collection,getDocs ,query,where} from "firebase/firestore";
+import {db} from "../../firebase/config"
 
-const login = () => {
+const Login = () => {
+
+
+
+  useEffect(()=>{
+    const dataRef= collection(db, "data");
+    const q = query(dataRef,where("email","==","jua@gmail.com"));
+    console.log(q.docs)
+    getDocs(q)
+      .then((resp)=>{
+        console.log(
+          resp.docs.map((doc)=>{
+            return {...doc.data(),id:doc.id}
+          })
+
+        )
+      })
+  },[])
+
   return (
     <div>
       <div className="absolute border-2 border-gray-400/50 rounded-xl mt-5 ml-20 hover:bg-cyan-600/30">
@@ -92,4 +112,4 @@ const login = () => {
     </div>
   );
 };
-export default login;
+export default Login;
