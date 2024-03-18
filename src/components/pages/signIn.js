@@ -2,17 +2,18 @@ import React from "react";
 import { FaArrowLeft } from "react-icons/fa";
 import logo from "../../imgs/calcular.png";
 import { useFormik } from "formik";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../firebase/config";
 import * as Yup from "yup";
 export default function SignIn() {
+  
   const formik = useFormik({
     initialValues: {
       name: "",
       email: "",
       password: "",
       password2: "",
-      materias:[
-        
-      ]
+      materias: [],
     },
     validationSchema: Yup.object({
       name: Yup.string()
@@ -33,18 +34,24 @@ export default function SignIn() {
     }),
 
     onSubmit: (values) => {
-      console.log(values);
-
-
+      register(values.email, values.password);
     },
   });
+  const register = async (email, password) => {
+    try {
+      const user = await createUserWithEmailAndPassword(auth, email, password);
+      console.log(user)
+    } catch (e) {
+      alert(e.code);
+    }
+  };
   return (
     <>
-    <div className="absolute border-2 border-gray-400/50 rounded-xl mt-5 ml-20 hover:bg-cyan-600/30">
-      <a href="/">
-      <FaArrowLeft className="text-3xl text-gray-400"/>
-      </a>
-    </div>
+      <div className="absolute border-2 border-gray-400/50 rounded-xl mt-5 ml-20 hover:bg-cyan-600/30">
+        <a href="/">
+          <FaArrowLeft className="text-3xl text-gray-400" />
+        </a>
+      </div>
       <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <img className="mx-auto h-20 w-20 " src={logo} alt="Your Company" />
