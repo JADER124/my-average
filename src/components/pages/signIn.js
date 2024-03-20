@@ -1,12 +1,15 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { FaArrowLeft } from "react-icons/fa";
 import logo from "../../imgs/calcular.png";
 import { useFormik } from "formik";
 import { createUserWithEmailAndPassword } from "firebase/auth";
+import { collection,addDoc } from "firebase/firestore"
+import { db } from "../../firebase/config"
 import { auth } from "../../firebase/config";
 import * as Yup from "yup";
 export default function SignIn() {
-  
+  const navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -34,13 +37,24 @@ export default function SignIn() {
     }),
 
     onSubmit: (values) => {
-      register(values.email, values.password);
+      register(values);
     },
   });
-  const register = async (email, password) => {
+
+  const register = async (values) => {
     try {
-      const user = await createUserWithEmailAndPassword(auth, email, password);
-      console.log(user)
+      const user = await createUserWithEmailAndPassword(auth, values.email, values.password);
+      if(user){
+        let id = user.user.uid
+        const userRef = collection(db,"users")
+        addDoc(userRef,{
+          uid:id,
+          name:values.name,
+          email:values.email,
+          materias:values.materias,
+        })
+        navigate("/login")
+      }
     } catch (e) {
       alert(e.code);
     }
