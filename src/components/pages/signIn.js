@@ -44,6 +44,7 @@ export default function SignIn() {
   const register = async (values) => {
     try {
       const user = await createUserWithEmailAndPassword(auth, values.email, values.password);
+      //Tambien deberia iniciar sesion con la funcion SigninWithPasswordAndEmail
       if(user){
         let id = user.user.uid
         const userRef = collection(db,"users")

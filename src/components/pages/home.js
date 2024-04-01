@@ -198,7 +198,7 @@ const Home = () => {
           </div>
         </div>
       </div>
-      <div className="flex mx-44 my-20 gap-4">
+      <div className="block mx-10 sm:block sm:mx-20 md:flex md:mx-10 lg:flex lg:mx-10 xl:flex xl:mx-44 my-20 gap-4">
         <ApiCard data={data} />
       </div>
       <Footer />
