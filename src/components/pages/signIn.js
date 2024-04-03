@@ -54,7 +54,8 @@ export default function SignIn() {
           email:values.email,
           materias:values.materias,
         })
-        navigate("/login")
+        
+        navigate("/homeUser")
       }
     } catch (e) {
       alert(e.code);

@@ -1,25 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useContext} from "react";
 import logo from "../../imgs/calcular.png";
 import { FaArrowLeft } from "react-icons/fa";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../firebase/config";
+import { UserContext } from "../../context/userContext";
+
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const login = async (e) => {
-    e.preventDefault();
-    try {
-      const userCredential = await signInWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
-      console.log(userCredential.user.uid);
-    } catch (error) {
-      alert(e.code);
-    }
-  };
+  const {login} = useContext(UserContext)
+  
   return (
     <div>
       <div className="absolute border-2 border-gray-400/50 rounded-xl mt-5 ml-20 hover:bg-cyan-600/30">
@@ -94,7 +83,7 @@ const Login = () => {
             <div>
               <button
                 type="submit"
-                onClick={(e) => login(e)}
+                onClick={(e) => login(e,email,password)}
                 className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
                 Sign in

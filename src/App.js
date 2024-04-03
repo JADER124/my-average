@@ -1,23 +1,22 @@
-import {BrowserRouter,Route,Routes} from 'react-router-dom'
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
-import Home from './components/pages/home'
+import Home from "./components/pages/home";
 import Login from "./components/pages/login";
 import SignIn from "./components/pages/signIn";
-import HomeUser from './components/pages/homeUser';
-
+import HomeUser from "./components/pages/homeUser";
 
 function App() {
-  
   return (
     <div className="App">
-      <BrowserRouter>
+        <BrowserRouter>
           <Routes>
-            <Route path="/" element={<Home/>}/>
-            <Route path="/login" element={<Login/>}/>
-            <Route path="/signIn" element={<SignIn/>}/>
-            <Route path="/homeuser" element={<HomeUser/>}/>
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signIn" element={<SignIn />} />
+            <Route path="/homeUser" element={<HomeUser />} />
+            
           </Routes>
-      </BrowserRouter>
+        </BrowserRouter>
     </div>
   );
 }
