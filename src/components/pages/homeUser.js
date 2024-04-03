@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect} from "react";
 import NavUser from "./navUser";
 import Footer from "./footer";
 import { Input } from "@material-tailwind/react";
 import { RiDeleteBin5Fill } from "react-icons/ri";
 import { FaPlus } from "react-icons/fa";
 import { SlCalculator } from "react-icons/sl";
+
 function HomeUser() {
   const [filter, setfilter] = useState(0);
   const [finalgrade, setFinalGrade] = useState("...");
