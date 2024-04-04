@@ -1,15 +1,13 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import React, {useContext} from "react";
+import { UserContext } from "../../context/userContext";
+
 import { FaArrowLeft } from "react-icons/fa";
 import logo from "../../imgs/calcular.png";
-import { useFormik } from "formik";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { collection,addDoc } from "firebase/firestore"
-import { db } from "../../firebase/config"
-import { auth } from "../../firebase/config";
+import { useFormik } from "formik";     
 import * as Yup from "yup";
 export default function SignIn() {
-  const navigate = useNavigate();
+  const {register} = useContext(UserContext)
+  
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -41,26 +39,7 @@ export default function SignIn() {
     },
   });
 
-  const register = async (values) => {
-    try {
-      const user = await createUserWithEmailAndPassword(auth, values.email, values.password);
-      //Tambien deberia iniciar sesion con la funcion SigninWithPasswordAndEmail
-      if(user){
-        let id = user.user.uid
-        const userRef = collection(db,"users")
-        addDoc(userRef,{
-          uid:id,
-          name:values.name,
-          email:values.email,
-          materias:values.materias,
-        })
-        
-        navigate("/homeUser")
-      }
-    } catch (e) {
-      alert(e.code);
-    }
-  };
+  
   return (
     <>
       <div className="absolute border-2 border-gray-400/50 rounded-xl mt-5 ml-20 hover:bg-cyan-600/30">
