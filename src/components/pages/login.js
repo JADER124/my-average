@@ -2,12 +2,13 @@ import React, { useState, useContext} from "react";
 import logo from "../../imgs/calcular.png";
 import { FaArrowLeft } from "react-icons/fa";
 import { UserContext } from "../../context/userContext";
-
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const {login} = useContext(UserContext)
+  const {login,v} = useContext(UserContext)
+  const navigate = useNavigate();
   
   return (
     <div>
@@ -83,7 +84,13 @@ const Login = () => {
             <div>
               <button
                 type="submit"
-                onClick={(e) => login(e,email,password)}
+                onClick={(e) => {
+                  login(e,email,password)
+                  if(v===true){
+                    navigate("/homeuser")
+                  }
+
+                }}
                 className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
                 Sign in
