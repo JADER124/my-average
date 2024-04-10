@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const {login,v} = useContext(UserContext)
+  const {login,userMatch} = useContext(UserContext)
   const navigate = useNavigate();
   
   return (
@@ -86,7 +86,7 @@ const Login = () => {
                 type="submit"
                 onClick={(e) => {
                   login(e,email,password)
-                  if(v===true){
+                  if(userMatch!=null){
                     navigate("/homeuser")
                   }
 

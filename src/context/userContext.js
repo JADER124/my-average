@@ -7,7 +7,7 @@ import { collection,addDoc } from "firebase/firestore"
 export const UserContext = createContext()
 
 export function UserContextProvider(props) {
-  const [v,setV]=useState(false)
+  const [userMatch,setUserMatch]=useState(null)
   const login = async (e,email,password) => {
     e.preventDefault();
     try {
@@ -19,7 +19,7 @@ export function UserContextProvider(props) {
       console.log(userCredential.user.uid)
      
       if(userCredential){
-       setV(true)
+       setUserMatch(userCredential.user)
       }
       
       
@@ -41,6 +41,20 @@ export function UserContextProvider(props) {
           email:values.email,
           materias:values.materias,
         })
+        const userCredential = await signInWithEmailAndPassword(
+          auth,
+          values.email,
+          values.password
+        );
+
+        if(userCredential){
+          setUserMatch(userCredential.user)
+         }
+
+
+
+
+
         
 
       }
@@ -49,7 +63,7 @@ export function UserContextProvider(props) {
     }
   };
   return (
-    <UserContext.Provider value={{login,register,v}}>
+    <UserContext.Provider value={{login,register,userMatch}}>
         {props.children}
     </UserContext.Provider>
   )

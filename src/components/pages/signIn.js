@@ -1,13 +1,14 @@
 import React, {useContext} from "react";
 import { UserContext } from "../../context/userContext";
-
+import { useNavigate } from "react-router-dom";
 import { FaArrowLeft } from "react-icons/fa";
 import logo from "../../imgs/calcular.png";
 import { useFormik } from "formik";     
 import * as Yup from "yup";
 export default function SignIn() {
-  const {register} = useContext(UserContext)
-  
+  const {register,userMatch} = useContext(UserContext)
+  const navigate = useNavigate();
+
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -36,6 +37,10 @@ export default function SignIn() {
 
     onSubmit: (values) => {
       register(values);
+      if(userMatch!=null){
+        navigate("/homeuser")
+      }
+
     },
   });
 
