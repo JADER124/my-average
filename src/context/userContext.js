@@ -41,6 +41,7 @@ export function UserContextProvider(props) {
           email:values.email,
           materias:values.materias,
         })
+
         const userCredential = await signInWithEmailAndPassword(
           auth,
           values.email,
@@ -50,13 +51,7 @@ export function UserContextProvider(props) {
         if(userCredential){
           setUserMatch(userCredential.user)
          }
-
-
-
-
-
-        
-
+         return user
       }
     } catch (e) {
       alert(e.code);

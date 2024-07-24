@@ -35,9 +35,10 @@ export default function SignIn() {
         .oneOf([Yup.ref("password"), null], "Las contraseñas no coinciden"),
     }),
 
-    onSubmit: (values) => {
-      register(values);
-      if(userMatch!=null){
+    onSubmit: async (values) => {
+      const user = await register(values);
+      console.log(user)
+      if(user!=null){
         navigate("/homeuser")
       }
 
