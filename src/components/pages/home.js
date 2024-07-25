@@ -24,7 +24,7 @@ const Home = () => {
 
   useEffect(() => {
     const n = Math.round(Math.random() * 41);
-    fetch(`https://rickandmortyapi.com/api/character?page=${n}`)
+     fetch(`https://rickandmortyapi.com/api/character?page=${n}`)
       .then((response) => response.json())
       .then((data) => setData(data.results.slice(1, 5)));
   }, []);

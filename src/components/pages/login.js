@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const {login,userMatch} = useContext(UserContext)
+  const {login} = useContext(UserContext)
   const navigate = useNavigate();
   
   return (
@@ -84,9 +84,9 @@ const Login = () => {
             <div>
               <button
                 type="submit"
-                onClick={(e) => {
-                  login(e,email,password)
-                  if(userMatch!=null){
+                onClick={async(e) => {
+                  const user = await login(e,email,password)
+                  if(user!=null){
                     navigate("/homeuser")
                   }
 

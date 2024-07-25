@@ -6,7 +6,7 @@ import logo from "../../imgs/calcular.png";
 import { useFormik } from "formik";     
 import * as Yup from "yup";
 export default function SignIn() {
-  const {register,userMatch} = useContext(UserContext)
+  const {register} = useContext(UserContext)
   const navigate = useNavigate();
 
   const formik = useFormik({
@@ -39,7 +39,8 @@ export default function SignIn() {
       const user = await register(values);
       console.log(user)
       if(user!=null){
-        navigate("/homeuser")
+        navigate("/login")
+        alert("Usuario registrado con exito, por favor inicie sesion")
       }
 
     },

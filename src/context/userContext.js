@@ -1,4 +1,4 @@
-import {createContext,useState} from 'react'
+import {createContext} from 'react'
 import { auth, db } from '../firebase/config'
 import { signInWithEmailAndPassword } from 'firebase/auth'; 
 import { createUserWithEmailAndPassword } from "firebase/auth";
@@ -7,7 +7,6 @@ import { collection,addDoc } from "firebase/firestore"
 export const UserContext = createContext()
 
 export function UserContextProvider(props) {
-  const [userMatch,setUserMatch]=useState(null)
   const login = async (e,email,password) => {
     e.preventDefault();
     try {
@@ -17,11 +16,7 @@ export function UserContextProvider(props) {
         password
       );
       console.log(userCredential.user.uid)
-     
-      if(userCredential){
-       setUserMatch(userCredential.user)
-      }
-      
+      return userCredential.user
       
     } catch (e) {
       alert(e.code);
@@ -42,15 +37,6 @@ export function UserContextProvider(props) {
           materias:values.materias,
         })
 
-        const userCredential = await signInWithEmailAndPassword(
-          auth,
-          values.email,
-          values.password
-        );
-
-        if(userCredential){
-          setUserMatch(userCredential.user)
-         }
          return user
       }
     } catch (e) {
@@ -58,7 +44,7 @@ export function UserContextProvider(props) {
     }
   };
   return (
-    <UserContext.Provider value={{login,register,userMatch}}>
+    <UserContext.Provider value={{login,register}}>
         {props.children}
     </UserContext.Provider>
   )
