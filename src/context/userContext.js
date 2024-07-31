@@ -1,4 +1,4 @@
-import {createContext} from 'react'
+import {createContext,useState} from 'react'
 import { auth, db } from '../firebase/config'
 import { signInWithEmailAndPassword } from 'firebase/auth'; 
 import { createUserWithEmailAndPassword } from "firebase/auth";
@@ -7,6 +7,7 @@ import { collection,addDoc } from "firebase/firestore"
 export const UserContext = createContext()
 
 export function UserContextProvider(props) {
+  const [userLoged,setUserLoged] = useState("")
   const login = async (e,email,password) => {
     e.preventDefault();
     try {
@@ -15,7 +16,7 @@ export function UserContextProvider(props) {
         email,
         password
       );
-      console.log(userCredential.user.uid)
+      setUserLoged(userCredential)
       return userCredential.user
       
     } catch (e) {
@@ -44,7 +45,7 @@ export function UserContextProvider(props) {
     }
   };
   return (
-    <UserContext.Provider value={{login,register}}>
+    <UserContext.Provider value={{login,register,userLoged,setUserLoged}}>
         {props.children}
     </UserContext.Provider>
   )

@@ -1,10 +1,32 @@
-import React from "react";
+import React, { useContext } from "react";
+import { auth } from "../../firebase/config";
+import { signOut, onAuthStateChanged } from "firebase/auth";
 import { Navbar, Typography, Avatar } from "@material-tailwind/react";
 import icon from "../../imgs/calcular.png";
 import { BiCabinet } from "react-icons/bi";
 import { FaFolderPlus } from "react-icons/fa6";
+import { UserContext } from "../../context/userContext";
 
 const NavUser = () => {
+  const { userLoged,setUserLoged } = useContext(UserContext);
+  const consultar = onAuthStateChanged(auth, (user) => {
+    if (user) {
+      // User is signed in, see docs for a list of available properties
+      // https://firebase.google.com/docs/reference/js/auth.user
+      const uid = user;
+      console.log(uid)
+      // ...
+    } else {
+      const user2 = user
+      console.log(user2)
+      //navigate("/") pasar la consulta al context y evitar que cargue la ruta
+    }
+    
+  })
+  const handleClickSignOut = async () => {
+    console.log("ejecutado");
+    await signOut(auth);
+  };
   const navList = (
     <ul className="mt-0 mb-0 flex flex-row gap-6 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
       <div className="flex">
@@ -59,7 +81,14 @@ const NavUser = () => {
           <div className="flex items-center gap-4">
             <div className="mr-4">{navList}</div>
             <div className="flex items-center gap-x-2">
-             
+              <div>{userLoged.user.email}</div>
+              <button onClick={handleClickSignOut}>cerrar sesion</button>
+              <button
+                onClick={consultar}
+              >
+                consulta
+              </button>
+
               <a href="/">
                 <Avatar
                   src="https://docs.material-tailwind.com/img/face-2.jpg"
