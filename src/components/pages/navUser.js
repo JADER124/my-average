@@ -6,20 +6,22 @@ import icon from "../../imgs/calcular.png";
 import { BiCabinet } from "react-icons/bi";
 import { FaFolderPlus } from "react-icons/fa6";
 import { UserContext } from "../../context/userContext";
+import { useNavigate } from "react-router-dom";
 
 const NavUser = () => {
   const { userLoged,setUserLoged } = useContext(UserContext);
-  const consultar = onAuthStateChanged(auth, (user) => {
+  const navigate = useNavigate();
+  onAuthStateChanged(auth, (user) => {
     if (user) {
       // User is signed in, see docs for a list of available properties
       // https://firebase.google.com/docs/reference/js/auth.user
-      const uid = user;
-      console.log(uid)
+      //const uid = user;
+      
       // ...
     } else {
-      const user2 = user
-      console.log(user2)
-      //navigate("/") pasar la consulta al context y evitar que cargue la ruta
+      //const user2 = user
+
+      setUserLoged(null)
     }
     
   })
@@ -81,14 +83,8 @@ const NavUser = () => {
           <div className="flex items-center gap-4">
             <div className="mr-4">{navList}</div>
             <div className="flex items-center gap-x-2">
-              <div>{userLoged.user.email}</div>
+              <div>{userLoged ? userLoged.user.email:navigate("/")}</div>
               <button onClick={handleClickSignOut}>cerrar sesion</button>
-              <button
-                onClick={consultar}
-              >
-                consulta
-              </button>
-
               <a href="/">
                 <Avatar
                   src="https://docs.material-tailwind.com/img/face-2.jpg"
