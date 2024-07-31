@@ -19,9 +19,11 @@ const NavUser = () => {
       
       // ...
     } else {
-      //const user2 = user
+      const user2 = user
 
       setUserLoged(null)
+      console.log(user2)
+      console.log(userLoged)
     }
     
   })

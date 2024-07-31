@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useContext } from "react";
 import { Input } from "@material-tailwind/react";
 import { RiDeleteBin5Fill } from "react-icons/ri";
 import { FaPlus } from "react-icons/fa";
@@ -6,8 +6,11 @@ import { SlCalculator } from "react-icons/sl";
 import Footer from "./footer";
 import ApiCard from "./apiCard";
 import Nav from "./nav";
+import { UserContext } from "../../context/userContext";
+
 
 const Home = () => {
+  const { userLoged} = useContext(UserContext);
   const [data, setData] = useState([]);
   const [filter, setfilter] = useState(0);
   const [finalgrade, setFinalGrade] = useState("...");
@@ -80,6 +83,9 @@ const Home = () => {
 
   return (
     <div>
+      {
+        console.log(userLoged)
+      }
       <Nav/>
       <div className="overflow-x-auto">
         <table className=" table-auto text-center mx-auto divide-y divide-gray-500">

@@ -7,7 +7,7 @@ import { collection,addDoc } from "firebase/firestore"
 export const UserContext = createContext()
 
 export function UserContextProvider(props) {
-  const [userLoged,setUserLoged] = useState("")
+  const [userLoged,setUserLoged] = useState(null)
   const login = async (e,email,password) => {
     e.preventDefault();
     try {
