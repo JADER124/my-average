@@ -19,11 +19,8 @@ const NavUser = () => {
       
       // ...
     } else {
-      const user2 = user
-
-      setUserLoged(null)
-      console.log(user2)
-      console.log(userLoged)
+      setUserLoged("")
+      navigate("/")
     }
     
   })
@@ -85,7 +82,7 @@ const NavUser = () => {
           <div className="flex items-center gap-4">
             <div className="mr-4">{navList}</div>
             <div className="flex items-center gap-x-2">
-              <div>{userLoged ? userLoged.user.email:navigate("/")}</div>
+              <div>{userLoged ? userLoged.user.email:""}</div>
               <button onClick={handleClickSignOut}>cerrar sesion</button>
               <a href="/">
                 <Avatar

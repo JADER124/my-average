@@ -1,13 +1,14 @@
-import {createContext,useState} from 'react'
+import {createContext} from 'react'
 import { auth, db } from '../firebase/config'
 import { signInWithEmailAndPassword } from 'firebase/auth'; 
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { collection,addDoc } from "firebase/firestore"
+import {useLocalStorage} from "../components/customHooks/useLocalStorage"
 
 export const UserContext = createContext()
 
 export function UserContextProvider(props) {
-  const [userLoged,setUserLoged] = useState(null)
+  const [userLoged,setUserLoged] = useLocalStorage("user","")
   const login = async (e,email,password) => {
     e.preventDefault();
     try {
