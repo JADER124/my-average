@@ -1,4 +1,8 @@
-import React from "react";
+import { signOut, onAuthStateChanged } from "firebase/auth";
+import React, { useContext } from "react";
+import { UserContext } from "../../context/userContext";
+import { useNavigate } from "react-router-dom";
+import { auth } from "../../firebase/config";
 import {
   Avatar,
   Button,
@@ -8,31 +12,40 @@ import {
   MenuList,
   Typography,
 } from "@material-tailwind/react";
- 
-// profile menu component
-const profileMenuItems = [
-  {
-    label: "My Profile",
-  },
-  {
-    label: "Edit Profile",
-  },
-  {
-    label: "Inbox",
-  },
-  {
-    label: "Help",
-  },
-  {
-    label: "Sign Out",
-  },
-];
- 
+
 export default function AvatarWithUserDropdown() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
- 
-  const closeMenu = () => setIsMenuOpen(false);
- 
+  const { setUserLoged } = useContext(UserContext);
+  const navigate = useNavigate();
+  const handleClickSignOut = async () => {
+    console.log("ejecutado");
+    await signOut(auth);
+  };
+  const profileMenuItems = [
+    {
+      label: "My Profile",
+    },
+
+    {
+      label: "Help",
+    },
+    {
+      label: "Sign Out",
+      execute: handleClickSignOut,
+    },
+  ];
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      // User is signed in, see docs for a list of available properties
+      // https://firebase.google.com/docs/reference/js/auth.user
+      //const uid = user;
+      // ...
+    } else {
+      setUserLoged("");
+      navigate("/");
+    }
+  });
+
   return (
     <Menu open={isMenuOpen} handler={setIsMenuOpen} placement="bottom-end">
       <MenuHandler>
@@ -53,12 +66,12 @@ export default function AvatarWithUserDropdown() {
         </Button>
       </MenuHandler>
       <MenuList className="p-1">
-        {profileMenuItems.map(({ label }, key) => {
+        {profileMenuItems.map(({ label, execute }, key) => {
           const isLastItem = key === profileMenuItems.length - 1;
           return (
             <MenuItem
               key={label}
-              onClick={closeMenu}
+              onClick={execute}
               className={`flex items-center gap-2 rounded ${
                 isLastItem
                   ? "hover:bg-red-500/10 focus:bg-red-500/10 active:bg-red-500/10"

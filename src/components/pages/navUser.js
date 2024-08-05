@@ -1,34 +1,14 @@
 import React, { useContext } from "react";
-import { auth } from "../../firebase/config";
-import { signOut, onAuthStateChanged } from "firebase/auth";
 import { Navbar, Typography, Avatar } from "@material-tailwind/react";
 import icon from "../../imgs/calcular.png";
 import { BiCabinet } from "react-icons/bi";
 import { FaFolderPlus } from "react-icons/fa6";
 import { UserContext } from "../../context/userContext";
-import { useNavigate } from "react-router-dom";
-import AvatarWithUserDropdown from "./avatarDropDown"
+import AvatarWithUserDropdown from "./avatarDropDown";
 
 const NavUser = () => {
-  const { userLoged,setUserLoged } = useContext(UserContext);
-  const navigate = useNavigate();
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      // User is signed in, see docs for a list of available properties
-      // https://firebase.google.com/docs/reference/js/auth.user
-      //const uid = user;
-      
-      // ...
-    } else {
-      setUserLoged("")
-      navigate("/")
-    }
-    
-  })
-  const handleClickSignOut = async () => {
-    console.log("ejecutado");
-    await signOut(auth);
-  };
+  const { userLoged } = useContext(UserContext);
+
   const navList = (
     <ul className="mt-0 mb-0 flex flex-row gap-6 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
       <div className="flex">
@@ -83,9 +63,8 @@ const NavUser = () => {
           <div className="flex items-center gap-4">
             <div className="mr-4">{navList}</div>
             <div className="flex items-center gap-x-2">
-              <div>{userLoged ? userLoged.user.email:""}</div>
-              <button onClick={handleClickSignOut}>cerrar sesion</button>
-                <AvatarWithUserDropdown/>
+              <div>{userLoged ? userLoged.user.email : ""}</div>
+              <AvatarWithUserDropdown />
             </div>
           </div>
         </div>

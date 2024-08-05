@@ -1,6 +1,5 @@
-import React, { useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import NavUser from "./navUser";
-import Footer from "./footer";
 import { Input } from "@material-tailwind/react";
 import { RiDeleteBin5Fill } from "react-icons/ri";
 import { FaPlus } from "react-icons/fa";
@@ -189,7 +188,6 @@ function HomeUser() {
             </div>
           </div>
         </div>
-        <Footer />
       </div>
     </>
   );
