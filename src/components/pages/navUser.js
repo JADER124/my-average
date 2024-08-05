@@ -7,6 +7,7 @@ import { BiCabinet } from "react-icons/bi";
 import { FaFolderPlus } from "react-icons/fa6";
 import { UserContext } from "../../context/userContext";
 import { useNavigate } from "react-router-dom";
+import AvatarWithUserDropdown from "./avatarDropDown"
 
 const NavUser = () => {
   const { userLoged,setUserLoged } = useContext(UserContext);
@@ -84,12 +85,7 @@ const NavUser = () => {
             <div className="flex items-center gap-x-2">
               <div>{userLoged ? userLoged.user.email:""}</div>
               <button onClick={handleClickSignOut}>cerrar sesion</button>
-              <a href="/">
-                <Avatar
-                  src="https://docs.material-tailwind.com/img/face-2.jpg"
-                  alt="avatar"
-                />
-              </a>
+                <AvatarWithUserDropdown/>
             </div>
           </div>
         </div>
