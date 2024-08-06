@@ -69,9 +69,7 @@ const NavUser = () => {
           </div>
         </div>
       </Navbar>
-      <div className="mx-auto max-w-screen-md py-12">
-        {/*Espacio entre el nav y el contenido principal*/}
-      </div>
+      <div className="mx-auto max-w-screen-md py-12"></div>
     </div>
   );
 };

@@ -4,10 +4,12 @@ import { Input } from "@material-tailwind/react";
 import { RiDeleteBin5Fill } from "react-icons/ri";
 import { FaPlus } from "react-icons/fa";
 import { SlCalculator } from "react-icons/sl";
+import UserRef from "../Query/userRef";
 
 function HomeUser() {
   const [filter, setfilter] = useState(0);
   const [finalgrade, setFinalGrade] = useState("...");
+
   const [prom, setProm] = useState([
     {
       id:
@@ -72,6 +74,9 @@ function HomeUser() {
       <div>
         <NavUser />
         <div className="overflow-x-auto">
+          <div>
+            <UserRef />
+          </div>
           <table className=" table-auto text-center mx-auto divide-y divide-gray-500">
             <thead>
               <tr className="">

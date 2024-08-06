@@ -1,12 +1,12 @@
-import React, {useContext} from "react";
+import React, { useContext } from "react";
 import { UserContext } from "../../context/userContext";
 import { useNavigate } from "react-router-dom";
 import { FaArrowLeft } from "react-icons/fa";
 import logo from "../../imgs/calcular.png";
-import { useFormik } from "formik";     
+import { useFormik } from "formik";
 import * as Yup from "yup";
 export default function SignIn() {
-  const {register} = useContext(UserContext)
+  const { register } = useContext(UserContext);
   const navigate = useNavigate();
 
   const formik = useFormik({
@@ -37,16 +37,13 @@ export default function SignIn() {
 
     onSubmit: async (values) => {
       const user = await register(values);
-      console.log(user)
-      if(user!=null){
-        navigate("/login")
-        alert("Usuario registrado con exito, por favor inicie sesion")
+      if (user != null) {
+        navigate("/login");
+        alert("Usuario registrado con exito, por favor inicie sesion");
       }
-
     },
   });
 
-  
   return (
     <>
       <div className="absolute border-2 border-gray-400/50 rounded-xl mt-5 ml-20 hover:bg-cyan-600/30">
