@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { UserContext } from "../../context/userContext";
 import { useNavigate } from "react-router-dom";
 import { FaArrowLeft } from "react-icons/fa";
@@ -6,6 +6,7 @@ import logo from "../../imgs/calcular.png";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 export default function SignIn() {
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const { register } = useContext(UserContext);
   const navigate = useNavigate();
 
@@ -36,10 +37,15 @@ export default function SignIn() {
     }),
 
     onSubmit: async (values) => {
-      const user = await register(values);
-      if (user != null) {
-        navigate("/login");
-        alert("Usuario registrado con exito, por favor inicie sesion");
+      setIsSubmitting(true);
+      try {
+        const user = await register(values);
+        if (user != null) {
+          navigate("/login");
+          alert("Usuario registrado con éxito, por favor inicie sesión");
+        }
+      } finally {
+        setIsSubmitting(false);
       }
     },
   });
@@ -184,9 +190,10 @@ export default function SignIn() {
             <div>
               <button
                 type="submit"
+                disabled={isSubmitting}
                 className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
-                Log in
+                {isSubmitting ? "Submitting..." : "Sig in"}
               </button>
             </div>
           </form>
