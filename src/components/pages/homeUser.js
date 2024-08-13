@@ -1,5 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { UserContext } from "../../context/userContext";
 import NavUser from "./navUser";
+import { doc, updateDoc, arrayUnion } from "firebase/firestore";
+import { db } from "../../firebase/config";
 import { Input } from "@material-tailwind/react";
 import { RiDeleteBin5Fill } from "react-icons/ri";
 import { FaPlus } from "react-icons/fa";
@@ -7,9 +10,16 @@ import { SlCalculator } from "react-icons/sl";
 import UserRef from "../Query/userRef";
 
 function HomeUser() {
+  const { userLoged } = useContext(UserContext);
   const [filter, setfilter] = useState(0);
+  const [userid, Setuserid] = useState(userLoged.user.uid);
   const [finalgrade, setFinalGrade] = useState("...");
-
+  const [vandera, setVandera] = useState(false);
+  const [Materia, SetMateria] = useState({
+    id: 0,
+    NombreMateria: "",
+    notas: [],
+  });
   const [prom, setProm] = useState([
     {
       id:
@@ -20,6 +30,20 @@ function HomeUser() {
       porcentaje: "",
     },
   ]);
+
+  useEffect(() => {
+    const updateMaterias = async () => {
+      if (vandera !== false) {
+        const docRef = doc(db, "users", userid);
+        await updateDoc(docRef, {
+          materias: arrayUnion(Materia),
+        });
+        setVandera(false);
+      }
+    };
+    updateMaterias();
+  }, [vandera]);
+
   useEffect(() => {
     setfilter(
       Math.random() * (1 - 9999999999999999999999999999999999999999999999999) +
@@ -37,12 +61,11 @@ function HomeUser() {
     ]);
   };
   const calcular = () => {
-    let arrayProm = [];
-    let suma = 0;
-    let final = 0;
-    let porcen = 0;
     let empty = false;
-
+    if (Materia.NombreMateria === "") {
+      alert("Debes poner un nombre a tu materia");
+      return;
+    }
     prom.forEach((i) => {
       if (i.nota === "" || i.porcentaje === "") {
         if (!empty) {
@@ -50,23 +73,15 @@ function HomeUser() {
         }
 
         empty = true;
-      } else {
-        arrayProm.push(parseFloat(i.nota * i.porcentaje));
-        porcen += parseFloat(i.porcentaje);
       }
     });
     if (!empty) {
-      arrayProm.forEach((p) => {
-        suma += p;
-      });
-      final = suma / porcen;
-      final = final.toFixed(2);
-
-      if (final !== "NaN") {
-        setFinalGrade(final);
-      } else {
-        setFinalGrade("...");
-      }
+      // utilizar useEffect para el console.log()
+      SetMateria((materia) => ({
+        ...materia, // Copiamos las propiedades anteriores
+        notas: prom, // Actualizamos solo propiedad notas
+      }));
+      setVandera(true);
     }
   };
   return (
@@ -76,6 +91,23 @@ function HomeUser() {
         <div className="overflow-x-auto">
           <div>
             <UserRef />
+          </div>
+          <div className="pr-96">
+            <div className="my-5 mx-64 font-semibold italic text-left text-xl  leading-9 tracking-tight text-gray-900">
+              Materia
+              <Input
+                label="Materia"
+                placeholder="Ingles.."
+                type="text"
+                color="purple"
+                onChange={(e) => {
+                  SetMateria((prevObjeto) => ({
+                    ...prevObjeto, // Copiamos las propiedades anteriores
+                    NombreMateria: e.target.value, // Actualizamos solo propiedad nombreMateria
+                  }));
+                }}
+              />
+            </div>
           </div>
           <table className=" table-auto text-center mx-auto divide-y divide-gray-500">
             <thead>
