@@ -3,7 +3,7 @@ import { UserContext } from "../../context/userContext";
 import NavUser from "./navUser";
 import { doc, updateDoc, arrayUnion } from "firebase/firestore";
 import { db } from "../../firebase/config";
-import { Input } from "@material-tailwind/react";
+import { Input, Button } from "@material-tailwind/react";
 import { RiDeleteBin5Fill } from "react-icons/ri";
 import { FaPlus } from "react-icons/fa";
 import { SlCalculator } from "react-icons/sl";
@@ -13,7 +13,6 @@ function HomeUser() {
   const { userLoged } = useContext(UserContext);
   const [filter, setfilter] = useState(0);
   const [userid, Setuserid] = useState(userLoged.user.uid);
-  const [finalgrade, setFinalGrade] = useState("...");
   const [vandera, setVandera] = useState(false);
   const [Materia, SetMateria] = useState({
     id: 0,
@@ -42,7 +41,7 @@ function HomeUser() {
       }
     };
     updateMaterias();
-  }, [vandera]);
+  }, [vandera, userid, Materia]);
 
   useEffect(() => {
     setfilter(
@@ -212,16 +211,10 @@ function HomeUser() {
             </tbody>
           </table>
           <div>
-            <div className="mx-auto pr-28 w-max mb-5">
-              <button
-                onClick={() => calcular()}
-                className="flex align-middle text-center font-bold gap-4 py-1.5 px-4 text-2xl text-white bg-cyan-500 rounded-md hover:bg-teal-300 focus:outline-none focus:shadow-outline-red transition duration-150 ease-in-out"
-              >
-                Calcular <SlCalculator className="text-3xl" />
-              </button>
-            </div>
-            <div className="mx-auto pr-28 w-max mb-5">
-              <h1 className="text-4xl font-bold">Resultado: {finalgrade}</h1>
+            <div className="mx-auto pr-25 mb-5">
+              <Button color="amber" onClick={() => calcular()}>
+                <span>Guardar</span>
+              </Button>
             </div>
           </div>
         </div>

@@ -21,7 +21,7 @@ const NavUser = () => {
           color="blue-gray"
           className="p-1 font-normal"
         >
-          <a href="/" className="flex items-center">
+          <a href="/mismaterias" className="flex items-center">
             Mis materias
           </a>
         </Typography>
@@ -36,7 +36,7 @@ const NavUser = () => {
           color="blue-gray"
           className="p-1 font-normal"
         >
-          <a href="/" className="flex items-center">
+          <a href="/homeuser" className="flex items-center">
             Agregar materias
           </a>
         </Typography>
