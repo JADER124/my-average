@@ -27,7 +27,7 @@ function MySubject() {
     <div>
       <NavUser />
       {vandera ? (
-        <div className="grid grid-cols-3 gap-x-6 mx-10">
+        <div className="grid grid-cols-3 gap-x-6 mx-10 ">
           {materias.map((materia, index) => {
             return (
               <div className="" key={index}>

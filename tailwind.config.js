@@ -8,7 +8,9 @@ module.exports = withMT({
     colors: {
       transparent: "transparent",
       current: "currentColor",
-      white: "#ffffff",
+      platziBG: "#1e2229",
+      platziButton: "#0ae98a",
+      platziOut: "#1e2229",
     },
   },
   plugins: [],
