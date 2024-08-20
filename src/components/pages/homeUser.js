@@ -6,7 +6,7 @@ import { db } from "../../firebase/config";
 import { Input, Button } from "@material-tailwind/react";
 import { RiDeleteBin5Fill } from "react-icons/ri";
 import { FaPlus } from "react-icons/fa";
-import { SlCalculator } from "react-icons/sl";
+import { SelectDefault } from "./cardMaterias";
 import UserRef from "../Query/userRef";
 
 function HomeUser() {
@@ -14,6 +14,7 @@ function HomeUser() {
   const [filter, setfilter] = useState(0);
   const [userid, Setuserid] = useState(userLoged.user.uid);
   const [vandera, setVandera] = useState(false);
+  const [numNotas, SetnumNotas] = useState();
   const [Materia, SetMateria] = useState({
     id: 0,
     NombreMateria: "",
@@ -29,6 +30,28 @@ function HomeUser() {
       porcentaje: "",
     },
   ]);
+  useEffect(() => {
+    // Obtiene la longitud actual de `prom`
+    const currentLength = prom.length;
+
+    // Si `numNotas` es mayor que la longitud actual, agrega nuevos objetos
+    if (numNotas > currentLength) {
+      const newItems = Array.from({ length: numNotas - currentLength }, () => ({
+        id: Math.random() * (1 - 9999999999999999) + 1,
+        nota: "",
+        porcentaje: "",
+      }));
+
+      setProm([...prom, ...newItems]); // Mantén los existentes y añade los nuevos
+    } else if (numNotas) {
+      const newItems = Array.from({ length: numNotas }, () => ({
+        id: Math.random() * (1 - 9999999999999999) + 1,
+        nota: "",
+        porcentaje: "",
+      }));
+      setProm(newItems);
+    }
+  }, [numNotas]);
 
   useEffect(() => {
     const updateMaterias = async () => {
@@ -59,6 +82,7 @@ function HomeUser() {
       },
     ]);
   };
+
   const calcular = () => {
     let empty = false;
     if (Materia.NombreMateria === "") {
@@ -86,6 +110,7 @@ function HomeUser() {
   return (
     <>
       <div>
+        {console.log(prom)}
         <NavUser />
         <div className="overflow-x-auto">
           <div>
@@ -93,7 +118,7 @@ function HomeUser() {
           </div>
           <div className="pr-96">
             <div className="my-5 mx-64 font-semibold italic text-left text-xl  leading-9 tracking-tight text-gray-900">
-              Materia
+              Nombre de Materia
               <Input
                 label="Materia"
                 placeholder="Ingles.."
@@ -106,6 +131,9 @@ function HomeUser() {
                   }));
                 }}
               />
+              <div className="mt-4">
+                <SelectDefault SetnumNotas={SetnumNotas} />
+              </div>
             </div>
           </div>
           <table className=" table-auto text-center mx-auto divide-y divide-gray-500">
