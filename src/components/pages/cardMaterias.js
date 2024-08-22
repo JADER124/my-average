@@ -44,7 +44,7 @@ export function CustomSpinner() {
   return <Spinner className="h-16 w-16 text-gray-900/50" color="purple" />;
 }
 
-export function SelectDefault({ SetnumNotas }) {
+export function SelectDefault({ SetnumNotas, numNotas }) {
   return (
     <div className="w-72">
       <Select

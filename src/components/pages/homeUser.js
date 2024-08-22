@@ -82,7 +82,6 @@ function HomeUser() {
       },
     ]);
   };
-
   const calcular = () => {
     let empty = false;
     if (Materia.NombreMateria === "") {
@@ -110,7 +109,6 @@ function HomeUser() {
   return (
     <>
       <div>
-        {console.log(prom)}
         <NavUser />
         <div className="overflow-x-auto">
           <div>
@@ -132,7 +130,7 @@ function HomeUser() {
                 }}
               />
               <div className="mt-4">
-                <SelectDefault SetnumNotas={SetnumNotas} />
+                <SelectDefault SetnumNotas={SetnumNotas} numNotas={numNotas} />
               </div>
             </div>
           </div>
