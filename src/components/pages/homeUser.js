@@ -14,7 +14,8 @@ function HomeUser() {
   const [filter, setfilter] = useState(0);
   const [userid, Setuserid] = useState(userLoged.user.uid);
   const [vandera, setVandera] = useState(false);
-  const [numNotas, SetnumNotas] = useState();
+  const [numNotas, SetnumNotas] = useState(1);
+  const [isSubmitting,setIsSubmitting]= useState(false);
   const [Materia, SetMateria] = useState({
     id: 0,
     NombreMateria: "",
@@ -56,11 +57,32 @@ function HomeUser() {
   useEffect(() => {
     const updateMaterias = async () => {
       if (vandera !== false) {
+        setIsSubmitting(true);
         const docRef = doc(db, "users", userid);
         await updateDoc(docRef, {
           materias: arrayUnion(Materia),
         });
         setVandera(false);
+        alert("Registro exitoso!")
+        SetMateria((materia)=>({
+          ...materia,
+          id:0,
+          NombreMateria: "",
+          notas:[],
+        }))
+        setProm([
+          {
+            id:
+              Math.random() *
+                (1 - 9999999999999999999999999999999999999999999999999) +
+              1,
+            nota: "",
+            porcentaje: "",
+          },
+        ])
+        SetnumNotas(1)
+        setIsSubmitting(false)
+
       }
     };
     updateMaterias();
@@ -83,15 +105,16 @@ function HomeUser() {
     ]);
   };
   const calcular = () => {
+   
     let empty = false;
     if (Materia.NombreMateria === "") {
       alert("Debes poner un nombre a tu materia");
       return;
     }
     prom.forEach((i) => {
-      if (i.nota === "" || i.porcentaje === "") {
+      if ( i.porcentaje === "") {
         if (!empty) {
-          alert("¡Debes llenar todos los campos!");
+          alert("¡Todas las notas deben tener un porcentaje!");
         }
 
         empty = true;
@@ -104,6 +127,7 @@ function HomeUser() {
         notas: prom, // Actualizamos solo propiedad notas
       }));
       setVandera(true);
+      
     }
   };
   return (
@@ -119,6 +143,7 @@ function HomeUser() {
               Nombre de Materia
               <Input
                 label="Materia"
+                value={Materia.NombreMateria}
                 placeholder="Ingles.."
                 type="text"
                 color="purple"
@@ -238,8 +263,8 @@ function HomeUser() {
           </table>
           <div>
             <div className="mx-auto pr-25 mb-5">
-              <Button color="amber" onClick={() => calcular()}>
-                <span>Guardar</span>
+              <Button color="amber" disabled={isSubmitting} onClick={() => calcular()}>
+                {isSubmitting ? "Saving..." : "Guardar"}
               </Button>
             </div>
           </div>

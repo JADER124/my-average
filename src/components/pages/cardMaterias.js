@@ -50,6 +50,7 @@ export function SelectDefault({ SetnumNotas, numNotas }) {
       <Select
         label="Numero de notas"
         index="number"
+        value={String(numNotas)}
         onChange={(value) => {
           SetnumNotas(value);
         }}
