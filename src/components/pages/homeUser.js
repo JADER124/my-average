@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext, useRef } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { UserContext } from "../../context/userContext";
 import NavUser from "./navUser";
 import { doc, updateDoc, arrayUnion, getDoc } from "firebase/firestore";
@@ -19,8 +19,6 @@ function HomeUser() {
   } = useContext(UserContext);
   let uid = userLoged.user.uid;
   const [filter, setfilter] = useState(0);
-  const [queryMateria, setQueryMateria] = useState();
-  const [userid, Setuserid] = useState(userLoged.user.uid);
   const [vandera, setVandera] = useState(false);
   const [numNotas, SetnumNotas] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -66,7 +64,7 @@ function HomeUser() {
     const updateMaterias = async () => {
       if (vandera !== false) {
         setIsSubmitting(true);
-        const docRef = doc(db, "users", userid);
+        const docRef = doc(db, "users", uid);
         await updateDoc(docRef, {
           materias: arrayUnion(Materia),
         });
@@ -93,7 +91,7 @@ function HomeUser() {
       }
     };
     updateMaterias();
-  }, [vandera, userid, Materia]);
+  }, [vandera, uid, Materia]);
 
   useEffect(() => {
     setfilter(
@@ -102,6 +100,15 @@ function HomeUser() {
     );
   }, [prom]);
 
+  //FUNCION PARA SETEAR VALORES DEL EDITAR
+  const ValuesEdit = (materiaIndex) => {
+    let materiaSeleccionada = materiaIndex[indexmateria];
+    SetMateria((materia) => ({
+      ...materia,
+      NombreMateria: materiaSeleccionada.NombreMateria,
+    }));
+    setProm(materiaSeleccionada.notas);
+  };
   //CONSULTA DE LAS MATERIAS CUANDO CLICK EDITAR
   useEffect(() => {
     if (updateMateria === true) {
@@ -110,21 +117,14 @@ function HomeUser() {
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
           let materiaIndex = docSnap.data().materias;
-          setQueryMateria(materiaIndex[indexmateria]);
+          ValuesEdit(materiaIndex);
         } else {
           console.log("No such document!");
         }
-        if (setQueryMateria) {
-          SetMateria((materia) => ({
-            ...materia,
-            NombreMateria: queryMateria.NombreMateria,
-          }));
-        }
       };
-
       fetchData();
     }
-  }, [updateMateria]);
+  }, [updateMateria, uid]);
 
   const addRow = () => {
     setProm([
@@ -163,7 +163,6 @@ function HomeUser() {
   return (
     <>
       <div>
-        {console.log(queryMateria)}
         <NavUser />
         <div className="overflow-x-auto">
           <div>
@@ -220,7 +219,7 @@ function HomeUser() {
                       <div className="px-1 sm:px-4 md:px-6 lg:px-20 py-4">
                         <Input
                           label="Nota"
-                          value={prom.nota}
+                          value={p.nota}
                           placeholder="3.0"
                           type="text"
                           maxLength={3}
@@ -233,7 +232,9 @@ function HomeUser() {
                               x = str.slice(0, -1);
                               e.target.value = x;
                             } else {
-                              prom[index].nota = e.target.value;
+                              const newProm = [...prom];
+                              newProm[index].nota = str;
+                              setProm(newProm);
                             }
                           }}
                         />
@@ -243,7 +244,7 @@ function HomeUser() {
                       <div className="px-1 sm:px-4 md:px-6 lg:px-20 py-4">
                         <Input
                           label="%"
-                          value={prom.porcentaje}
+                          value={p.porcentaje}
                           maxLength={2}
                           type="text"
                           placeholder="%"
@@ -255,7 +256,9 @@ function HomeUser() {
                               x = str.slice(0, -1);
                               e.target.value = x;
                             } else {
-                              prom[index].porcentaje = e.target.value;
+                              const newProm = [...prom];
+                              newProm[index].porcentaje = str;
+                              setProm(newProm);
                             }
                           }}
                         />

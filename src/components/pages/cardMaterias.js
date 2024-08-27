@@ -21,10 +21,10 @@ export function SimpleCard({ materia, index }) {
         <Typography variant="h5" color="white" className="mb-2">
           {materia.NombreMateria}
         </Typography>
-        <Typography>
+
           {materia.notas.map((nota, index) => {
             return (
-              <h1>
+              <h1 key={index}>
                 <span className="text-platziButton">Nota {index + 1} : </span>
                 <span className="text-white">{nota.nota}</span>{" "}
                 <span className="text-platziButton">% : </span>
@@ -32,7 +32,7 @@ export function SimpleCard({ materia, index }) {
               </h1>
             );
           })}
-        </Typography>
+      
       </CardBody>
       <CardFooter className="pt-0 flex gap-4 ml-16">
         <Button
