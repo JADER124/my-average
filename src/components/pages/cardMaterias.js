@@ -11,8 +11,9 @@ import {
 import React, { useContext } from "react";
 import { UserContext } from "../../context/userContext";
 import { useNavigate } from "react-router-dom";
-export function SimpleCard({ materia }) {
-  const { updateMateria,setUpdateMateria } = useContext(UserContext);
+export function SimpleCard({ materia, index }) {
+  const { updateMateria, setUpdateMateria, indexmateria, Setindexmateria } =
+    useContext(UserContext);
   const navigate = useNavigate();
   return (
     <Card className="mt-6 w-96 bg-platziBG" variant="gradient">
@@ -34,10 +35,16 @@ export function SimpleCard({ materia }) {
         </Typography>
       </CardBody>
       <CardFooter className="pt-0 flex gap-4 ml-16">
-        <Button className="bg-platziButton text-platziBG  " onClick={()=>{
-          setUpdateMateria(true)
-          navigate("/homeuser")
-        }}>Editar</Button>
+        <Button
+          className="bg-platziButton text-platziBG  "
+          onClick={() => {
+            setUpdateMateria(true);
+            Setindexmateria(index);
+            navigate("/homeuser");
+          }}
+        >
+          Editar
+        </Button>
         <Button className="bg-platziBG border-2 border-platziButton text-platziButton shadow-md shadow-platziBG hover:shadow-platziButton">
           Eliminar
         </Button>

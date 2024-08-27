@@ -10,8 +10,13 @@ import { SelectDefault } from "./cardMaterias";
 import UserRef from "../Query/userRef";
 
 function HomeUser() {
-  const { userLoged, updateMateria, setUpdateMateria } =
-    useContext(UserContext);
+  const {
+    userLoged,
+    updateMateria,
+    setUpdateMateria,
+    indexmateria,
+    Setindexmateria,
+  } = useContext(UserContext);
   let uid = userLoged.user.uid;
   const [filter, setfilter] = useState(0);
   const [queryMateria, setQueryMateria] = useState();
@@ -98,25 +103,27 @@ function HomeUser() {
   }, [prom]);
 
   //CONSULTA DE LAS MATERIAS CUANDO CLICK EDITAR
-  const hasMounted = useRef(false);
   useEffect(() => {
-  
-    if (!hasMounted.current) {
-      hasMounted.current = true;
-      return;
+    if (updateMateria === true) {
+      const fetchData = async () => {
+        const docRef = doc(db, "users", uid);
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+          let materiaIndex = docSnap.data().materias;
+          setQueryMateria(materiaIndex[indexmateria]);
+        } else {
+          console.log("No such document!");
+        }
+        if (setQueryMateria) {
+          SetMateria((materia) => ({
+            ...materia,
+            NombreMateria: queryMateria.NombreMateria,
+          }));
+        }
+      };
+
+      fetchData();
     }
-  
-    const x = async () => {
-      const docRef = doc(db, "users", uid);
-      const docSnap = await getDoc(docRef);
-      if (docSnap.exists()) {
-        setQueryMateria(docSnap.data());
-      } else {
-        console.log("No such document!");
-      }
-    };
-  
-    x();
   }, [updateMateria]);
 
   const addRow = () => {
@@ -213,6 +220,7 @@ function HomeUser() {
                       <div className="px-1 sm:px-4 md:px-6 lg:px-20 py-4">
                         <Input
                           label="Nota"
+                          value={prom.nota}
                           placeholder="3.0"
                           type="text"
                           maxLength={3}
@@ -235,6 +243,7 @@ function HomeUser() {
                       <div className="px-1 sm:px-4 md:px-6 lg:px-20 py-4">
                         <Input
                           label="%"
+                          value={prom.porcentaje}
                           maxLength={2}
                           type="text"
                           placeholder="%"

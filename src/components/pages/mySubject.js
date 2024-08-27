@@ -31,7 +31,7 @@ function MySubject() {
           {materias.map((materia, index) => {
             return (
               <div className="" key={index}>
-                <SimpleCard materia={materia} />
+                <SimpleCard materia={materia} index={index} />
               </div>
             );
           })}
