@@ -4,10 +4,12 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { setDoc, doc } from "firebase/firestore";
 import { useLocalStorage } from "../components/customHooks/useLocalStorage";
+import React, {useState} from "react";
 
 export const UserContext = createContext();
 
 export function UserContextProvider(props) {
+  const [updateMateria, setUpdateMateria] = useState(false)
   const [userLoged, setUserLoged] = useLocalStorage("user", "");
   const login = async (e, email, password) => {
     e.preventDefault();
@@ -47,7 +49,7 @@ export function UserContextProvider(props) {
     }
   };
   return (
-    <UserContext.Provider value={{ login, register, userLoged, setUserLoged }}>
+    <UserContext.Provider value={{ login, register, userLoged, setUserLoged,updateMateria,setUpdateMateria }}>
       {props.children}
     </UserContext.Provider>
   );

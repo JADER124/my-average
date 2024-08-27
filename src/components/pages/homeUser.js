@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 import { UserContext } from "../../context/userContext";
 import NavUser from "./navUser";
-import { doc, updateDoc, arrayUnion } from "firebase/firestore";
+import { doc, updateDoc, arrayUnion, getDoc } from "firebase/firestore";
 import { db } from "../../firebase/config";
 import { Input, Button } from "@material-tailwind/react";
 import { RiDeleteBin5Fill } from "react-icons/ri";
@@ -10,12 +10,15 @@ import { SelectDefault } from "./cardMaterias";
 import UserRef from "../Query/userRef";
 
 function HomeUser() {
-  const { userLoged } = useContext(UserContext);
+  const { userLoged, updateMateria, setUpdateMateria } =
+    useContext(UserContext);
+  let uid = userLoged.user.uid;
   const [filter, setfilter] = useState(0);
+  const [queryMateria, setQueryMateria] = useState();
   const [userid, Setuserid] = useState(userLoged.user.uid);
   const [vandera, setVandera] = useState(false);
   const [numNotas, SetnumNotas] = useState(1);
-  const [isSubmitting,setIsSubmitting]= useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [Materia, SetMateria] = useState({
     id: 0,
     NombreMateria: "",
@@ -63,13 +66,13 @@ function HomeUser() {
           materias: arrayUnion(Materia),
         });
         setVandera(false);
-        alert("Registro exitoso!")
-        SetMateria((materia)=>({
+        alert("Registro exitoso!");
+        SetMateria((materia) => ({
           ...materia,
-          id:0,
+          id: 0,
           NombreMateria: "",
-          notas:[],
-        }))
+          notas: [],
+        }));
         setProm([
           {
             id:
@@ -79,10 +82,9 @@ function HomeUser() {
             nota: "",
             porcentaje: "",
           },
-        ])
-        SetnumNotas(1)
-        setIsSubmitting(false)
-
+        ]);
+        SetnumNotas(1);
+        setIsSubmitting(false);
       }
     };
     updateMaterias();
@@ -94,6 +96,29 @@ function HomeUser() {
         1
     );
   }, [prom]);
+
+  //CONSULTA DE LAS MATERIAS CUANDO CLICK EDITAR
+  const hasMounted = useRef(false);
+  useEffect(() => {
+  
+    if (!hasMounted.current) {
+      hasMounted.current = true;
+      return;
+    }
+  
+    const x = async () => {
+      const docRef = doc(db, "users", uid);
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) {
+        setQueryMateria(docSnap.data());
+      } else {
+        console.log("No such document!");
+      }
+    };
+  
+    x();
+  }, [updateMateria]);
+
   const addRow = () => {
     setProm([
       ...prom,
@@ -105,14 +130,13 @@ function HomeUser() {
     ]);
   };
   const calcular = () => {
-   
     let empty = false;
     if (Materia.NombreMateria === "") {
       alert("Debes poner un nombre a tu materia");
       return;
     }
     prom.forEach((i) => {
-      if ( i.porcentaje === "") {
+      if (i.porcentaje === "") {
         if (!empty) {
           alert("¡Todas las notas deben tener un porcentaje!");
         }
@@ -127,12 +151,12 @@ function HomeUser() {
         notas: prom, // Actualizamos solo propiedad notas
       }));
       setVandera(true);
-      
     }
   };
   return (
     <>
       <div>
+        {console.log(queryMateria)}
         <NavUser />
         <div className="overflow-x-auto">
           <div>
@@ -263,7 +287,11 @@ function HomeUser() {
           </table>
           <div>
             <div className="mx-auto pr-25 mb-5">
-              <Button color="amber" disabled={isSubmitting} onClick={() => calcular()}>
+              <Button
+                color="amber"
+                disabled={isSubmitting}
+                onClick={() => calcular()}
+              >
                 {isSubmitting ? "Saving..." : "Guardar"}
               </Button>
             </div>
