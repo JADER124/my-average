@@ -11,8 +11,8 @@ import {
 import React, { useContext } from "react";
 import { UserContext } from "../../context/userContext";
 import { useNavigate } from "react-router-dom";
-export function SimpleCard({ materia, index }) {
-  const { updateMateria, setUpdateMateria, indexmateria, Setindexmateria } =
+export function SimpleCard({ materia }) {
+  const { setUpdateMateria } =
     useContext(UserContext);
   const navigate = useNavigate();
   return (
@@ -38,8 +38,7 @@ export function SimpleCard({ materia, index }) {
         <Button
           className="bg-platziButton text-platziBG  "
           onClick={() => {
-            setUpdateMateria(true);
-            Setindexmateria(index);
+            setUpdateMateria(materia);
             navigate("/homeuser");
           }}
         >

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { UserContext } from "../../context/userContext";
 import NavUser from "./navUser";
-import { doc, updateDoc, arrayUnion, getDoc } from "firebase/firestore";
+import { doc, updateDoc, arrayUnion} from "firebase/firestore";
 import { db } from "../../firebase/config";
 import { Input, Button } from "@material-tailwind/react";
 import { RiDeleteBin5Fill } from "react-icons/ri";
@@ -14,8 +14,6 @@ function HomeUser() {
     userLoged,
     updateMateria,
     setUpdateMateria,
-    indexmateria,
-    Setindexmateria,
   } = useContext(UserContext);
   let uid = userLoged.user.uid;
   const [filter, setfilter] = useState(0);
@@ -100,31 +98,18 @@ function HomeUser() {
     );
   }, [prom]);
 
-  //FUNCION PARA SETEAR VALORES DEL EDITAR
-  const ValuesEdit = (materiaIndex) => {
-    let materiaSeleccionada = materiaIndex[indexmateria];
-    SetMateria((materia) => ({
-      ...materia,
-      NombreMateria: materiaSeleccionada.NombreMateria,
-    }));
-    setProm(materiaSeleccionada.notas);
-  };
   //CONSULTA DE LAS MATERIAS CUANDO CLICK EDITAR
   useEffect(() => {
-    if (updateMateria === true) {
-      const fetchData = async () => {
-        const docRef = doc(db, "users", uid);
-        const docSnap = await getDoc(docRef);
-        if (docSnap.exists()) {
-          let materiaIndex = docSnap.data().materias;
-          ValuesEdit(materiaIndex);
-        } else {
-          console.log("No such document!");
-        }
-      };
-      fetchData();
+    if (updateMateria) {
+      let materiaSeleccionada = updateMateria
+      SetMateria((materia) => ({
+        ...materia,
+        NombreMateria: materiaSeleccionada.NombreMateria,
+      }));
+      setProm(materiaSeleccionada.notas);
+      //setUpdateMateria(false);
     }
-  }, [updateMateria, uid]);
+  }, [updateMateria]);
 
   const addRow = () => {
     setProm([

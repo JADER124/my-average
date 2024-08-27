@@ -10,7 +10,6 @@ export const UserContext = createContext();
 
 export function UserContextProvider(props) {
   const [updateMateria, setUpdateMateria] = useState(false);
-  const [indexmateria, Setindexmateria] = useState();
   const [userLoged, setUserLoged] = useLocalStorage("user", "");
   const login = async (e, email, password) => {
     e.preventDefault();
@@ -58,8 +57,6 @@ export function UserContextProvider(props) {
         setUserLoged,
         updateMateria,
         setUpdateMateria,
-        indexmateria,
-        Setindexmateria,
       }}
     >
       {props.children}
