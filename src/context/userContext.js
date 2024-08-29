@@ -9,6 +9,7 @@ import React, { useState } from "react";
 export const UserContext = createContext();
 
 export function UserContextProvider(props) {
+  const [fbMaterias, setFbMaterias] = useState(false);
   const [updateMateria, setUpdateMateria] = useState(false);
   const [userLoged, setUserLoged] = useLocalStorage("user", "");
   const login = async (e, email, password) => {
@@ -57,6 +58,8 @@ export function UserContextProvider(props) {
         setUserLoged,
         updateMateria,
         setUpdateMateria,
+        fbMaterias,
+        setFbMaterias
       }}
     >
       {props.children}

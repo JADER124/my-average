@@ -5,16 +5,16 @@ import { doc, getDoc } from "firebase/firestore";
 import { db } from "../../firebase/config";
 import { SimpleCard, CustomSpinner } from "./cardMaterias";
 function MySubject() {
-  const [materias, setMaterias] = useState([]);
+  
   const [vandera, setVandera] = useState(false);
-  const { userLoged } = useContext(UserContext);
+  const { userLoged,fbMaterias,setFbMaterias } = useContext(UserContext);
   let uid = userLoged.user.uid;
   useEffect(() => {
     const x = async () => {
       const docRef = doc(db, "users", uid);
       const docSnap = await getDoc(docRef);
       if (docSnap.exists()) {
-        setMaterias(docSnap.data().materias);
+        setFbMaterias(docSnap.data().materias);
         setVandera(true);
       } else {
         // docSnap.data() will be undefined in this case
@@ -28,7 +28,7 @@ function MySubject() {
       <NavUser />
       {vandera ? (
         <div className="grid grid-cols-3 gap-x-6 mx-10 ">
-          {materias.map((materia, index) => {
+          {fbMaterias.map((materia, index) => {
             return (
               <div className="" key={index}>
                 <SimpleCard materia={materia} index={index} />

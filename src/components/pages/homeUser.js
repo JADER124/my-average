@@ -8,20 +8,25 @@ import { RiDeleteBin5Fill } from "react-icons/ri";
 import { FaPlus } from "react-icons/fa";
 import { SelectDefault } from "./cardMaterias";
 import UserRef from "../Query/userRef";
+import { useNavigate } from "react-router-dom";
 
 function HomeUser() {
   const {
     userLoged,
     updateMateria,
     setUpdateMateria,
+    fbMaterias,setFbMaterias
   } = useContext(UserContext);
   let uid = userLoged.user.uid;
+  const navigate = useNavigate();
   const [filter, setfilter] = useState(0);
+  const [ListMaterias, setListMaterias] = useState([]);
   const [vandera, setVandera] = useState(false);
+  const [vanderaEdit, setVanderaEdit] = useState(false);
   const [numNotas, SetnumNotas] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [Materia, SetMateria] = useState({
-    id: 0,
+    id: Date.now(),
     NombreMateria: "",
     notas: [],
   });
@@ -70,7 +75,7 @@ function HomeUser() {
         alert("Registro exitoso!");
         SetMateria((materia) => ({
           ...materia,
-          id: 0,
+          id: Date.now(),
           NombreMateria: "",
           notas: [],
         }));
@@ -98,7 +103,10 @@ function HomeUser() {
     );
   }, [prom]);
 
+
   //CONSULTA DE LAS MATERIAS CUANDO CLICK EDITAR
+  
+
   useEffect(() => {
     if (updateMateria) {
       let materiaSeleccionada = updateMateria
@@ -121,6 +129,44 @@ function HomeUser() {
       },
     ]);
   };
+
+  //EDITAR EN FIREBASE
+  useEffect(() => {
+    const updateMaterias = async () => {
+      if (vanderaEdit !== false) {
+        setIsSubmitting(true);
+        const docRef = doc(db, "users", uid);
+        await updateDoc(docRef, {
+          materias: fbMaterias,
+        });
+        setVanderaEdit(false);
+        alert("Edicion completada!");
+        SetMateria((materia) => ({
+          ...materia,
+          id: Date.now(),
+          NombreMateria: "",
+          notas: [],
+        }));
+        setProm([
+          {
+            id:
+              Math.random() *
+                (1 - 9999999999999999999999999999999999999999999999999) +
+              1,
+            nota: "",
+            porcentaje: "",
+          },
+        ]);
+        SetnumNotas(1);
+        setIsSubmitting(false);
+        setFbMaterias(false)
+        setUpdateMateria(false)
+        navigate("/mismaterias")
+      }
+    };
+    updateMaterias();
+  }, [vanderaEdit, uid, Materia]);
+
   const calcular = () => {
     let empty = false;
     if (Materia.NombreMateria === "") {
@@ -138,16 +184,36 @@ function HomeUser() {
     });
     if (!empty) {
       // utilizar useEffect para el console.log()
-      SetMateria((materia) => ({
-        ...materia, // Copiamos las propiedades anteriores
-        notas: prom, // Actualizamos solo propiedad notas
-      }));
-      setVandera(true);
+      if(fbMaterias){
+        SetMateria((materia) => ({
+          ...materia, // Copiamos las propiedades anteriores
+          notas: [...prom], // Actualizamos solo propiedad notas
+        }));
+        console.log(Materia)
+          let copyMaterias = [...fbMaterias]
+          const newMaterias = copyMaterias.map((mat)=>{
+            if(mat.id === updateMateria.id){
+              return {...mat,...Materia}
+            }
+            return mat
+          })
+          setFbMaterias(newMaterias)
+          console.log(Materia)
+          setVanderaEdit(true)
+      }else{
+        SetMateria((materia) => ({
+          ...materia, // Copiamos las propiedades anteriores
+          notas: prom, // Actualizamos solo propiedad notas
+        }));
+        setVandera(true);
+      }
     }
   };
   return (
     <>
       <div>
+        {console.log(Materia)}
+        {console.log(prom)}
         <NavUser />
         <div className="overflow-x-auto">
           <div>
