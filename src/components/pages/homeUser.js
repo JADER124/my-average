@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { UserContext } from "../../context/userContext";
 import NavUser from "./navUser";
-import { doc, updateDoc, arrayUnion} from "firebase/firestore";
+import { doc, updateDoc, arrayUnion } from "firebase/firestore";
 import { db } from "../../firebase/config";
 import { Input, Button } from "@material-tailwind/react";
 import { RiDeleteBin5Fill } from "react-icons/ri";
@@ -15,13 +15,15 @@ function HomeUser() {
     userLoged,
     updateMateria,
     setUpdateMateria,
-    fbMaterias,setFbMaterias
+    fbMaterias,
+    setFbMaterias,
   } = useContext(UserContext);
   let uid = userLoged.user.uid;
   const navigate = useNavigate();
   const [filter, setfilter] = useState(0);
   const [ListMaterias, setListMaterias] = useState([]);
   const [vandera, setVandera] = useState(false);
+  const [vandera2, setVandera2] = useState(false);
   const [vanderaEdit, setVanderaEdit] = useState(false);
   const [numNotas, SetnumNotas] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -103,13 +105,11 @@ function HomeUser() {
     );
   }, [prom]);
 
-
   //CONSULTA DE LAS MATERIAS CUANDO CLICK EDITAR
-  
 
   useEffect(() => {
     if (updateMateria) {
-      let materiaSeleccionada = updateMateria
+      let materiaSeleccionada = updateMateria;
       SetMateria((materia) => ({
         ...materia,
         NombreMateria: materiaSeleccionada.NombreMateria,
@@ -159,14 +159,21 @@ function HomeUser() {
         ]);
         SetnumNotas(1);
         setIsSubmitting(false);
-        setFbMaterias(false)
-        setUpdateMateria(false)
-        navigate("/mismaterias")
+        setFbMaterias(false);
+        setUpdateMateria(false);
+        navigate("/mismaterias");
       }
     };
     updateMaterias();
   }, [vanderaEdit, uid, Materia]);
 
+  useEffect(() => {
+    let copyProm = [...prom];
+    SetMateria((materia) => ({
+      ...materia, // Copiamos las propiedades anteriores
+      notas: copyProm, // Actualizamos solo propiedad notas
+    }));
+  }, [vandera2]);
   const calcular = () => {
     let empty = false;
     if (Materia.NombreMateria === "") {
@@ -184,23 +191,17 @@ function HomeUser() {
     });
     if (!empty) {
       // utilizar useEffect para el console.log()
-      if(fbMaterias){
-        SetMateria((materia) => ({
-          ...materia, // Copiamos las propiedades anteriores
-          notas: [...prom], // Actualizamos solo propiedad notas
-        }));
-        console.log(Materia)
-          let copyMaterias = [...fbMaterias]
-          const newMaterias = copyMaterias.map((mat)=>{
-            if(mat.id === updateMateria.id){
-              return {...mat,...Materia}
-            }
-            return mat
-          })
-          setFbMaterias(newMaterias)
-          console.log(Materia)
-          setVanderaEdit(true)
-      }else{
+      if (fbMaterias) {
+        setVandera2(true);
+        let copyMaterias = [...fbMaterias];
+        const newMaterias = copyMaterias.map((mat) => {
+          if (mat.id === updateMateria.id) {
+            return { ...mat, ...Materia };
+          }
+          return mat;
+        });
+        setFbMaterias(newMaterias);
+      } else {
         SetMateria((materia) => ({
           ...materia, // Copiamos las propiedades anteriores
           notas: prom, // Actualizamos solo propiedad notas
@@ -212,8 +213,6 @@ function HomeUser() {
   return (
     <>
       <div>
-        {console.log(Materia)}
-        {console.log(prom)}
         <NavUser />
         <div className="overflow-x-auto">
           <div>
