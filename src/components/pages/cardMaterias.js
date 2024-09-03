@@ -12,8 +12,7 @@ import React, { useContext } from "react";
 import { UserContext } from "../../context/userContext";
 import { useNavigate } from "react-router-dom";
 export function SimpleCard({ materia }) {
-  const { setUpdateMateria } =
-    useContext(UserContext);
+  const { setUpdateMateria } = useContext(UserContext);
   const navigate = useNavigate();
   return (
     <Card className="mt-6 w-96 bg-platziBG" variant="gradient">
@@ -22,17 +21,16 @@ export function SimpleCard({ materia }) {
           {materia.NombreMateria}
         </Typography>
 
-          {materia.notas.map((nota, index) => {
-            return (
-              <h1 key={index}>
-                <span className="text-platziButton">Nota {index + 1} : </span>
-                <span className="text-white">{nota.nota}</span>{" "}
-                <span className="text-platziButton">% : </span>
-                <span className="text-white">{nota.porcentaje}</span>
-              </h1>
-            );
-          })}
-      
+        {materia.notas.map((nota, index) => {
+          return (
+            <h1 key={index}>
+              <span className="text-platziButton">Nota {index + 1} : </span>
+              <span className="text-white">{nota.nota}</span>{" "}
+              <span className="text-platziButton">% : </span>
+              <span className="text-white">{nota.porcentaje}</span>
+            </h1>
+          );
+        })}
       </CardBody>
       <CardFooter className="pt-0 flex gap-4 ml-16">
         <Button

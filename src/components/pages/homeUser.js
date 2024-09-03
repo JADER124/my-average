@@ -107,18 +107,6 @@ function HomeUser() {
 
   //CONSULTA DE LAS MATERIAS CUANDO CLICK EDITAR
 
-  useEffect(() => {
-    if (updateMateria) {
-      let materiaSeleccionada = updateMateria;
-      SetMateria((materia) => ({
-        ...materia,
-        NombreMateria: materiaSeleccionada.NombreMateria,
-      }));
-      setProm(materiaSeleccionada.notas);
-      //setUpdateMateria(false);
-    }
-  }, [updateMateria]);
-
   const addRow = () => {
     setProm([
       ...prom,
@@ -130,43 +118,6 @@ function HomeUser() {
     ]);
   };
 
-  //EDITAR EN FIREBASE
-  useEffect(() => {
-    const updateMaterias = async () => {
-      if (vanderaEdit !== false) {
-        setIsSubmitting(true);
-        const docRef = doc(db, "users", uid);
-        await updateDoc(docRef, {
-          materias: fbMaterias,
-        });
-        setVanderaEdit(false);
-        alert("Edicion completada!");
-        SetMateria((materia) => ({
-          ...materia,
-          id: Date.now(),
-          NombreMateria: "",
-          notas: [],
-        }));
-        setProm([
-          {
-            id:
-              Math.random() *
-                (1 - 9999999999999999999999999999999999999999999999999) +
-              1,
-            nota: "",
-            porcentaje: "",
-          },
-        ]);
-        SetnumNotas(1);
-        setIsSubmitting(false);
-        setFbMaterias(false);
-        setUpdateMateria(false);
-        navigate("/mismaterias");
-      }
-    };
-    updateMaterias();
-  }, [vanderaEdit, uid, Materia]);
-
   useEffect(() => {
     let copyProm = [...prom];
     SetMateria((materia) => ({
@@ -174,6 +125,7 @@ function HomeUser() {
       notas: copyProm, // Actualizamos solo propiedad notas
     }));
   }, [vandera2]);
+
   const calcular = () => {
     let empty = false;
     if (Materia.NombreMateria === "") {
@@ -190,24 +142,11 @@ function HomeUser() {
       }
     });
     if (!empty) {
-      // utilizar useEffect para el console.log()
-      if (fbMaterias) {
-        setVandera2(true);
-        let copyMaterias = [...fbMaterias];
-        const newMaterias = copyMaterias.map((mat) => {
-          if (mat.id === updateMateria.id) {
-            return { ...mat, ...Materia };
-          }
-          return mat;
-        });
-        setFbMaterias(newMaterias);
-      } else {
-        SetMateria((materia) => ({
-          ...materia, // Copiamos las propiedades anteriores
-          notas: prom, // Actualizamos solo propiedad notas
-        }));
-        setVandera(true);
-      }
+      SetMateria((materia) => ({
+        ...materia, // Copiamos las propiedades anteriores
+        notas: prom, // Actualizamos solo propiedad notas
+      }));
+      setVandera(true);
     }
   };
   return (
