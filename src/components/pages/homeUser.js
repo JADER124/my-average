@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { UserContext } from "../../context/userContext";
 import NavUser from "./navUser";
-import { doc, updateDoc, arrayUnion } from "firebase/firestore";
+import { doc, updateDoc, arrayUnion,getDoc } from "firebase/firestore";
 import { db } from "../../firebase/config";
 import { Input, Button } from "@material-tailwind/react";
 import { RiDeleteBin5Fill } from "react-icons/ri";
@@ -23,7 +23,6 @@ function HomeUser() {
   const [filter, setfilter] = useState(0);
   const [ListMaterias, setListMaterias] = useState([]);
   const [vandera, setVandera] = useState(false);
-  const [vandera2, setVandera2] = useState(false);
   const [vanderaEdit, setVanderaEdit] = useState(false);
   const [numNotas, SetnumNotas] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -118,13 +117,66 @@ function HomeUser() {
     ]);
   };
 
+  //USEEFFECT PARA TRAER LISTA DE MATERIAS
   useEffect(() => {
-    let copyProm = [...prom];
-    SetMateria((materia) => ({
-      ...materia, // Copiamos las propiedades anteriores
-      notas: copyProm, // Actualizamos solo propiedad notas
-    }));
-  }, [vandera2]);
+    const query = async () => {
+      if (vanderaEdit !== false) {
+        setIsSubmitting(true);
+        const docRef = doc(db, "users", uid);
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+          let listMaterias = docSnap.data().materias
+          let indexUpdate = null
+          listMaterias.forEach((m,i)=> {
+            if(m.id === Materia.id){
+              indexUpdate = i
+            }           
+          });
+          listMaterias[indexUpdate] = Materia
+          await updateDoc(docRef,{
+            materias: listMaterias
+          })
+          setVanderaEdit(false)
+          alert("Edicion completada!")
+          SetMateria((materia) => ({
+            ...materia,
+            id: Date.now(),
+            NombreMateria: "",
+            notas: [],
+          }));
+          setProm([
+            {
+              id:
+                Math.random() *
+                  (1 - 9999999999999999999999999999999999999999999999999) +
+                1,
+              nota: "",
+              porcentaje: "",
+            },
+          ]);
+          setUpdateMateria(false);
+          setIsSubmitting(false);
+        } else {
+          // docSnap.data() will be undefined in this case
+          console.log("No such document!");
+        }
+      }
+    };
+    query();
+  }, [uid,vanderaEdit]);
+  //LLENAR CAMPOS DESPUES DE BOTON EDITAR
+  useEffect(() => {
+    if (updateMateria) {
+      let materiaSeleccionada = updateMateria;
+      SetMateria((materia) => ({
+        ...materia,
+        id:materiaSeleccionada.id,
+        NombreMateria: materiaSeleccionada.NombreMateria,
+      }));
+      setProm(materiaSeleccionada.notas);
+      //setUpdateMateria(false);
+    }
+  }, [updateMateria]);
 
   const calcular = () => {
     let empty = false;
@@ -142,11 +194,20 @@ function HomeUser() {
       }
     });
     if (!empty) {
-      SetMateria((materia) => ({
-        ...materia, // Copiamos las propiedades anteriores
-        notas: prom, // Actualizamos solo propiedad notas
-      }));
-      setVandera(true);
+      if(updateMateria){
+        SetMateria((materia) => ({
+          ...materia, // Copiamos las propiedades anteriores
+          notas: prom, // Actualizamos solo propiedad notas
+        }));
+        
+        setVanderaEdit(true)
+      }else{
+        SetMateria((materia) => ({
+          ...materia, // Copiamos las propiedades anteriores
+          notas: prom, // Actualizamos solo propiedad notas
+        }));
+        setVandera(true);
+      }
     }
   };
   return (
@@ -288,13 +349,22 @@ function HomeUser() {
           </table>
           <div>
             <div className="mx-auto pr-25 mb-5">
+              {updateMateria ? 
+              <Button
+                color="amber"
+                disabled={isSubmitting}
+                onClick={() => calcular()}
+              >
+                {isSubmitting ? "Editing..." : "Editar"}
+              </Button>
+               : 
               <Button
                 color="amber"
                 disabled={isSubmitting}
                 onClick={() => calcular()}
               >
                 {isSubmitting ? "Saving..." : "Guardar"}
-              </Button>
+              </Button>}
             </div>
           </div>
         </div>
