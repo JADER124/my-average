@@ -16,7 +16,14 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signIn" element={<SignIn />} />
-          <Route path="/mismaterias" element={<MySubject />} />
+          <Route
+            path="/mismaterias"
+            element={
+              <ProtectedRoutes>
+                <MySubject />
+              </ProtectedRoutes>
+            }
+          />
           <Route
             path="/homeUser"
             element={

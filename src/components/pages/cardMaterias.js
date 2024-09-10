@@ -8,12 +8,28 @@ import {
   Select,
   Option,
 } from "@material-tailwind/react";
+import { db } from "../../firebase/config";
 import React, { useContext } from "react";
 import { UserContext } from "../../context/userContext";
 import { useNavigate } from "react-router-dom";
+import { doc, updateDoc, arrayRemove, getDoc } from "firebase/firestore";
+
 export function SimpleCard({ materia }) {
-  const { setUpdateMateria } = useContext(UserContext);
+  const { setUpdateMateria,userLoged,setFbMaterias } = useContext(UserContext);
   const navigate = useNavigate();
+  let uid = userLoged.user.uid;
+  const deleteMateria = async (materia) => {
+      const docRef = doc(db, "users", uid);
+      await updateDoc(docRef, {
+        materias: arrayRemove(materia),
+      });
+
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) {
+        setFbMaterias(docSnap.data().materias);
+      }
+};
+      
   return (
     <Card className="mt-6 w-96 bg-platziBG" variant="gradient">
       <CardBody>
@@ -42,7 +58,10 @@ export function SimpleCard({ materia }) {
         >
           Editar
         </Button>
-        <Button className="bg-platziBG border-2 border-platziButton text-platziButton shadow-md shadow-platziBG hover:shadow-platziButton">
+        <Button onClick={()=>{
+          deleteMateria(materia)
+        }} 
+        className="bg-platziBG border-2 border-platziButton text-platziButton shadow-md shadow-platziBG hover:shadow-platziButton">
           Eliminar
         </Button>
       </CardFooter>
