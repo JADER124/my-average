@@ -75,7 +75,7 @@ export function CustomSpinner() {
 
 export function SelectDefault({ SetnumNotas, numNotas }) {
   return (
-    <div className="w-72">
+    <div className="w-64">
       <Select
         label="Numero de notas"
         index="number"

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { UserContext } from "../../context/userContext";
 import NavUser from "./navUser";
-import { doc, updateDoc, arrayUnion,getDoc } from "firebase/firestore";
+import { doc, updateDoc, arrayUnion, getDoc } from "firebase/firestore";
 import { db } from "../../firebase/config";
 import { Input, Button } from "@material-tailwind/react";
 import { RiDeleteBin5Fill } from "react-icons/ri";
@@ -125,19 +125,19 @@ function HomeUser() {
         const docRef = doc(db, "users", uid);
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
-          let listMaterias = docSnap.data().materias
-          let indexUpdate = null
-          listMaterias.forEach((m,i)=> {
-            if(m.id === Materia.id){
-              indexUpdate = i
-            }           
+          let listMaterias = docSnap.data().materias;
+          let indexUpdate = null;
+          listMaterias.forEach((m, i) => {
+            if (m.id === Materia.id) {
+              indexUpdate = i;
+            }
           });
-          listMaterias[indexUpdate] = Materia
-          await updateDoc(docRef,{
-            materias: listMaterias
-          })
-          setVanderaEdit(false)
-          alert("Edicion completada!")
+          listMaterias[indexUpdate] = Materia;
+          await updateDoc(docRef, {
+            materias: listMaterias,
+          });
+          setVanderaEdit(false);
+          alert("Edicion completada!");
           SetMateria((materia) => ({
             ...materia,
             id: Date.now(),
@@ -163,14 +163,14 @@ function HomeUser() {
       }
     };
     query();
-  }, [uid,vanderaEdit]);
+  }, [uid, vanderaEdit]);
   //LLENAR CAMPOS DESPUES DE BOTON EDITAR
   useEffect(() => {
     if (updateMateria) {
       let materiaSeleccionada = updateMateria;
       SetMateria((materia) => ({
         ...materia,
-        id:materiaSeleccionada.id,
+        id: materiaSeleccionada.id,
         NombreMateria: materiaSeleccionada.NombreMateria,
       }));
       setProm(materiaSeleccionada.notas);
@@ -194,14 +194,14 @@ function HomeUser() {
       }
     });
     if (!empty) {
-      if(updateMateria){
+      if (updateMateria) {
         SetMateria((materia) => ({
           ...materia, // Copiamos las propiedades anteriores
           notas: prom, // Actualizamos solo propiedad notas
         }));
-        
-        setVanderaEdit(true)
-      }else{
+
+        setVanderaEdit(true);
+      } else {
         SetMateria((materia) => ({
           ...materia, // Copiamos las propiedades anteriores
           notas: prom, // Actualizamos solo propiedad notas
@@ -214,14 +214,15 @@ function HomeUser() {
     <>
       <div>
         <NavUser />
-        <div className="overflow-x-auto">
-          <div>
-            <UserRef />
-          </div>
-          <div className="pr-96">
-            <div className="my-5 mx-64 font-semibold italic text-left text-xl  leading-9 tracking-tight text-gray-900">
-              Nombre de Materia
+        <div className="text-center mx-auto md:mx-16 lg:mx-64">
+          <div className="my-7 mx-2 font-semibold italic text-left text-xl  leading-9 tracking-tight text-gray-900">
+            <div>
+              <UserRef />
+            </div>
+            Nombre de Materia
+            <div className="w-72">
               <Input
+                className=""
                 label="Materia"
                 value={Materia.NombreMateria}
                 placeholder="Ingles.."
@@ -234,11 +235,13 @@ function HomeUser() {
                   }));
                 }}
               />
-              <div className="mt-4">
-                <SelectDefault SetnumNotas={SetnumNotas} numNotas={numNotas} />
-              </div>
+            </div>
+            <div className="mt-4">
+              <SelectDefault SetnumNotas={SetnumNotas} numNotas={numNotas} />
             </div>
           </div>
+        </div>
+        <div className="overflow-x-auto">
           <table className=" table-auto text-center mx-auto divide-y divide-gray-500">
             <thead>
               <tr className="">
@@ -349,22 +352,23 @@ function HomeUser() {
           </table>
           <div>
             <div className="mx-auto pr-25 mb-5">
-              {updateMateria ? 
-              <Button
-                color="amber"
-                disabled={isSubmitting}
-                onClick={() => calcular()}
-              >
-                {isSubmitting ? "Editing..." : "Editar"}
-              </Button>
-               : 
-              <Button
-                color="amber"
-                disabled={isSubmitting}
-                onClick={() => calcular()}
-              >
-                {isSubmitting ? "Saving..." : "Guardar"}
-              </Button>}
+              {updateMateria ? (
+                <Button
+                  color="amber"
+                  disabled={isSubmitting}
+                  onClick={() => calcular()}
+                >
+                  {isSubmitting ? "Editing..." : "Editar"}
+                </Button>
+              ) : (
+                <Button
+                  color="amber"
+                  disabled={isSubmitting}
+                  onClick={() => calcular()}
+                >
+                  {isSubmitting ? "Saving..." : "Guardar"}
+                </Button>
+              )}
             </div>
           </div>
         </div>

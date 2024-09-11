@@ -19,5 +19,5 @@ export default function UserRef() {
     };
     x();
   }, [uid]);
-  return <div className="my-5 mx-64 font-semibold italic text-left border-b-2 text-2xl  leading-9 tracking-tight text-gray-900">{name}</div>;
+  return <div className="my-5 mx-2 font-semibold italic text-left border-b-2 text-2xl  leading-9 tracking-tight text-gray-900">{name}</div>;
 }
