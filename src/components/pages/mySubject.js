@@ -27,14 +27,16 @@ function MySubject() {
     <div>
       <NavUser />
       {vandera ? (
-        <div className="grid grid-cols-3 gap-x-6 mx-10 ">
+        <div className="text-center">
+          <div className="flex flex-wrap justify-center gap-6 mx-auto px-4">
           {fbMaterias.map((materia, index) => {
             return (
-              <div className="" key={index}>
+              <div className="w-full sm:w-1/2 lg:w-1/3 xl:w-1/4" key={index}>
                 <SimpleCard materia={materia} index={index} />
               </div>
             );
           })}
+        </div>
         </div>
       ) : (
         <div className="mx-auto mt-52 w-max">
