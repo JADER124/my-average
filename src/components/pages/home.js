@@ -6,6 +6,8 @@ import { SlCalculator } from "react-icons/sl";
 import Footer from "./footer";
 import ApiCard from "./apiCard";
 import Nav from "./nav";
+import {opinions} from "../../data/opinions.js"
+
 
 const Home = () => {
   const [data, setData] = useState([]);
@@ -22,12 +24,16 @@ const Home = () => {
     },
   ]);
 
+  function getRandomReviews(opinions, num) {
+    const newOpinions = [...opinions].sort(() => 0.5 - Math.random());
+    return newOpinions.slice(0, num);
+  }
+
   useEffect(() => {
-    const n = Math.round(Math.random() * 41);
-    fetch(`https://rickandmortyapi.com/api/character?page=${n}`)
-      .then((response) => response.json())
-      .then((data) => setData(data.results.slice(1, 5)));
+    const selectedReviews = getRandomReviews(opinions, 4);
+    setData(selectedReviews);
   }, []);
+
   useEffect(() => {
     setfilter(
       Math.random() * (1 - 9999999999999999999999999999999999999999999999999) +

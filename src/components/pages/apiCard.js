@@ -1,69 +1,54 @@
 import React from "react";
 import {
-    Tooltip,
-    Card,
-    CardHeader,
-    CardBody,
-    CardFooter,
-    Typography,
-  } from "@material-tailwind/react";
+  Card,
+  CardHeader,
+  CardBody,
+  Typography,
+  Avatar,
+} from "@material-tailwind/react";
+import { IoMdStar } from "react-icons/io";
 
-function ApiCard({data}) {
+function ApiCard({ data }) {
   return (
     <>
-      {data.map((object) => {
+      {data.map((object, index) => {
         return (
-          <Card key={object.id} className="mt-6 w-full">
-            <CardHeader color="blue-gray" className="relative h-56">
-              <img src={object.image} alt="card" className="bg-cover w-full h-full bg-center" />
+          <Card
+            key={index}
+            color="transparent"
+            shadow={true}
+            className="w-full max-w-[26rem] p-2 items-center"
+          >
+            <CardHeader
+              color="transparent"
+              floated={false}
+              shadow={false}
+              className="mx-0 flex gap-4 pt-0 pb-8"
+            >
+              <Avatar
+                size="lg"
+                variant="circular"
+                src={object.avatar}
+                alt={object.username}
+              />
+              <div className="flex w-full flex-col gap-0.5">
+                <div className="flex items-center justify-start">
+                  <Typography variant="h5" color="blue-gray">
+                    {object.username}
+                  </Typography>
+                </div>
+                <div className="flex">
+                <Typography color="blue-gray">
+                  Calificación: {object.rating}
+                </Typography>
+                <IoMdStar className="mt-1 text-yellow-600"/>
+                </div>
+                
+              </div>
             </CardHeader>
-            <CardBody className="text-center">
-              <Typography variant="h4" color="blue-gray" className="mb-2">
-                {object.name}
-              </Typography>
-              <Typography
-                color="blue-gray"
-                className="font-medium"
-                textGradient
-              >
-                {object.species}
-              </Typography>
+            <CardBody className="mb-6 p-0">
+              <Typography>{object.comment}</Typography>
             </CardBody>
-            <CardFooter className="flex justify-center gap-7 pt-2">
-              <Tooltip content="Like">
-                <Typography
-                  as="a"
-                  href="#facebook"
-                  variant="lead"
-                  color="blue"
-                  textGradient
-                >
-                  <i className="fab fa-facebook" />
-                </Typography>
-              </Tooltip>
-              <Tooltip content="Follow">
-                <Typography
-                  as="a"
-                  href="#twitter"
-                  variant="lead"
-                  color="light-blue"
-                  textGradient
-                >
-                  <i className="fab fa-twitter" />
-                </Typography>
-              </Tooltip>
-              <Tooltip content="Follow">
-                <Typography
-                  as="a"
-                  href="#instagram"
-                  variant="lead"
-                  color="purple"
-                  textGradient
-                >
-                  <i className="fab fa-instagram" />
-                </Typography>
-              </Tooltip>
-            </CardFooter>
           </Card>
         );
       })}
