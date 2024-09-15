@@ -242,7 +242,9 @@ function HomeUser() {
           </div>
         </div>
         <div className="overflow-x-auto">
-          <table className=" table-auto text-center mx-auto divide-y divide-gray-500">
+
+          {/*TABLA PARA TAMAÑOS DE PANTALLA GRANDE */}
+          <table className=" table-auto text-center mx-auto divide-y hidden sm:table divide-gray-500">
             <thead>
               <tr className="">
                 <th className="py-2 text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -350,7 +352,100 @@ function HomeUser() {
               })}
             </tbody>
           </table>
-          <div>
+
+          <div className="sm:hidden">
+            {" "}
+            {/* Muestra esta versión solo en pantallas móviles */}
+            {prom.map((p, index) => (
+              <div
+                key={p.id}
+                className="border-y border-gray-500 rounded-md p-4 mb-4"
+              >
+                <div className="grid grid-cols-[1fr,3fr,2fr] gap-2 items-center">
+                  {/* Columna 1: Índice */}
+                  <div className="col-span-1 flex justify-start mb-2 mx-auto">
+                    <span className="text-xl font-bold mr-4">#{index + 1}</span>
+                  </div>
+
+                  {/* Columna 2: Nota y Porcentaje */}
+                  <div className="col-span-1 mx-auto">
+                    <label className="block text-gray-500">Nota</label>
+                    <Input
+                      label="Nota"
+                      value={p.nota}
+                      placeholder="3.0"
+                      type="text"
+                      maxLength={3}
+                      color="purple"
+                      pattern={/^[0-9.]*$/}
+                      onChange={(e) => {
+                        let str = e.target.value;
+                        let x = "";
+                        if (!/^[0-9.]*$/.test(e.target.value)) {
+                          x = str.slice(0, -1);
+                          e.target.value = x;
+                        } else {
+                          const newProm = [...prom];
+                          newProm[index].nota = str;
+                          setProm(newProm);
+                        }
+                      }}
+                    />
+                    <label className="block text-gray-500">Porcentaje</label>
+                    <Input
+                      label="%"
+                      value={p.porcentaje}
+                      maxLength={2}
+                      type="text"
+                      placeholder="%"
+                      color="purple"
+                      onChange={(e) => {
+                        let str = e.target.value;
+                        let x = "";
+                        if (!/^[0-9]*$/.test(e.target.value)) {
+                          x = str.slice(0, -1);
+                          e.target.value = x;
+                        } else {
+                          const newProm = [...prom];
+                          newProm[index].porcentaje = str;
+                          setProm(newProm);
+                        }
+                      }}
+                    />
+                  </div>
+
+                  {/* Columna 3: Botones */}
+                  <div className="col-span-1 mx-auto mt-3">
+                    <button
+                      onClick={() => addRow()}
+                      className="p-3 my-2 block text-xl text-white bg-green-800 rounded-md hover:bg-green-600 focus:outline-none transition duration-150 ease-in-out"
+                    >
+                      <FaPlus />
+                    </button>
+                    <button
+                      onClick={() => {
+                        if (prom.length === 1) {
+                          alert("No se puede borrar el ultimo elemento");
+                        } else {
+                          setProm(prom.filter((i) => i.id !== p.id));
+                          if (!prom[index + 1] == null) {
+                            prom[index].nota = prom[index + 1].nota;
+                            prom[index].porcentaje = prom[index + 1].porcentaje;
+                          }
+                        }
+                      }}
+                      className="p-3 block text-xl text-white bg-red-600 rounded-md hover:bg-red-500 focus:outline-none transition duration-150 ease-in-out"
+                    >
+                      <RiDeleteBin5Fill />
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+          
+          {/*Boton de guardado en pantallas grandes y pequeñas*/}
+          <div className="">
             <div className="mx-auto pr-25 mb-5">
               {updateMateria ? (
                 <Button

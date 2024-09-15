@@ -93,7 +93,7 @@ const Home = () => {
           {prom.map((p, index) => (
             <div
               key={p.id}
-              className="border border-gray-500 rounded-md p-4 mb-4"
+              className="border-b border-gray-500 rounded-md p-4 mb-4"
             >
               <div className="grid grid-cols-[1fr,3fr,2fr] gap-2 items-center">
                 {/* Columna 1: Índice */}
@@ -141,7 +141,7 @@ const Home = () => {
                 <div className="col-span-1 mx-auto ">
                   <button
                     onClick={() => addRow()}
-                    className="p-2 my-2 block text-xl text-white bg-green-800 rounded-md hover:bg-green-600 focus:outline-none transition duration-150 ease-in-out"
+                    className="p-3 my-2 block text-xl text-white bg-green-800 rounded-md hover:bg-green-600 focus:outline-none transition duration-150 ease-in-out"
                   >
                     <FaPlus />
                   </button>
@@ -153,7 +153,7 @@ const Home = () => {
                         setProm(prom.filter((i) => i.id !== p.id));
                       }
                     }}
-                    className="p-2 block text-xl text-white bg-red-600 rounded-md hover:bg-red-500 focus:outline-none transition duration-150 ease-in-out"
+                    className="p-3 block text-xl text-white bg-red-600 rounded-md hover:bg-red-500 focus:outline-none transition duration-150 ease-in-out"
                   >
                     <RiDeleteBin5Fill />
                   </button>
