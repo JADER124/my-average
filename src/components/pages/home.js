@@ -139,7 +139,6 @@ const Home = () => {
 
                 {/* Columna 3: Botones */}
                 <div className="col-span-1 mx-auto ">
-                  
                   <button
                     onClick={() => addRow()}
                     className="p-2 my-2 block text-xl text-white bg-green-800 rounded-md hover:bg-green-600 focus:outline-none transition duration-150 ease-in-out"
@@ -162,110 +161,125 @@ const Home = () => {
               </div>
             </div>
           ))}
+          <div className="block sm:hidden">
+            <div className="mx-auto pr-20 w-max mb-5">
+              <button
+                onClick={() => calcular()}
+                className="flex align-middle text-center font-bold gap-4 py-1.5 px-4 text-2xl text-white bg-cyan-500 rounded-md hover:bg-teal-300 focus:outline-none focus:shadow-outline-red transition duration-150 ease-in-out"
+              >
+                Calcular <SlCalculator className="text-3xl" />
+              </button>
+            </div>
+            <div className="mx-auto pr-20 w-max mb-5">
+              <h1 className="text-4xl font-bold">Resultado: {finalgrade}</h1>
+            </div>
+          </div>
         </div>
 
-        {/* Tabla completa para pantallas más grandes */}
-        <table className="table-auto text-center mx-auto divide-y divide-gray-500 hidden sm:table">
-          <thead>
-            <tr>
-              <th className="py-2 text-xs font-medium text-gray-500 uppercase tracking-wider">
-                #
-              </th>
-              <th className="py-2 text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Nota
-              </th>
-              <th className="py-2 text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Porcentaje
-              </th>
-              <th className="py-2 text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Acción
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {prom.map((p, index) => (
-              <tr key={p.id}>
-                <td>
-                  <div className="px-1 py-4 sm:px-4 md:px-6 lg:px-10 text-gray-500">
-                    {index + 1}
-                  </div>
-                </td>
-                <td>
-                  <div className="px-1 sm:px-4 md:px-6 lg:px-20 py-4">
-                    <Input
-                      label="Nota"
-                      placeholder="3.0"
-                      type="text"
-                      maxLength={3}
-                      color="purple"
-                      pattern={/^[0-9.]*$/}
-                      onChange={(e) => {
-                        let str = e.target.value;
-                        if (!/^[0-9.]*$/.test(e.target.value)) {
-                          e.target.value = str.slice(0, -1);
-                        } else {
-                          prom[index].nota = e.target.value;
-                        }
-                      }}
-                    />
-                  </div>
-                </td>
-                <td>
-                  <div className="px-1 sm:px-4 md:px-6 lg:px-20 py-4">
-                    <Input
-                      label="%"
-                      maxLength={2}
-                      type="text"
-                      placeholder="%"
-                      color="purple"
-                      onChange={(e) => {
-                        let str = e.target.value;
-                        if (!/^[0-9]*$/.test(e.target.value)) {
-                          e.target.value = str.slice(0, -1);
-                        } else {
-                          prom[index].porcentaje = e.target.value;
-                        }
-                      }}
-                    />
-                  </div>
-                </td>
-                <td>
-                  <div className="flex gap-2 px-1 sm:px-4 md:px-8 lg:px-10 py-4">
-                    <button
-                      onClick={() => addRow()}
-                      className="px-4 py-2 text-2xl text-white bg-green-800 rounded-md hover:bg-green-600 focus:outline-none transition duration-150 ease-in-out"
-                    >
-                      <FaPlus />
-                    </button>
-                    <button
-                      onClick={() => {
-                        if (prom.length === 1) {
-                          alert("No se puede borrar el último elemento");
-                        } else {
-                          setProm(prom.filter((i) => i.id !== p.id));
-                        }
-                      }}
-                      className="px-4 py-2 text-2xl text-white bg-red-600 rounded-md hover:bg-red-500 focus:outline-none transition duration-150 ease-in-out"
-                    >
-                      <RiDeleteBin5Fill />
-                    </button>
-                  </div>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
         <div>
-          <div className="mx-auto pr-28 w-max mb-5">
-            <button
-              onClick={() => calcular()}
-              className="flex align-middle text-center font-bold gap-4 py-1.5 px-4 text-2xl text-white bg-cyan-500 rounded-md hover:bg-teal-300 focus:outline-none focus:shadow-outline-red transition duration-150 ease-in-out"
-            >
-              Calcular <SlCalculator className="text-3xl" />
-            </button>
-          </div>
-          <div className="mx-auto pr-28 w-max mb-5">
-            <h1 className="text-4xl font-bold">Resultado: {finalgrade}</h1>
+          {/* Tabla completa para pantallas más grandes */}
+          <table className="table-auto text-center mx-auto divide-y divide-gray-500 hidden sm:table">
+            <thead>
+              <tr>
+                <th className="py-2 text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  #
+                </th>
+                <th className="py-2 text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Nota
+                </th>
+                <th className="py-2 text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Porcentaje
+                </th>
+                <th className="py-2 text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Acción
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {prom.map((p, index) => (
+                <tr key={p.id}>
+                  <td>
+                    <div className="px-1 py-4 sm:px-4 md:px-6 lg:px-10 text-gray-500">
+                      {index + 1}
+                    </div>
+                  </td>
+                  <td>
+                    <div className="px-1 sm:px-4 md:px-6 lg:px-20 py-4">
+                      <Input
+                        label="Nota"
+                        placeholder="3.0"
+                        type="text"
+                        maxLength={3}
+                        color="purple"
+                        pattern={/^[0-9.]*$/}
+                        onChange={(e) => {
+                          let str = e.target.value;
+                          if (!/^[0-9.]*$/.test(e.target.value)) {
+                            e.target.value = str.slice(0, -1);
+                          } else {
+                            prom[index].nota = e.target.value;
+                          }
+                        }}
+                      />
+                    </div>
+                  </td>
+                  <td>
+                    <div className="px-1 sm:px-4 md:px-6 lg:px-20 py-4">
+                      <Input
+                        label="%"
+                        maxLength={2}
+                        type="text"
+                        placeholder="%"
+                        color="purple"
+                        onChange={(e) => {
+                          let str = e.target.value;
+                          if (!/^[0-9]*$/.test(e.target.value)) {
+                            e.target.value = str.slice(0, -1);
+                          } else {
+                            prom[index].porcentaje = e.target.value;
+                          }
+                        }}
+                      />
+                    </div>
+                  </td>
+                  <td>
+                    <div className="flex gap-2 px-1 sm:px-4 md:px-8 lg:px-10 py-4">
+                      <button
+                        onClick={() => addRow()}
+                        className="px-4 py-2 text-2xl text-white bg-green-800 rounded-md hover:bg-green-600 focus:outline-none transition duration-150 ease-in-out"
+                      >
+                        <FaPlus />
+                      </button>
+                      <button
+                        onClick={() => {
+                          if (prom.length === 1) {
+                            alert("No se puede borrar el último elemento");
+                          } else {
+                            setProm(prom.filter((i) => i.id !== p.id));
+                          }
+                        }}
+                        className="px-4 py-2 text-2xl text-white bg-red-600 rounded-md hover:bg-red-500 focus:outline-none transition duration-150 ease-in-out"
+                      >
+                        <RiDeleteBin5Fill />
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <div className="hidden sm:block">
+            <div className="mx-auto pr-28 w-max mb-5">
+              <button
+                onClick={() => calcular()}
+                className="flex align-middle text-center font-bold gap-4 py-1.5 px-4 text-2xl text-white bg-cyan-500 rounded-md hover:bg-teal-300 focus:outline-none focus:shadow-outline-red transition duration-150 ease-in-out"
+              >
+                Calcular <SlCalculator className="text-3xl" />
+              </button>
+            </div>
+            <div className="mx-auto pr-28 w-max mb-5">
+              <h1 className="text-4xl font-bold">Resultado: {finalgrade}</h1>
+            </div>
           </div>
         </div>
       </div>
