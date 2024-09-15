@@ -6,8 +6,7 @@ import { SlCalculator } from "react-icons/sl";
 import Footer from "./footer";
 import ApiCard from "./apiCard";
 import Nav from "./nav";
-import {opinions} from "../../data/opinions.js"
-
+import { opinions } from "../../data/opinions.js";
 
 const Home = () => {
   const [data, setData] = useState([]);
@@ -88,9 +87,87 @@ const Home = () => {
     <div>
       <Nav />
       <div className="overflow-x-auto">
-        <table className=" table-auto text-center mx-auto divide-y divide-gray-500">
+        <div className="sm:hidden">
+          {" "}
+          {/* Muestra esta versión solo en pantallas móviles */}
+          {prom.map((p, index) => (
+            <div
+              key={p.id}
+              className="border border-gray-500 rounded-md p-4 mb-4"
+            >
+              <div className="grid grid-cols-[1fr,3fr,2fr] gap-2 items-center">
+                {/* Columna 1: Índice */}
+                <div className="col-span-1 flex justify-start mb-2 mx-auto">
+                  <span className="text-xl font-bold mr-4">#{index + 1}</span>
+                </div>
+
+                {/* Columna 2: Nota y Porcentaje */}
+                <div className="col-span-1 mx-auto">
+                  <label className="block text-gray-500">Nota</label>
+                  <Input
+                    label="Nota"
+                    placeholder="3.0"
+                    type="text"
+                    maxLength={3}
+                    color="purple"
+                    onChange={(e) => {
+                      let str = e.target.value;
+                      if (!/^[0-9.]*$/.test(e.target.value)) {
+                        e.target.value = str.slice(0, -1);
+                      } else {
+                        prom[index].nota = e.target.value;
+                      }
+                    }}
+                  />
+                  <label className="block text-gray-500">Porcentaje</label>
+                  <Input
+                    label="%"
+                    maxLength={2}
+                    type="text"
+                    placeholder="%"
+                    color="purple"
+                    onChange={(e) => {
+                      let str = e.target.value;
+                      if (!/^[0-9]*$/.test(e.target.value)) {
+                        e.target.value = str.slice(0, -1);
+                      } else {
+                        prom[index].porcentaje = e.target.value;
+                      }
+                    }}
+                  />
+                </div>
+
+                {/* Columna 3: Botones */}
+                <div className="col-span-1 mx-auto ">
+                  
+                  <button
+                    onClick={() => addRow()}
+                    className="p-2 my-2 block text-xl text-white bg-green-800 rounded-md hover:bg-green-600 focus:outline-none transition duration-150 ease-in-out"
+                  >
+                    <FaPlus />
+                  </button>
+                  <button
+                    onClick={() => {
+                      if (prom.length === 1) {
+                        alert("No se puede borrar el último elemento");
+                      } else {
+                        setProm(prom.filter((i) => i.id !== p.id));
+                      }
+                    }}
+                    className="p-2 block text-xl text-white bg-red-600 rounded-md hover:bg-red-500 focus:outline-none transition duration-150 ease-in-out"
+                  >
+                    <RiDeleteBin5Fill />
+                  </button>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Tabla completa para pantallas más grandes */}
+        <table className="table-auto text-center mx-auto divide-y divide-gray-500 hidden sm:table">
           <thead>
-            <tr className="">
+            <tr>
               <th className="py-2 text-xs font-medium text-gray-500 uppercase tracking-wider">
                 #
               </th>
@@ -100,94 +177,82 @@ const Home = () => {
               <th className="py-2 text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Porcentaje
               </th>
-              <th className="py-2 text-xs font-medium  text-gray-500 uppercase tracking-wider">
-                Action
+              <th className="py-2 text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Acción
               </th>
             </tr>
           </thead>
-          <tbody className="">
-            {prom.map((p, index) => {
-              return (
-                <tr key={p.id} className="">
-                  <td>
-                    <div className="px-1 py-4 sm:px-4 md:px-6 lg:px-10 text-gray-500">
-                      {index + 1}
-                    </div>
-                  </td>
-                  <td>
-                    <div className="px-1 sm:px-4 md:px-6 lg:px-20 py-4">
-                      <Input
-                        label="Nota"
-                        placeholder="3.0"
-                        type="text"
-                        maxLength={3}
-                        color="purple"
-                        pattern={/^[0-9.]*$/}
-                        onChange={(e) => {
-                          let str = e.target.value;
-                          let x = "";
-                          if (!/^[0-9.]*$/.test(e.target.value)) {
-                            x = str.slice(0, -1);
-                            e.target.value = x;
-                          } else {
-                            prom[index].nota = e.target.value;
-                          }
-                        }}
-                      />
-                    </div>
-                  </td>
-                  <td>
-                    <div className="px-1 sm:px-4 md:px-6 lg:px-20 py-4">
-                      <Input
-                        label="%"
-                        maxLength={2}
-                        type="text"
-                        placeholder="%"
-                        color="purple"
-                        onChange={(e) => {
-                          let str = e.target.value;
-                          let x = "";
-                          if (!/^[0-9]*$/.test(e.target.value)) {
-                            x = str.slice(0, -1);
-                            e.target.value = x;
-                          } else {
-                            prom[index].porcentaje = e.target.value;
-                          }
-                        }}
-                      />
-                    </div>
-                  </td>
-
-                  <td>
-                    <div className="flex gap-2 px-1 sm:px-4 md:px-8 lg:px-10 py-4">
-                      <button
-                        onClick={() => addRow()}
-                        className=" px-4 py-2 text-2xl text-white bg-green-800 rounded-md hover:bg-green-600 focus:outline-none focus:shadow-outline-red transition duration-150 ease-in-out"
-                      >
-                        <FaPlus />
-                      </button>
-                      <button
-                        onClick={() => {
-                          if (prom.length === 1) {
-                            alert("No se puede borrar el ultimo elemento");
-                          } else {
-                            setProm(prom.filter((i) => i.id !== p.id));
-                            if (!prom[index + 1] == null) {
-                              prom[index].nota = prom[index + 1].nota;
-                              prom[index].porcentaje =
-                                prom[index + 1].porcentaje;
-                            }
-                          }
-                        }}
-                        className=" px-4 py-2 text-2xl text-white bg-red-600 rounded-md hover:bg-red-500 focus:outline-none focus:shadow-outline-red active:bg-red-600 transition duration-150 ease-in-out"
-                      >
-                        <RiDeleteBin5Fill />
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              );
-            })}
+          <tbody>
+            {prom.map((p, index) => (
+              <tr key={p.id}>
+                <td>
+                  <div className="px-1 py-4 sm:px-4 md:px-6 lg:px-10 text-gray-500">
+                    {index + 1}
+                  </div>
+                </td>
+                <td>
+                  <div className="px-1 sm:px-4 md:px-6 lg:px-20 py-4">
+                    <Input
+                      label="Nota"
+                      placeholder="3.0"
+                      type="text"
+                      maxLength={3}
+                      color="purple"
+                      pattern={/^[0-9.]*$/}
+                      onChange={(e) => {
+                        let str = e.target.value;
+                        if (!/^[0-9.]*$/.test(e.target.value)) {
+                          e.target.value = str.slice(0, -1);
+                        } else {
+                          prom[index].nota = e.target.value;
+                        }
+                      }}
+                    />
+                  </div>
+                </td>
+                <td>
+                  <div className="px-1 sm:px-4 md:px-6 lg:px-20 py-4">
+                    <Input
+                      label="%"
+                      maxLength={2}
+                      type="text"
+                      placeholder="%"
+                      color="purple"
+                      onChange={(e) => {
+                        let str = e.target.value;
+                        if (!/^[0-9]*$/.test(e.target.value)) {
+                          e.target.value = str.slice(0, -1);
+                        } else {
+                          prom[index].porcentaje = e.target.value;
+                        }
+                      }}
+                    />
+                  </div>
+                </td>
+                <td>
+                  <div className="flex gap-2 px-1 sm:px-4 md:px-8 lg:px-10 py-4">
+                    <button
+                      onClick={() => addRow()}
+                      className="px-4 py-2 text-2xl text-white bg-green-800 rounded-md hover:bg-green-600 focus:outline-none transition duration-150 ease-in-out"
+                    >
+                      <FaPlus />
+                    </button>
+                    <button
+                      onClick={() => {
+                        if (prom.length === 1) {
+                          alert("No se puede borrar el último elemento");
+                        } else {
+                          setProm(prom.filter((i) => i.id !== p.id));
+                        }
+                      }}
+                      className="px-4 py-2 text-2xl text-white bg-red-600 rounded-md hover:bg-red-500 focus:outline-none transition duration-150 ease-in-out"
+                    >
+                      <RiDeleteBin5Fill />
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            ))}
           </tbody>
         </table>
         <div>
