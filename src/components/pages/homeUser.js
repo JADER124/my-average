@@ -11,17 +11,10 @@ import UserRef from "../Query/userRef";
 import { useNavigate } from "react-router-dom";
 
 function HomeUser() {
-  const {
-    userLoged,
-    updateMateria,
-    setUpdateMateria,
-    fbMaterias,
-    setFbMaterias,
-  } = useContext(UserContext);
+  const { userLoged, updateMateria, setUpdateMateria } =
+    useContext(UserContext);
   let uid = userLoged.user.uid;
-  const navigate = useNavigate();
   const [filter, setfilter] = useState(0);
-  const [ListMaterias, setListMaterias] = useState([]);
   const [vandera, setVandera] = useState(false);
   const [vanderaEdit, setVanderaEdit] = useState(false);
   const [numNotas, SetnumNotas] = useState(1);
@@ -242,7 +235,6 @@ function HomeUser() {
           </div>
         </div>
         <div className="overflow-x-auto">
-
           {/*TABLA PARA TAMAÑOS DE PANTALLA GRANDE */}
           <table className=" table-auto text-center mx-auto divide-y hidden sm:table divide-gray-500">
             <thead>
@@ -443,7 +435,7 @@ function HomeUser() {
               </div>
             ))}
           </div>
-          
+
           {/*Boton de guardado en pantallas grandes y pequeñas*/}
           <div className="">
             <div className="mx-auto pr-25 mb-5">
