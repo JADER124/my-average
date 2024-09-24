@@ -33,7 +33,7 @@ function ApiCard({ data }) {
               />
               <div className="flex w-full flex-col gap-0.5">
                 <div className="flex items-center justify-start">
-                  <Typography variant="h5" color="blue-gray">
+                  <Typography className="text-xl font-bold" color="blue-gray">
                     {object.username}
                   </Typography>
                 </div>

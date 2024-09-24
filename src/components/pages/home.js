@@ -86,7 +86,7 @@ const Home = () => {
   return (
     <div>
       <Nav />
-      <div className="my-6 bg-blue-100/20 italic hidden">
+      <div className="my-6 bg-blue-100/20 italic">
         <h1 className="font-bold text-xl">Mi Promedio</h1>
         <h3>Calcula tu promedio ponderado utilizando tus notas y porcentajes</h3>
       </div>
