@@ -86,6 +86,10 @@ const Home = () => {
   return (
     <div>
       <Nav />
+      <div className="my-6 bg-blue-100/20 italic hidden">
+        <h1 className="font-bold text-xl">Mi Promedio</h1>
+        <h3>Calcula tu promedio ponderado utilizando tus notas y porcentajes</h3>
+      </div>
       <div className="overflow-x-auto">
         <div className="sm:hidden">
           {" "}
@@ -283,7 +287,7 @@ const Home = () => {
           </div>
         </div>
       </div>
-      <div className="block mx-10 sm:block sm:mx-20 md:flex md:mx-10 lg:flex lg:mx-10 xl:flex xl:mx-44 my-20 gap-4">
+      <div className="block mx-10 sm:block sm:mx-20 md:flex md:mx-10 lg:flex lg:mx-10 xl:flex xl:mx-12 my-20 gap-4">
         <ApiCard data={data} />
       </div>
       <Footer />
