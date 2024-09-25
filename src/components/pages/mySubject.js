@@ -40,7 +40,7 @@ function MySubject() {
         </div>
       ) : (
         <div className="mx-auto mt-52 w-max">
-          <CustomSpinner /> <h1>Cargando...</h1>
+          <CustomSpinner /> <p>Cargando...</p>
         </div>
       )}
     </div>

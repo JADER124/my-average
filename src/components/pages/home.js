@@ -175,7 +175,7 @@ const Home = () => {
               </button>
             </div>
             <div className="mx-auto pr-20 w-max mb-5">
-              <h1 className="text-4xl font-bold">Resultado: {finalgrade}</h1>
+              <p className="text-4xl font-bold">Resultado: {finalgrade}</p>
             </div>
           </div>
         </div>

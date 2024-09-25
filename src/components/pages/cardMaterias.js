@@ -45,12 +45,12 @@ export function SimpleCard({ materia }) {
 
         {materia.notas.map((nota, index) => {
           return (
-            <h1 key={index}>
+            <p key={index}>
               <span className="text-platziButton">Nota {index + 1} : </span>
               <span className="text-white">{nota.nota}</span>{" "}
               <span className="text-platziButton">% : </span>
               <span className="text-white">{nota.porcentaje}</span>
-            </h1>
+            </p>
           );
         })}
       </CardBody>

@@ -208,9 +208,9 @@ function HomeUser() {
         <div className="text-center mx-auto md:mx-16 lg:mx-64">
           <div className="my-7 mx-2 font-semibold italic text-left text-xl  leading-9 tracking-tight text-gray-900">
             <div>
-            <h1 class="text-2xl font-bold text-gray-900 leading-tight mb-2 border-b-2 border-green-700 py-4">
+            <p class="text-2xl font-bold text-gray-900 leading-tight mb-2 border-b-2 border-green-700 py-4">
       Agrega tus materias
-    </h1>
+    </p>
             </div>
             Nombre de Materia
             <div className="w-72">
