@@ -1,5 +1,5 @@
-import React, { useState, useContext, useRef } from "react";
-import logo from "../../imgs/calcular.png";
+import React, { useState, useContext } from "react";
+import logo from "../../imgs/calcular.webp";
 import { FaArrowLeft } from "react-icons/fa";
 import { UserContext } from "../../context/userContext";
 import { useNavigate } from "react-router-dom";
@@ -21,13 +21,13 @@ const Login = () => {
         );
       })
       .catch((error) => {
-        if (error.code == "auth/invalid-email") {
+        if (error.code === "auth/invalid-email") {
           alert("Por favor ingresa un correo valido :)!");
         }
-        if (error.code == "auth/user-not-found") {
+        if (error.code === "auth/user-not-found") {
           alert("El correo ingresado no existe ! :(");
         }
-        if (error.code == "auth/missing-email") {
+        if (error.code === "auth/missing-email") {
           alert("Debes ingresar un correo en el apartado de Email address");
         }
       });

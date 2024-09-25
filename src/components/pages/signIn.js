@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import { UserContext } from "../../context/userContext";
 import { useNavigate } from "react-router-dom";
 import { FaArrowLeft } from "react-icons/fa";
-import logo from "../../imgs/calcular.png";
+import logo from "../../imgs/calcular.webp";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 export default function SignIn() {

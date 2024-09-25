@@ -86,10 +86,10 @@ const Home = () => {
   return (
     <div>
       <Nav />
-      <div className="my-6 bg-blue-100/20 italic">
-        <h1 className="font-bold text-xl">Mi Promedio</h1>
-        <h3>Calcula tu promedio ponderado utilizando tus notas y porcentajes</h3>
-      </div>
+      <main className="my-6 bg-blue-100/20 italic">
+          <h1 className="font-bold text-xl">Mi Promedio</h1>
+          <p>Calcula tu promedio ponderado utilizando tus notas y porcentajes</p>
+      </main>
       <div className="overflow-x-auto">
         <div className="sm:hidden">
           {" "}
@@ -282,7 +282,7 @@ const Home = () => {
               </button>
             </div>
             <div className="mx-auto pr-28 w-max mb-5">
-              <h1 className="text-4xl font-bold">Resultado: {finalgrade}</h1>
+              <h3 className="text-4xl font-bold">Resultado: {finalgrade}</h3>
             </div>
           </div>
         </div>

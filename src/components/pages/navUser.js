@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
-import { Navbar, Typography, Avatar } from "@material-tailwind/react";
-import icon from "../../imgs/calcular.png";
+import {Typography, Avatar } from "@material-tailwind/react";
+import icon from "../../imgs/calcular.webp";
 import { BiCabinet } from "react-icons/bi";
 import { FaFolderPlus } from "react-icons/fa6";
 import { FiMenu } from "react-icons/fi"; // Icono de hamburguesa

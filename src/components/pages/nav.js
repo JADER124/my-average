@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Navbar, Typography, Button, Avatar } from "@material-tailwind/react";
-import icon from "../../imgs/calcular.png";
+import icon from "../../imgs/calcular.webp";
 import { Link } from "react-router-dom";
 import { MdInfoOutline } from "react-icons/md";
 import { DialogDefault } from "./cardMaterias";
@@ -25,7 +25,7 @@ const Nav = () => {
   );
 
   return (
-    <>
+    <header>
       <DialogDefault open={open} setOpen={setOpen} handleOpen={handleOpen} />
       <div className=" max-h-[768px]">
         <Navbar className="fixed top-0 z-10 h-max max-w-full rounded-none px-4 py-2 sm:px-4 sm:py-4 md:px-6 md:py-4 lg:px-8 lg:py-4">
@@ -33,14 +33,11 @@ const Nav = () => {
             <div className="flex">
               <Avatar src={icon} alt="MyAverage" variant="rounded" />
 
-              <Typography
-                as="a"
-                href="/"
-                variant="h4"
-                className="mr-4 cursor-pointer p-1.5 font-medium "
+              <h2
+                className="mr-4 cursor-pointer p-1.5 font-medium text-2xl "
               >
-                MyAverage
-              </Typography>
+                <a href="/">MyAverage</a>
+              </h2>
             </div>
             <div className="flex items-center gap-4">
               <div className="">{navList}</div>
@@ -67,7 +64,7 @@ const Nav = () => {
           {/*Espacio entre el nav y el contenido principal*/}
         </div>
       </div>
-    </>
+    </header>
   );
 };
 

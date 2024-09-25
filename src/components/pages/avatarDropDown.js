@@ -61,7 +61,7 @@ export default function AvatarWithUserDropdown() {
             withBorder={true}
             color="blue-gray"
             className=" p-0.5"
-            src="https://docs.material-tailwind.com/img/face-2.jpg"
+            src="https://api.dicebear.com/9.x/bottts-neutral/svg?seed=Oscar"
           />
         </Button>
       </MenuHandler>
