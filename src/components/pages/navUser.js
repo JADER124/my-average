@@ -62,14 +62,11 @@ const NavUser = () => {
         <div className="flex items-center justify-between text-blue-gray-900">
           <div className="flex items-center">
             <Avatar src={icon} alt="avatar" variant="rounded" />
-            <Typography
-              as="a"
-              href="/homeuser"
-              variant="h4"
-              className="ml-2 cursor-pointer p-1.5 font-medium"
-            >
-              MyAverage
-            </Typography>
+            <h2
+                className="mr-4 cursor-pointer p-1.5 font-medium text-2xl "
+              >
+                <a href="/">MyAverage</a>
+              </h2>
           </div>
 
           {/* Icono de menú hamburguesa en pantallas pequeñas */}
