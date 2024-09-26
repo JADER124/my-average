@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState, useEffect,useRef } from "react";
 import NavUser from "./navUser";
 import { UserContext } from "../../context/userContext";
 import { doc, getDoc } from "firebase/firestore";
@@ -6,6 +6,11 @@ import { db } from "../../firebase/config";
 import { SimpleCard, CustomSpinner } from "./cardMaterias";
 import View from "./view";
 function MySubject() {
+  const sectionRef = useRef(null);
+  //funcion para enfocar la tabla en mobile
+  const handleButtonClick = () => {
+    sectionRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
   const [vandera, setVandera] = useState(false);
   const [viewMateria, setViewMateria] = useState();
   const { userLoged, fbMaterias, setFbMaterias } = useContext(UserContext);
@@ -39,14 +44,15 @@ function MySubject() {
                   <SimpleCard
                     materia={materia}
                     setViewMateria={setViewMateria}
+                    handleButtonClick={handleButtonClick}
                   />
                 </div>
               );
             })}
           </div>
-          <div className="py-1 my-6 sm:py-0 sm:my-0 mx-4 md:w-3/6 md:h-[calc(100vh-150px)] md:mx-6 md:mb-6 bg-platziBG rounded-lg md:overflow-y-auto">
+          <div ref={sectionRef} className="section py-1 my-6 sm:py-0 sm:my-0 mx-4 md:w-3/6 md:h-[calc(100vh-150px)] md:mx-6 md:mb-6 bg-platziBG rounded-lg md:overflow-y-auto">
             {viewMateria ? (
-              <View viewMateria={viewMateria} />
+              <View viewMateria={viewMateria} sectionRef={sectionRef}/>
             ) : (
               "Seleccione una materia"
             )}

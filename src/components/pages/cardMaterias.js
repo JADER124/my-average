@@ -18,7 +18,7 @@ import { RiDeleteBinFill } from "react-icons/ri";
 import { FaEye } from "react-icons/fa";
 
 //CARD PARA PINTAR CADA UNA DE LAS MATERIAS Y SU INFO
-export function SimpleCard({ materia, setViewMateria }) {
+export function SimpleCard({ materia, setViewMateria, handleButtonClick }) {
   const { setUpdateMateria, userLoged, setFbMaterias } =
     useContext(UserContext);
   const navigate = useNavigate();
@@ -70,6 +70,7 @@ export function SimpleCard({ materia, setViewMateria }) {
           className="bg-platziBG border-2  px-4 py-2 sm:px-6 rounded-lg font-semibold text-base border-cyan-600 text-cyan-600 shadow-md shadow-platziBG hover:shadow-cyan-600"
           onClick={() => {
             setViewMateria(materia);
+            handleButtonClick()
           }}
         >
           <FaEye className="text-xl" />
