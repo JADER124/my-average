@@ -1,8 +1,4 @@
 import {
-  Card,
-  CardBody,
-  CardFooter,
-  Typography,
   Button,
   Spinner,
   Select,
@@ -22,7 +18,7 @@ import { RiDeleteBinFill } from "react-icons/ri";
 import { FaEye } from "react-icons/fa";
 
 //CARD PARA PINTAR CADA UNA DE LAS MATERIAS Y SU INFO
-export function SimpleCard({ materia }) {
+export function SimpleCard({ materia, setViewMateria }) {
   const { setUpdateMateria, userLoged, setFbMaterias } =
     useContext(UserContext);
   const navigate = useNavigate();
@@ -40,11 +36,9 @@ export function SimpleCard({ materia }) {
   };
 
   return (
-    <div className="mt-6 flex bg-platziBG shadow-lg shadow-gray-600 rounded-lg gap-6" >
+    <div className="mt-6 flex bg-platziBG shadow-lg shadow-gray-600 rounded-lg gap-6">
       <div className="font-semibold text-xl my-8 ml-4 text-white p-3">
-        
-          {materia.NombreMateria}
-        
+        {materia.NombreMateria}
       </div>
       <div className="my-9 flex gap-2 ml-auto mr-4">
         <button
@@ -54,20 +48,31 @@ export function SimpleCard({ materia }) {
             navigate("/homeuser");
           }}
         >
-          <MdEdit className="text-xl"/>
+          <MdEdit className="text-xl" />
         </button>
         <button
           onClick={() => {
-            deleteMateria(materia);
+            if (
+              window.confirm(
+                "¿Estas seguro que deseas eliminar : " +
+                  materia.NombreMateria +
+                  "? "
+              ) === true
+            ) {
+              deleteMateria(materia);
+            }
           }}
           className="bg-platziBG border-2  px-6 rounded-lg font-semibold text-base border-platziButton text-platziButton shadow-md shadow-platziBG hover:shadow-platziButton"
         >
-          <RiDeleteBinFill className="text-xl"/>
+          <RiDeleteBinFill className="text-xl" />
         </button>
         <button
           className="bg-platziBG border-2  px-6 rounded-lg font-semibold text-base border-platziButton text-platziButton shadow-md shadow-platziBG hover:shadow-platziButton"
+          onClick={() => {
+            setViewMateria(materia);
+          }}
         >
-          <FaEye className="text-xl"/>
+          <FaEye className="text-xl" />
         </button>
       </div>
     </div>
