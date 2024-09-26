@@ -24,6 +24,9 @@ function MySubject() {
     };
     x();
   }, [uid]);
+  useEffect(() => {
+    setViewMateria(fbMaterias[0])
+  }, [fbMaterias]);
   return (
     <div>
       <NavUser />

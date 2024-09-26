@@ -7,11 +7,13 @@ import { Input, Button } from "@material-tailwind/react";
 import { RiDeleteBin5Fill } from "react-icons/ri";
 import { FaPlus } from "react-icons/fa";
 import { SelectDefault } from "./cardMaterias";
+import { useNavigate } from "react-router-dom";
 
 function HomeUser() {
   const { userLoged, updateMateria, setUpdateMateria } =
     useContext(UserContext);
   let uid = userLoged.user.uid;
+  const navigate = useNavigate();
   const [filter, setfilter] = useState(0);
   const [vandera, setVandera] = useState(false);
   const [vanderaEdit, setVanderaEdit] = useState(false);
@@ -83,6 +85,7 @@ function HomeUser() {
         ]);
         SetnumNotas(1);
         setIsSubmitting(false);
+        navigate("/mismaterias")
       }
     };
     updateMaterias();
