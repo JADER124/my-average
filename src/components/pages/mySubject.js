@@ -41,7 +41,7 @@ function MySubject() {
               );
             })}
           </div>
-          <div className="w-3/6 h-[calc(100vh-150px)] mx-6 mb-6 bg-platziBG rounded-lg">
+          <div className="w-3/6 h-[calc(100vh-150px)] mx-6 mb-6 bg-platziBG rounded-lg overflow-y-auto">
             {viewMateria ? (
               <View viewMateria={viewMateria} />
             ) : (

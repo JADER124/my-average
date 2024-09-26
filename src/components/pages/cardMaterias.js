@@ -42,7 +42,7 @@ export function SimpleCard({ materia, setViewMateria }) {
       </div>
       <div className="my-9 flex gap-2 ml-auto mr-4">
         <button
-          className="bg-platziButton text-platziBG  px-6 rounded-lg font-semibold text-base"
+          className="bg-platziBG border-2  px-6 rounded-lg font-semibold text-base border-yellow-800 text-yellow-800 shadow-md shadow-platziBG hover:shadow-yellow-800"
           onClick={() => {
             setUpdateMateria(materia);
             navigate("/homeuser");
@@ -62,12 +62,12 @@ export function SimpleCard({ materia, setViewMateria }) {
               deleteMateria(materia);
             }
           }}
-          className="bg-platziBG border-2  px-6 rounded-lg font-semibold text-base border-platziButton text-platziButton shadow-md shadow-platziBG hover:shadow-platziButton"
+          className="bg-platziBG border-2  px-6 rounded-lg font-semibold text-base border-red-800 text-red-800 shadow-md shadow-platziBG hover:shadow-red-800"
         >
           <RiDeleteBinFill className="text-xl" />
         </button>
         <button
-          className="bg-platziBG border-2  px-6 rounded-lg font-semibold text-base border-platziButton text-platziButton shadow-md shadow-platziBG hover:shadow-platziButton"
+          className="bg-platziBG border-2  px-6 rounded-lg font-semibold text-base border-cyan-600 text-cyan-600 shadow-md shadow-platziBG hover:shadow-cyan-600"
           onClick={() => {
             setViewMateria(materia);
           }}
