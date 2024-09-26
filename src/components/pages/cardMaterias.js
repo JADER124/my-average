@@ -36,13 +36,13 @@ export function SimpleCard({ materia, setViewMateria }) {
   };
 
   return (
-    <div className="mt-6 flex bg-platziBG shadow-lg shadow-gray-600 rounded-lg gap-6">
-      <div className="font-semibold text-xl my-8 ml-4 text-white p-3">
+    <div className="mt-6 p-1 sm:p-0 sm:flex bg-platziBG shadow-lg shadow-gray-600 rounded-lg gap-6">
+      <div className="font-semibold text-xl my-4 sm:my-8 sm:ml-4 text-white sm:p-3">
         {materia.NombreMateria}
       </div>
-      <div className="my-9 flex gap-2 ml-auto mr-4">
+      <div className="sm:my-9 my-4 flex justify-center gap-2 sm:ml-auto sm:mr-4">
         <button
-          className="bg-platziBG border-2  px-6 rounded-lg font-semibold text-base border-yellow-800 text-yellow-800 shadow-md shadow-platziBG hover:shadow-yellow-800"
+          className="bg-platziBG border-2 px-4 py-2 sm:px-6 rounded-lg font-semibold text-base border-yellow-800 text-yellow-800 shadow-md shadow-platziBG hover:shadow-yellow-800"
           onClick={() => {
             setUpdateMateria(materia);
             navigate("/homeuser");
@@ -62,12 +62,12 @@ export function SimpleCard({ materia, setViewMateria }) {
               deleteMateria(materia);
             }
           }}
-          className="bg-platziBG border-2  px-6 rounded-lg font-semibold text-base border-red-800 text-red-800 shadow-md shadow-platziBG hover:shadow-red-800"
+          className="bg-platziBG border-2  px-4 py-2 sm:px-6 rounded-lg font-semibold text-base border-red-800 text-red-800 shadow-md shadow-platziBG hover:shadow-red-800"
         >
           <RiDeleteBinFill className="text-xl" />
         </button>
         <button
-          className="bg-platziBG border-2  px-6 rounded-lg font-semibold text-base border-cyan-600 text-cyan-600 shadow-md shadow-platziBG hover:shadow-cyan-600"
+          className="bg-platziBG border-2  px-4 py-2 sm:px-6 rounded-lg font-semibold text-base border-cyan-600 text-cyan-600 shadow-md shadow-platziBG hover:shadow-cyan-600"
           onClick={() => {
             setViewMateria(materia);
           }}

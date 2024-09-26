@@ -22,7 +22,7 @@ function View({ viewMateria }) {
   return (
     <div >
       <div>
-        <p className="font-semibold text-2xl my-8 ml-4 text-white p-3">
+        <p className="font-semibold text-2xl my-8 sm:ml-4 text-white p-3">
           {viewMateria.NombreMateria}
         </p>
 
@@ -100,13 +100,13 @@ function View({ viewMateria }) {
         </table>
       </div>
       <div className="border-t-2 border-cyan-600 my-6 w-5/6 mx-auto">
-        <p className="font-semibold text-2xl my-2 ml-4 text-white p-3">
+        <p className="font-semibold text-2xl my-2 sm:ml-4 text-white p-3">
           Informacion Materia
         </p>
-        <p className="font-semibold flex text-2xl my-2 align-middle ml-4 border-2 rounded-lg text-white p-3 text-left">
+        <p className="font-semibold flex text-2xl my-2 align-middle sm:ml-4 border-2 rounded-lg text-white p-3 text-left">
           <MdCalculate className="text-4xl align-middle text-red-700"/> Promedio Actual:&nbsp; <span className="text-cyan-600">{promActual}</span>
         </p>
-        <p className="font-semibold flex text-2xl my-2 align-middle ml-4 border-2 rounded-lg text-white p-3 text-left">
+        <p className="font-semibold flex text-2xl my-2 align-middle sm:ml-4 border-2 rounded-lg text-white p-3 text-left">
           <MdCalculate className="text-4xl align-middle text-yellow-600"/> Promedio Acumulado: &nbsp; <span className="text-cyan-600">{promAcumulado}</span>
         </p>
 

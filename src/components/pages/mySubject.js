@@ -31,8 +31,8 @@ function MySubject() {
     <div>
       <NavUser />
       {vandera ? (
-        <div className="text-center flex">
-          <div className="flex-1 flex-wrap  justify-center overflow-y-auto gap-6 mx-auto px-4 w-3/6 h-[calc(100vh-150px)]">
+        <div className="text-center block md:flex">
+          <div className="mx-4 md:flex-1 md:flex-wrap  justify-center md:overflow-y-auto md:gap-6 md:mx-auto md:px-4 md:w-3/6 md:h-[calc(100vh-150px)]">
             {fbMaterias.map((materia, index) => {
               return (
                 <div className="w-full block" key={index}>
@@ -44,7 +44,7 @@ function MySubject() {
               );
             })}
           </div>
-          <div className="w-3/6 h-[calc(100vh-150px)] mx-6 mb-6 bg-platziBG rounded-lg overflow-y-auto">
+          <div className="py-1 my-6 sm:py-0 sm:my-0 mx-4 md:w-3/6 md:h-[calc(100vh-150px)] md:mx-6 md:mb-6 bg-platziBG rounded-lg md:overflow-y-auto">
             {viewMateria ? (
               <View viewMateria={viewMateria} />
             ) : (
