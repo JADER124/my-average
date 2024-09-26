@@ -17,6 +17,9 @@ import React, { useContext } from "react";
 import { UserContext } from "../../context/userContext";
 import { useNavigate } from "react-router-dom";
 import { doc, updateDoc, arrayRemove, getDoc } from "firebase/firestore";
+import { MdEdit } from "react-icons/md";
+import { RiDeleteBinFill } from "react-icons/ri";
+import { FaEye } from "react-icons/fa";
 
 //CARD PARA PINTAR CADA UNA DE LAS MATERIAS Y SU INFO
 export function SimpleCard({ materia }) {
@@ -37,43 +40,37 @@ export function SimpleCard({ materia }) {
   };
 
   return (
-    <Card className="mt-6 bg-platziBG shadow-lg shadow-gray-600" variant="gradient">
-      <CardBody>
-        <Typography variant="h5" color="white" className="mb-2">
+    <div className="mt-6 flex bg-platziBG shadow-lg shadow-gray-600 rounded-lg gap-6" >
+      <div className="font-semibold text-xl my-8 ml-4 text-white p-3">
+        
           {materia.NombreMateria}
-        </Typography>
-
-        {materia.notas.map((nota, index) => {
-          return (
-            <p key={index}>
-              <span className="text-platziButton">Nota {index + 1} : </span>
-              <span className="text-white">{nota.nota}</span>{" "}
-              <span className="text-platziButton">% : </span>
-              <span className="text-white">{nota.porcentaje}</span>
-            </p>
-          );
-        })}
-      </CardBody>
-      <CardFooter className="pt-0 flex gap-4 justify-center">
-        <Button
-          className="bg-platziButton text-platziBG  "
+        
+      </div>
+      <div className="my-9 flex gap-2 ml-auto mr-4">
+        <button
+          className="bg-platziButton text-platziBG  px-6 rounded-lg font-semibold text-base"
           onClick={() => {
             setUpdateMateria(materia);
             navigate("/homeuser");
           }}
         >
-          Editar
-        </Button>
-        <Button
+          <MdEdit className="text-xl"/>
+        </button>
+        <button
           onClick={() => {
             deleteMateria(materia);
           }}
-          className="bg-platziBG border-2 border-platziButton text-platziButton shadow-md shadow-platziBG hover:shadow-platziButton"
+          className="bg-platziBG border-2  px-6 rounded-lg font-semibold text-base border-platziButton text-platziButton shadow-md shadow-platziBG hover:shadow-platziButton"
         >
-          Eliminar
-        </Button>
-      </CardFooter>
-    </Card>
+          <RiDeleteBinFill className="text-xl"/>
+        </button>
+        <button
+          className="bg-platziBG border-2  px-6 rounded-lg font-semibold text-base border-platziButton text-platziButton shadow-md shadow-platziBG hover:shadow-platziButton"
+        >
+          <FaEye className="text-xl"/>
+        </button>
+      </div>
+    </div>
   );
 }
 

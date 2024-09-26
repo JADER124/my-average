@@ -27,20 +27,23 @@ function MySubject() {
     <div>
       <NavUser />
       {vandera ? (
-        <div className="text-center">
-          <div className="flex flex-wrap justify-center gap-6 mx-auto px-4">
+        <div className="text-center flex">
+          <div className="flex-1 flex-wrap  justify-center overflow-y-auto gap-6 mx-auto px-4 w-3/6 h-[calc(100vh-150px)]">
           {fbMaterias.map((materia, index) => {
             return (
-              <div className="w-full sm:w-1/2 lg:w-1/3 xl:w-1/4" key={index}>
+              <div className="w-full block" key={index}>
                 <SimpleCard materia={materia} index={index} />
               </div>
             );
           })}
         </div>
+        <div className="w-3/6 h-[calc(100vh-150px)] mx-6 mb-6 bg-platziBG rounded-lg">
+          
+        </div>
         </div>
       ) : (
         <div className="mx-auto mt-52 w-max">
-          <CustomSpinner /> <p>Cargando...</p>
+          <CustomSpinner /> <h1>Cargando...</h1>
         </div>
       )}
     </div>
