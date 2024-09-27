@@ -3,24 +3,31 @@ import { Typography } from "@material-tailwind/react";
 import { MdCalculate } from "react-icons/md";
 
 function View({ viewMateria }) {
-  const [promActual, setPromActual] = useState()
-  const [promAcumulado, setPromAcumulado] = useState()
-  useEffect(()=>{
-    let notas = viewMateria.notas
-    let sum = 0
-    let cont = 0
-    notas.forEach(n=> {
-      if(n.nota !== ''){
-        sum += Number(n.nota)
-        cont +=1
-      }
+  const [promActual, setPromActual] = useState();
+  const [promAcumulado, setPromAcumulado] = useState();
+  useEffect(() => {
+    let notas = viewMateria.notas;
+    //Variable para el calculo del promedio actual
+    let sum = 0;
+    //Variable para el calculo del promedio actual
+    let sum_pa = 0;
 
+    //Variable para el calculo del promedio acomulado
+    let sum_pacum = 0;
+
+    notas.forEach((n) => {
+      sum_pacum += Number(n.porcentaje) / 100;
+      if (n.nota !== "") {
+        sum += Number(n.nota) * (Number(n.porcentaje) / 100);
+        sum_pa += Number(n.porcentaje) / 100;
+      }
     });
-    setPromActual((sum/cont).toFixed(2))
-    setPromAcumulado((sum/notas.length).toFixed(2))
-  },[viewMateria])
+
+    setPromActual((sum / sum_pa).toFixed(2));
+    setPromAcumulado((sum / sum_pacum).toFixed(2));
+  }, [viewMateria]);
   return (
-    <div >
+    <div>
       <div>
         <p className="font-semibold text-2xl my-8 sm:ml-4 text-white p-3">
           {viewMateria.NombreMateria}
@@ -104,13 +111,15 @@ function View({ viewMateria }) {
           Informacion Materia
         </p>
         <p className="font-semibold flex text-2xl my-2 align-middle sm:ml-4 border-2 rounded-lg text-white p-3 text-left">
-          <MdCalculate className="text-4xl align-middle text-red-700"/> Promedio Actual:&nbsp; <span className="text-cyan-600">{promActual}</span>
+          <MdCalculate className="text-4xl align-middle text-red-700" />{" "}
+          Promedio Actual:&nbsp;{" "}
+          <span className="text-cyan-600">{promActual}</span>
         </p>
         <p className="font-semibold flex text-2xl my-2 align-middle sm:ml-4 border-2 rounded-lg text-white p-3 text-left">
-          <MdCalculate className="text-4xl align-middle text-yellow-600"/> Promedio Acumulado: &nbsp; <span className="text-cyan-600">{promAcumulado}</span>
+          <MdCalculate className="text-4xl align-middle text-yellow-600" />{" "}
+          Promedio Acumulado: &nbsp;{" "}
+          <span className="text-cyan-600">{promAcumulado}</span>
         </p>
-
-        
       </div>
     </div>
   );
