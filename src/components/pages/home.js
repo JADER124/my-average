@@ -209,7 +209,7 @@ const Home = () => {
                         label="Nota"
                         placeholder="3.0"
                         type="text"
-                        maxLength={3}
+                        maxLength={4}
                         color="purple"
                         pattern={/^[0-9.]*$/}
                         onChange={(e) => {
@@ -227,7 +227,7 @@ const Home = () => {
                     <div className="px-1 sm:px-4 md:px-6 lg:px-20 py-4">
                       <Input
                         label="%"
-                        maxLength={2}
+                        maxLength={3}
                         type="text"
                         placeholder="%"
                         color="purple"

@@ -85,7 +85,7 @@ function HomeUser() {
         ]);
         SetnumNotas(1);
         setIsSubmitting(false);
-        navigate("/mismaterias")
+        navigate("/mismaterias");
       }
     };
     updateMaterias();
@@ -211,9 +211,9 @@ function HomeUser() {
         <div className="text-center mx-auto md:mx-16 lg:mx-64">
           <div className="my-7 mx-2 font-semibold italic text-left text-xl  leading-9 tracking-tight text-gray-900">
             <div>
-            <p class="text-2xl font-bold text-gray-900 leading-tight mb-2 border-b-2 border-green-700 py-4">
-      Agrega tus materias
-    </p>
+              <p class="text-2xl font-bold text-gray-900 leading-tight mb-2 border-b-2 border-green-700 py-4">
+                Agrega tus materias
+              </p>
             </div>
             Nombre de Materia
             <div className="w-72">
@@ -272,7 +272,7 @@ function HomeUser() {
                           value={p.nota}
                           placeholder="3.0"
                           type="text"
-                          maxLength={3}
+                          maxLength={4}
                           color="purple"
                           pattern={/^[0-9.]*$/}
                           onChange={(e) => {
