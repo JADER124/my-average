@@ -5,6 +5,10 @@ import { MdCalculate } from "react-icons/md";
 function View({ viewMateria }) {
   const [promActual, setPromActual] = useState();
   const [promAcumulado, setPromAcumulado] = useState();
+  const [notaMin3, setNotaMin3] = useState();
+  const [notaMin4, setNotaMin4] = useState();
+  const [notaMin5, setNotaMin5] = useState();
+  const [indexNotaNull, setIndexNotaNull] = useState();
   useEffect(() => {
     let notas = viewMateria.notas;
     //Variable para el calculo del promedio actual
@@ -15,16 +19,31 @@ function View({ viewMateria }) {
     //Variable para el calculo del promedio acomulado
     let sum_pacum = 0;
 
-    notas.forEach((n) => {
+    //Array que almacena el index donde no existe notas
+
+    let arrayaux = [];
+
+    notas.forEach((n, index) => {
       sum_pacum += Number(n.porcentaje) / 100;
       if (n.nota !== "") {
         sum += Number(n.nota) * (Number(n.porcentaje) / 100);
         sum_pa += Number(n.porcentaje) / 100;
+      } else {
+        arrayaux.push(index + 1);
       }
     });
 
+    //Variables de almacena la resta de la nota esperada - las notas podenderadas que no estan vacias
+    let minthree = ((3 - sum) / (1 - sum_pa)).toFixed(2);
+    let minfour = ((4 - sum) / (1 - sum_pa)).toFixed(2);
+    let minfive = ((5 - sum) / (1 - sum_pa)).toFixed(2);
+
     setPromActual((sum / sum_pa).toFixed(2));
     setPromAcumulado((sum / sum_pacum).toFixed(2));
+    setNotaMin3(minthree);
+    setNotaMin4(minfour);
+    setNotaMin5(minfive);
+    setIndexNotaNull(arrayaux);
   }, [viewMateria]);
   return (
     <div>
