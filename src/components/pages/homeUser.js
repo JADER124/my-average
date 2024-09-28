@@ -295,7 +295,7 @@ function HomeUser() {
                         <Input
                           label="%"
                           value={p.porcentaje}
-                          maxLength={2}
+                          maxLength={3}
                           type="text"
                           placeholder="%"
                           color="purple"
