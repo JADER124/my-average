@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Typography } from "@material-tailwind/react";
 import { MdCalculate } from "react-icons/md";
+import { FaCheckCircle,FaStar } from "react-icons/fa";
+import { FaTrophy } from "react-icons/fa6";
 
 function View({ viewMateria }) {
   const [promActual, setPromActual] = useState();
@@ -8,7 +10,7 @@ function View({ viewMateria }) {
   const [notaMin3, setNotaMin3] = useState();
   const [notaMin4, setNotaMin4] = useState();
   const [notaMin5, setNotaMin5] = useState();
-  const [indexNotaNull, setIndexNotaNull] = useState();
+  const [indexNotaNull, setIndexNotaNull] = useState([]);
   useEffect(() => {
     let notas = viewMateria.notas;
     //Variable para el calculo del promedio actual
@@ -140,6 +142,58 @@ function View({ viewMateria }) {
           <span className="text-cyan-600">{promAcumulado}</span>
         </p>
       </div>
+      <div className="border-t-2 border-cyan-600 mt-6 mb-3 w-5/6 mx-auto">
+        <p className="font-semibold text-2xl my-2 sm:ml-4 text-white p-3">
+        Notas requeridas para aprobar
+        </p>
+        <p className="text-md text-blue-gray-200">Para aprobar con la siguiente calificación, necesitas obtener estas <span className="text-cyan-300 font-semibold">notas</span> en las evaluaciones restantes.</p>
+      </div>
+      {console.log(indexNotaNull)}
+      {notaMin3 === "-Infinity" || notaMin3 === "Infinity" ? (
+        <p className="font-semibold text-2xl my-2 sm:ml-4 text-cyan-300 p-3">
+          Ya tienes el 100% calificado
+        </p>
+      ) : (
+        <div className="flex my-6 w-5/6 mx-auto">
+          <p className="font-semibold w-1/3 text-center  text-lg my-2 align-middle sm:ml-4 border-2 rounded-lg text-white p-3">
+           <div className="flex">
+           <FaCheckCircle className="text-xl my-1 text-red-700"/> Para aprobar con 3.0
+           </div>
+            
+            <div>
+              <div className="text-center my-1">
+                <p className="text-red-500 text-lg">
+                  Nota : <span>{notaMin3<0 ? 0 : notaMin3}</span>
+                </p>
+              </div>
+            </div>
+          </p>
+          <p className="font-semibold w-1/3 text-center  text-lg my-2 align-middle sm:ml-4 border-2 rounded-lg text-white p-3 ">
+          <div className="flex">
+           <FaStar className="text-xl my-1 text-yellow-700"/> Para aprobar con 4.0
+           </div>
+            <div>
+              <div className="text-center my-1">
+                <p className="text-yellow-700 text-lg">
+                  Nota : <span>{notaMin4<0 ? 0 : notaMin4}</span>
+                </p>
+              </div>
+            </div>
+          </p>
+          <p className="font-semibold w-1/3 text-center text-lg my-2 align-middle sm:ml-4 border-2 rounded-lg text-white p-3 ">
+          <div className="flex">
+           <FaTrophy className="text-xl my-1 text-green-500"/> Para aprobar con 5.0
+           </div>
+            <div>
+              <div className="text-center my-1">
+                <p className="text-green-500 text-lg">
+                  Nota : <span>{notaMin5<0 ? 0 : notaMin5}</span>
+                </p>
+              </div>
+            </div>
+          </p>
+        </div>
+      )}
     </div>
   );
 }
