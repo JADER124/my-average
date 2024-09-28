@@ -84,7 +84,7 @@ const Home = () => {
   };
 
   return (
-    <div>
+    <>
       <Nav />
       <div className="overflow-x-auto mt-4">
         <div className="sm:hidden">
@@ -287,7 +287,7 @@ const Home = () => {
         <ApiCard data={data} />
       </div>
       <Footer />
-    </div>
+    </>
   );
 };
 export default Home;

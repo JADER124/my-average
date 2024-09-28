@@ -33,11 +33,11 @@ const Nav = () => {
             <div className="flex">
               <Avatar src={icon} alt="MyAverage" variant="rounded" />
 
-              <h2
+              <p
                 className="mr-4 cursor-pointer p-1.5 font-medium text-2xl "
               >
                 <a href="/">MyAverage</a>
-              </h2>
+              </p>
             </div>
             <div className="flex items-center gap-4">
               <div className="">{navList}</div>
