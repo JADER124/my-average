@@ -154,9 +154,9 @@ function View({ viewMateria }) {
           Ya tienes el 100% calificado
         </p>
       ) : (
-        <div className="flex my-6 w-5/6 mx-auto">
+        <div className="flex my-6 w-5/6 mx-auto gap-1 sm:gap-0 ">
           <p className="font-semibold w-1/3 text-center  text-lg my-2 align-middle sm:ml-4 border-2 rounded-lg text-white p-3">
-           <div className="flex">
+           <div className="flex ">
            <FaCheckCircle className="text-xl my-1 text-red-700"/> Para aprobar con 3.0
            </div>
             

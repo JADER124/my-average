@@ -15,7 +15,7 @@ import {
 
 export default function AvatarWithUserDropdown() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
-  const { setUserLoged } = useContext(UserContext);
+  const { setUserLoged ,userLoged} = useContext(UserContext);
   const navigate = useNavigate();
   const handleClickSignOut = async () => {
     console.log("ejecutado");
@@ -61,7 +61,7 @@ export default function AvatarWithUserDropdown() {
             withBorder={true}
             color="blue-gray"
             className=" p-0.5"
-            src="https://api.dicebear.com/9.x/bottts-neutral/svg?seed=Oscar"
+            src={userLoged.user.photoURL ? userLoged.user.photoURL : "https://api.dicebear.com/9.x/bottts-neutral/svg?seed=Oscar"}
           />
         </Button>
       </MenuHandler>

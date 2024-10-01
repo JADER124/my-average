@@ -17,6 +17,21 @@ const NavUser = () => {
   //
   const navList = (
     <ul className="mt-0 mb-0 flex flex-row gap-6 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
+       <div className="flex">
+        <div className="pt-1 text-xl my-auto sm:my-auto">
+          <FaFolderPlus />
+        </div>
+        <Typography
+          as="li"
+          variant="small"
+          color="blue-gray"
+          className="p-1 font-normal my-auto sm:my-auto"
+        >
+          <a href="/homeuser" className="flex items-center">
+            Agregar materias
+          </a>
+        </Typography>
+      </div>
       <div className="flex">
         <div className="pt-1 text-xl my-auto sm:my-auto">
           <BiCabinet />
@@ -32,21 +47,7 @@ const NavUser = () => {
           </a>
         </Typography>
       </div>
-      <div className="flex">
-        <div className="pt-1 text-xl my-auto sm:my-auto">
-          <FaFolderPlus />
-        </div>
-        <Typography
-          as="li"
-          variant="small"
-          color="blue-gray"
-          className="p-1 font-normal my-auto sm:my-auto"
-        >
-          <a href="/homeuser" className="flex items-center">
-            Agregar materias
-          </a>
-        </Typography>
-      </div>
+     
       <div className="flex items-center gap-x-2">
         <div className="hidden sm:flex">
           {userLoged ? userLoged.user.email : ""}

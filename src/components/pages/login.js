@@ -5,12 +5,13 @@ import { UserContext } from "../../context/userContext";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../../firebase/config";
 import { sendPasswordResetEmail } from "firebase/auth";
+import { Button } from "@material-tailwind/react";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [password, setPassword] = useState("");
-  const { login } = useContext(UserContext);
+  const { login, registerGoogle } = useContext(UserContext);
   const navigate = useNavigate();
   const recoverPass = async () => {
     setIsSubmitting(true);
@@ -121,6 +122,25 @@ const Login = () => {
               >
                 Login
               </button>
+              <Button
+              onClick={async () => {
+                const user = await registerGoogle();
+                if (user != null) {
+                  navigate("/homeuser");
+                }
+              }}
+                size="md"
+                variant="outlined"
+                color="blue-gray"
+                className="flex border-t border-gray-500 items-center gap-3 w-full justify-center rounded-md px-3 py-1.5 leading-6 my-3 shadow-sm"
+              >
+                <img
+                  src="https://docs.material-tailwind.com/icons/google.svg"
+                  alt="metamask"
+                  className="h-6 w-6"
+                />
+                Continue with Google
+              </Button>
             </div>
           </form>
 

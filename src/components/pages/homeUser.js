@@ -150,6 +150,7 @@ function HomeUser() {
           ]);
           setUpdateMateria(false);
           setIsSubmitting(false);
+          navigate("/mismaterias");
         } else {
           // docSnap.data() will be undefined in this case
           console.log("No such document!");
