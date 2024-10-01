@@ -9,7 +9,7 @@ import { getAnalytics } from "firebase/analytics";
 // Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyBBK1uyOH2EL3GUI-9WkwjPYmmo97ktL_M",
-  authDomain: "myaverage-1ee4a.firebaseapp.com",
+  authDomain: "mipromedio.site",
   projectId: "myaverage-1ee4a",
   storageBucket: "myaverage-1ee4a.appspot.com",
   messagingSenderId: "1090281846974",

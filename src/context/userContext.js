@@ -5,7 +5,7 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { setDoc, doc,getDoc } from "firebase/firestore";
 import { useLocalStorage } from "../components/customHooks/useLocalStorage";
 import React, { useState } from "react";
-import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { signInWithPopup, GoogleAuthProvider ,signInWithRedirect} from "firebase/auth";
 
 const provider = new GoogleAuthProvider();
 
@@ -31,7 +31,7 @@ export function UserContextProvider(props) {
   };
   const registerGoogle = async () => {
     try {
-      const userGoogle = await signInWithPopup(auth, provider);
+      const userGoogle = await signInWithRedirect(auth, provider);
       setUserLoged(userGoogle);
       console.log(userGoogle);
       const docRef = doc(db, "users", userGoogle.user.uid);
