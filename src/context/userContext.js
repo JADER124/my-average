@@ -31,14 +31,13 @@ export function UserContextProvider(props) {
   };
   const registerGoogle = async () => {
     try {
-      const userGoogle = await signInWithRedirect(auth, provider);
+      const userGoogle = await signInWithPopup(auth, provider);
       setUserLoged(userGoogle);
-      console.log(userGoogle);
       const docRef = doc(db, "users", userGoogle.user.uid);
       const docSnap = await getDoc(docRef);
 
       if (docSnap.exists()) {
-        console.log("Document data:", docSnap.data());
+        return userGoogle.user;
       } else {
         if (userGoogle) {
           let id = userGoogle.user.uid;
