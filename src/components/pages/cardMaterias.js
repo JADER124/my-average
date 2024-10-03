@@ -16,6 +16,7 @@ import { doc, updateDoc, arrayRemove, getDoc } from "firebase/firestore";
 import { MdEdit } from "react-icons/md";
 import { RiDeleteBinFill } from "react-icons/ri";
 import { FaEye } from "react-icons/fa";
+import ejemplo from "../../imgs/ejemplo.webp"
 
 //CARD PARA PINTAR CADA UNA DE LAS MATERIAS Y SU INFO
 export function SimpleCard({ materia, setViewMateria, handleButtonClick }) {
@@ -115,13 +116,24 @@ export function SelectDefault({ SetnumNotas, numNotas }) {
 //MODAL INFORMACION
 export function DialogDefault({ open, handleOpen }) {
   return (
-    <>
-      <Dialog open={open} handler={handleOpen}>
+    <div >
+      <Dialog open={open} handler={handleOpen} >
         <DialogHeader>My Average</DialogHeader>
-        <DialogBody>
-          MyAverage: A web tool for students to quickly calculate their grade
-          point average and subject averages. Simplify academic performance
-          tracking in seconds.
+        <DialogBody className="h-[32rem] overflow-scroll">
+          ¡Bienvenidos a My Average!<br/>
+          Estas son las instrucciones para calcular tu promedio ponderado:
+          <p>1:Encontrarás 2 campos , uno llamado <span className="
+          font-bold">nota</span> y el otro <span className="font-bold">porcentaje</span>, ademas de un boton para añadir una nueva nota y otro para eliminar las notas no deseadas
+          <br/>
+          2: Debes llenar el campo <span className="font-bold">nota</span> con un numero (ejm: 4.5 / 4 / 4.55), recuerda usar "." para especificar tu nota con decimal.
+          <br/>
+          3: Debes llenar el campo <span className="font-bold">porcentaje</span> con un numero (ejm: 100 / 50 / 20), recuerda usar el porcentaje correspondiente a cada nota.
+          <br/>
+          4: Una vez tengas todas tus notas con sus repectivos porcentajes, selecciona el boton calcular el cual generará la nota promedio en el campo resultado.
+          <p >Al completar todos los pasos se deberia visulaizar de una manera similar al siguiente ejemplo:
+            <img className="p-3 mx-auto" src={ejemplo} alt="ejemplo"></img>
+          </p>
+          </p>
         </DialogBody>
         <DialogFooter>
           <Button variant="gradient" color="green" onClick={handleOpen}>
@@ -129,6 +141,6 @@ export function DialogDefault({ open, handleOpen }) {
           </Button>
         </DialogFooter>
       </Dialog>
-    </>
+    </div>
   );
 }

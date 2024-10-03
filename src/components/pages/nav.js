@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { Navbar, Typography, Button, Avatar } from "@material-tailwind/react";
 import icon from "../../imgs/calcular.webp";
 import { Link } from "react-router-dom";
-import { MdInfoOutline } from "react-icons/md";
 import { DialogDefault } from "./cardMaterias";
+import { BsQuestionCircle } from "react-icons/bs";
 
 const Nav = () => {
   const [open, setOpen] = useState(false);
@@ -18,7 +18,7 @@ const Nav = () => {
         className=" font-normal"
       >
         <button onClick={handleOpen} className="flex items-center">
-          <MdInfoOutline className="text-3xl" />
+          <BsQuestionCircle className="text-2xl" />
         </button>
       </Typography>
     </ul>
