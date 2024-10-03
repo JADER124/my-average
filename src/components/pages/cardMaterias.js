@@ -119,7 +119,7 @@ export function DialogDefault({ open, handleOpen }) {
     <div >
       <Dialog open={open} handler={handleOpen} >
         <DialogHeader>My Average</DialogHeader>
-        <DialogBody className="h-[32rem] overflow-scroll">
+        <DialogBody className="h-[25rem] overflow-scroll">
           ¡Bienvenidos a My Average!<br/>
           Estas son las instrucciones para calcular tu promedio ponderado:
           <p>1:Encontrarás 2 campos , uno llamado <span className="
