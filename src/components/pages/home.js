@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Input } from "@material-tailwind/react";
+import { Input, Alert } from "@material-tailwind/react";
 import { RiDeleteBin5Fill } from "react-icons/ri";
-import { FaPlus } from "react-icons/fa";
+import { FaPlus, FaExclamationCircle } from "react-icons/fa";
 import { SlCalculator } from "react-icons/sl";
 import Footer from "./footer";
 import ApiCard from "./apiCard";
@@ -11,6 +11,7 @@ import { opinions } from "../../data/opinions.js";
 const Home = () => {
   const [data, setData] = useState([]);
   const [filter, setfilter] = useState(0);
+  const [viewAlert, setViewAlert] = useState(false);
   const [finalgrade, setFinalGrade] = useState("...");
   const [prom, setProm] = useState([
     {
@@ -77,6 +78,7 @@ const Home = () => {
 
       if (final !== "NaN") {
         setFinalGrade(final);
+        setViewAlert(true);
       } else {
         setFinalGrade("...");
       }
@@ -172,6 +174,28 @@ const Home = () => {
             </div>
             <div className="mx-auto pr-20 w-max mb-5">
               <p className="text-4xl font-bold">Resultado: {finalgrade}</p>
+            </div>
+            <div>
+              <Alert
+                open={viewAlert}
+                className="rounded-none justify-center  border-platziBG bg-cyan-200/50 font-medium text-platziBG"
+              >
+                <div className="flex justify-center text-center gap-2 my-1 ml-10">
+                  <FaExclamationCircle className="text-2xl" />
+                  <p className=" font-bold">
+                    ¿Sabes qué nota necesitas para Ganar?{" "}
+                  </p>
+                </div>
+                <p className="ml-11">
+                  Registra tus materias y deja que nosotros hagamos los
+                  cálculos.{" "}
+                  <a href="/login">
+                    <span className="font-bold text-green-600">
+                      ¡Regístrate ya!
+                    </span>
+                  </a>
+                </p>
+              </Alert>
             </div>
           </div>
         </div>
@@ -279,6 +303,28 @@ const Home = () => {
             </div>
             <div className="mx-auto pr-28 w-max mb-5">
               <h3 className="text-4xl font-bold">Resultado: {finalgrade}</h3>
+            </div>
+            <div className="">
+              <Alert
+                open={viewAlert}
+                className="rounded-none justify-center  border-platziBG bg-cyan-200/50 font-medium text-platziBG"
+              >
+                <div className="flex justify-center text-center gap-2 my-1">
+                  <FaExclamationCircle className="text-2xl" />
+                  <p className=" font-bold">
+                    ¿Sabes qué nota necesitas para Ganar?{" "}
+                  </p>
+                </div>
+                <p className="">
+                  Registra tus materias y deja que nosotros hagamos los
+                  cálculos.{" "}
+                  <a href="/login">
+                    <span className="font-bold text-green-600">
+                      ¡Regístrate ya!
+                    </span>
+                  </a>
+                </p>
+              </Alert>
             </div>
           </div>
         </div>
